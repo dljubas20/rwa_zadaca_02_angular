@@ -30,7 +30,7 @@ function pokreniServer() {
 
     const port = konf.dajKonf()['app.port'];
 
-    fetch("http://spider.foi.hr:" + konf.dajKonf()['rest.port'] + "?korime=" + konf.dajKonf()['rest.korime'] + "&lozinka=" + konf.dajKonf()['rest.lozinka']).then((odgovor) => {
+    fetch("http://localhost:" + konf.dajKonf()['rest.port'] + "?korime=" + konf.dajKonf()['rest.korime'] + "&lozinka=" + konf.dajKonf()['rest.lozinka']).then((odgovor) => {
         if (odgovor.status == 400 || odgovor.status == 401) {
             console.log("Problem kod spajanja na udaljeni servis. Server se gasi.");
             process.exit();

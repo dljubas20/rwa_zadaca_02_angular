@@ -1,5 +1,5 @@
 port=12259
-server="spider.foi.hr"
+server="localhost"
 # echo "GET"
 # # curl -X GET "http://$server:$port/api/korisnici/"
 # echo ""

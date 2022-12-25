@@ -6,7 +6,7 @@ class FilmoviZanroviPretrazivanje {
     constructor () {
         this.konf = new Konfiguracija();
         this.konf.ucitajKonfiguraciju();
-        this.url = "http://spider.foi.hr:" + this.konf.dajKonf()['rest.port'] + "/api";
+        this.url = "http://localhost:" + this.konf.dajKonf()['rest.port'] + "/api";
     }
 
     async dohvatiFilmove(stranica, kljucnaRijec = "") {
