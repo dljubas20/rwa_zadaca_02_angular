@@ -1,5 +1,34 @@
-CREATE TABLE IF NOT EXISTS `RWA2022dljubas20`.`film` (
-  `id` INTEGER NOT NULL AUTOINCREMENT,
+CREATE TABLE IF NOT EXISTS `tipKorisnika` (
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  `naziv` VARCHAR(30) NOT NULL,
+  `opis` VARCHAR(200) NULL
+);
+
+CREATE TABLE IF NOT EXISTS `korisnik` (
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  `ime` VARCHAR(50) NULL,
+  `prezime` VARCHAR(60) NULL,
+  `korime` VARCHAR(50) NOT NULL,
+  `lozinka` TEXT NOT NULL,
+  `email` VARCHAR(320) NOT NULL,
+  `aktiviran` TINYINT NULL,
+  `blokiran` TINYINT NULL,
+  `adresa` TEXT NULL,
+  `datumRodenja` DATE NULL,
+  `tipKorisnika_id` INTEGER NOT NULL,
+  `aktivacijskiKod` INTEGER NULL,
+  `totpKljuc` TEXT NULL,
+  FOREIGN KEY (tipKorisnika_id) REFERENCES tipKorisnika(id)
+);
+
+CREATE TABLE IF NOT EXISTS `zanr` (
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  `naziv` VARCHAR(50) NOT NULL,
+  `opis` VARCHAR(200) NULL
+);
+
+CREATE TABLE IF NOT EXISTS `film` (
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   `tmdb_id` INTEGER NOT NULL,
   `imdb_id` INTEGER NOT NULL,
   `naziv` VARCHAR(100) NOT NULL,
@@ -21,70 +50,13 @@ CREATE TABLE IF NOT EXISTS `RWA2022dljubas20`.`film` (
   `brojOcjenjivaca` INTEGER NULL,
   `prijedlog` TINYINT NULL,
   `korisnik_id` INTEGER NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_film_korisnik1_idx` (`korisnik_id` ASC) VISIBLE,
-  CONSTRAINT `fk_film_korisnik1`
-    FOREIGN KEY (`korisnik_id`)
-    REFERENCES `RWA2022dljubas20`.`korisnik` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  FOREIGN KEY (korisnik_id) REFERENCES korisnik(id)
+);
 
-
-
-CREATE TABLE IF NOT EXISTS `RWA2022dljubas20`.`korisnik` (
-  `id` INTEGER NOT NULL AUTOINCREMENT,
-  `ime` VARCHAR(50) NULL,
-  `prezime` VARCHAR(60) NULL,
-  `korime` VARCHAR(50) NOT NULL,
-  `lozinka` TEXT NOT NULL,
-  `email` VARCHAR(320) NOT NULL,
-  `aktiviran` TINYINT NULL,
-  `blokiran` TINYINT NULL,
-  `adresa` TEXT NULL,
-  `datumRodenja` DATE NULL,
-  `tipKorisnika_id` INTEGER NOT NULL,
-  `aktivacijskiKod` INTEGER NULL,
-  `totpKljuc` TEXT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_korisnik_tipKorisnika1_idx` (`tipKorisnika_id` ASC) VISIBLE,
-  CONSTRAINT `fk_korisnik_tipKorisnika1`
-    FOREIGN KEY (`tipKorisnika_id`)
-    REFERENCES `RWA2022dljubas20`.`tipKorisnika` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-
-
-
-CREATE TABLE IF NOT EXISTS `RWA2022dljubas20`.`tipKorisnika` (
-  `id` INTEGER NOT NULL AUTOINCREMENT,
-  `naziv` VARCHAR(30) NOT NULL,
-  `opis` VARCHAR(200) NULL,
-  PRIMARY KEY (`id`))
-
-
-
-CREATE TABLE IF NOT EXISTS `RWA2022dljubas20`.`zanr` (
-  `id` INTEGER NOT NULL AUTOINCREMENT,
-  `naziv` VARCHAR(50) NOT NULL,
-  `opis` VARCHAR(200) NULL,
-  PRIMARY KEY (`id`))
-
-
-
-CREATE TABLE IF NOT EXISTS `RWA2022dljubas20`.`zanrovi` (
+CREATE TABLE IF NOT EXISTS `zanrovi` (
   `zanr_id` INTEGER NOT NULL,
   `film_id` INTEGER NOT NULL,
-  PRIMARY KEY (`film_id`, `zanr_id`),
-  INDEX `fk_zanr_has_film_film1_idx` (`film_id` ASC) VISIBLE,
-  INDEX `fk_zanr_has_film_zanr_idx` (`zanr_id` ASC) VISIBLE,
-  CONSTRAINT `fk_zanr_has_film_zanr`
-    FOREIGN KEY (`zanr_id`)
-    REFERENCES `RWA2022dljubas20`.`zanr` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_zanr_has_film_film1`
-    FOREIGN KEY (`film_id`)
-    REFERENCES `RWA2022dljubas20`.`film` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-
+  PRIMARY KEY (zanr_id, film_id),
+  FOREIGN KEY (zanr_id) REFERENCES zanr(id),
+  FOREIGN KEY (film_id) REFERENCES film(id)
+);
