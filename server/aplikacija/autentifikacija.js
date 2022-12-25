@@ -1,7 +1,6 @@
 const konst = require("../konstante.js");
 const mail = require("./moduli/mail.js")
 const kodovi = require("./moduli/kodovi.js")
-const portRest = require(konst.dirPortova + "portovi_rest.js").dljubas20;
 const totp = require("./moduli/totp.js")
 const Konfiguracija = require("../konfiguracija.js");
 
@@ -10,6 +9,7 @@ class Autentifikacija {
         this.konf = new Konfiguracija();
         this.konf.ucitajKonfiguraciju();
         this.sol = "jabuka";
+        this.portRest = this.konf.dajKonf()['rest.port'];
     }
 
     async dodajKorisnika(korisnik) {
@@ -35,7 +35,7 @@ class Autentifikacija {
             headers: zaglavlje
         }
         
-        let odgovor = await fetch("http://spider.foi.hr:" + portRest + "/api/korisnici?korime=" + this.konf.dajKonf()['rest.korime'] + "&lozinka=" + this.konf.dajKonf()['rest.lozinka'], parametri);
+        let odgovor = await fetch("http://spider.foi.hr:" + this.portRest + "/api/korisnici?korime=" + this.konf.dajKonf()['rest.korime'] + "&lozinka=" + this.konf.dajKonf()['rest.lozinka'], parametri);
         
         if (odgovor.status == 200) {
             console.log("Korisnik ubačen na servisu");
@@ -61,7 +61,7 @@ class Autentifikacija {
             headers: zaglavlje
         }
         
-        return await fetch("http://spider.foi.hr:" + portRest + "/api/korisnici/" + korime + "/aktivacija?korime=" + this.konf.dajKonf()['rest.korime'] + "&lozinka=" + this.konf.dajKonf()['rest.lozinka'], parametri);
+        return await fetch("http://spider.foi.hr:" + this.portRest + "/api/korisnici/" + korime + "/aktivacija?korime=" + this.konf.dajKonf()['rest.korime'] + "&lozinka=" + this.konf.dajKonf()['rest.lozinka'], parametri);
     }
 
     async prijaviKorisnika(korime, lozinka) {
@@ -79,7 +79,7 @@ class Autentifikacija {
             body: JSON.stringify(tijelo),
             headers: zaglavlje
         }
-        let odgovor = await fetch("http://spider.foi.hr:" + portRest + "/api/korisnici/" + korime + "/prijava?korime=" + this.konf.dajKonf()['rest.korime'] + "&lozinka=" + this.konf.dajKonf()['rest.lozinka'], parametri);
+        let odgovor = await fetch("http://spider.foi.hr:" + this.portRest + "/api/korisnici/" + korime + "/prijava?korime=" + this.konf.dajKonf()['rest.korime'] + "&lozinka=" + this.konf.dajKonf()['rest.lozinka'], parametri);
         
         if (odgovor.status == 200) {
             return await odgovor.text();
@@ -109,7 +109,7 @@ class Autentifikacija {
             headers: zaglavlje
         }
 
-        return await fetch("http://spider.foi.hr:" + portRest + "/api/korisnici/" + korime + "?korime=" + this.konf.dajKonf()['rest.korime'] + "&lozinka=" + this.konf.dajKonf()['rest.lozinka'], parametri);
+        return await fetch("http://spider.foi.hr:" + this.portRest + "/api/korisnici/" + korime + "?korime=" + this.konf.dajKonf()['rest.korime'] + "&lozinka=" + this.konf.dajKonf()['rest.lozinka'], parametri);
     }
 
 }
