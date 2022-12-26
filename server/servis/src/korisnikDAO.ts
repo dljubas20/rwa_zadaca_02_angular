@@ -1,7 +1,7 @@
 import { Database } from 'sqlite3';
 import type { IKorisnik } from './klase/IKorisnik';
 
-class KorisnikDAO {
+export class KorisnikDAO {
     private baza : Database;
 
 	constructor() {
@@ -120,5 +120,3 @@ class KorisnikDAO {
 		}
 	}
 }
-
-module.exports = KorisnikDAO;
