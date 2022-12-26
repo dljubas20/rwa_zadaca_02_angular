@@ -4,23 +4,27 @@ class FilmDAO {
     private baza : Database;
 
     constructor() {
-        this.baza = new Database('baza.sqlite');
+        this.baza = new Database('../baza.sqlite');
         this.baza.exec(`PRAGMA foreign_keys = ON;`);
     }
 
     dajSve  = async (parametri : {idZanr : number}) => {
-        let sql = this.baza.prepare(`SELECT * FROM film WHERE film.id IN (SELECT zanrovi.film_id FROM zanrovi WHERE zanrovi.film_id=film.id AND zanr_id=?);`);
+        let sql = `SELECT * FROM film WHERE film.id IN (SELECT zanrovi.film_id FROM zanrovi WHERE zanrovi.film_id=film.id AND zanr_id=?);`;
 
-        var podaci = sql.run([
-            parametri.idZanr
-        ]);
+        let podaci : Array<any> | any = new Array<any>();
+        this.baza.all(sql, [parametri.idZanr], (err, rezultat) => {
+            podaci = rezultat;
+        });
 
         return podaci;
     }
 
     dajFilm = async (id : number) => {
-        let sql = this.baza.prepare(`SELECT * FROM film WHERE id=?;`);
-        var podaci = sql.run([id]);
+        let sql = `SELECT * FROM film WHERE id=?;`;
+        let podaci : any;
+        this.baza.get(sql, [id], (err, rezultat) => {
+            podaci = rezultat;
+        });
 
         return podaci;
     }

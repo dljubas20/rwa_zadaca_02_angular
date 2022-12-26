@@ -4,19 +4,23 @@ const sqlite3_1 = require("sqlite3");
 class FilmDAO {
     baza;
     constructor() {
-        this.baza = new sqlite3_1.Database('baza.sqlite');
+        this.baza = new sqlite3_1.Database('../baza.sqlite');
         this.baza.exec(`PRAGMA foreign_keys = ON;`);
     }
     dajSve = async (parametri) => {
-        let sql = this.baza.prepare(`SELECT * FROM film WHERE film.id IN (SELECT zanrovi.film_id FROM zanrovi WHERE zanrovi.film_id=film.id AND zanr_id=?);`);
-        var podaci = sql.run([
-            parametri.idZanr
-        ]);
+        let sql = `SELECT * FROM film WHERE film.id IN (SELECT zanrovi.film_id FROM zanrovi WHERE zanrovi.film_id=film.id AND zanr_id=?);`;
+        let podaci = new Array();
+        this.baza.all(sql, [parametri.idZanr], (err, rezultat) => {
+            podaci = rezultat;
+        });
         return podaci;
     };
     dajFilm = async (id) => {
-        let sql = this.baza.prepare(`SELECT * FROM film WHERE id=?;`);
-        var podaci = sql.run([id]);
+        let sql = `SELECT * FROM film WHERE id=?;`;
+        let podaci;
+        this.baza.get(sql, [id], (err, rezultat) => {
+            podaci = rezultat;
+        });
         return podaci;
     };
     dodaj = async (film) => {
