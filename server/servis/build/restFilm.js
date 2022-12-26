@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const filmDAO_1 = require("./filmDAO");
-const Konfiguracija = require("../konfiguracija.js");
+const Konfiguracija = require("../../konfiguracija.js");
 const konf = new Konfiguracija();
 konf.ucitajKonfiguraciju();
 exports.getFilmovi = function (zahtjev, odgovor) {

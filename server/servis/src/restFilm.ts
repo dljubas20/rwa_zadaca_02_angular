@@ -1,5 +1,5 @@
 import { FilmDAO } from "./filmDAO";
-const Konfiguracija = require("../konfiguracija.js");
+const Konfiguracija = require("../../konfiguracija.js");
 import type { Request, Response } from "express";
 
 const konf = new Konfiguracija();

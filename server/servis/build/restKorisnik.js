@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const korisnikDAO_1 = require("./korisnikDAO");
-const Konfiguracija = require("../konfiguracija.js");
+const Konfiguracija = require("../../konfiguracija.js");
 const konf = new Konfiguracija();
 konf.ucitajKonfiguraciju();
 exports.getKorisnici = function (zahtjev, odgovor) {
