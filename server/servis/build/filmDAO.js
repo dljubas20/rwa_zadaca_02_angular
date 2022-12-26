@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.FilmDAO = void 0;
 const sqlite3_1 = require("sqlite3");
 class FilmDAO {
     baza;
@@ -86,4 +87,4 @@ class FilmDAO {
         return true;
     };
 }
-module.exports = FilmDAO;
+exports.FilmDAO = FilmDAO;

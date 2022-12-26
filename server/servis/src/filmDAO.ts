@@ -1,6 +1,6 @@
 import { Database } from 'sqlite3';
 
-class FilmDAO {
+export class FilmDAO {
     private baza : Database;
 
     constructor() {
@@ -8,7 +8,7 @@ class FilmDAO {
         this.baza.exec(`PRAGMA foreign_keys = ON;`);
     }
 
-    dajSve  = async (parametri : {idZanr : number}) => {
+    dajSve  = async (parametri : any) => {
         let sql = `SELECT * FROM film WHERE film.id IN (SELECT zanrovi.film_id FROM zanrovi WHERE zanrovi.film_id=film.id AND zanr_id=?);`;
 
         let podaci : Array<any> | any = new Array<any>();
@@ -141,5 +141,3 @@ class FilmDAO {
 		return true;
 	}
 }
-
-module.exports = FilmDAO;
