@@ -1,4 +1,4 @@
-class TMDBklijent {
+export class TMDBklijent {
    private bazicniURL : string = "https://api.themoviedb.org/3";
    private apiKljuc : string;
    constructor(apiKljuc : string) {

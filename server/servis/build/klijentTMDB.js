@@ -1,4 +1,6 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TMDBklijent = void 0;
 class TMDBklijent {
     bazicniURL = "https://api.themoviedb.org/3";
     apiKljuc;
@@ -61,4 +63,5 @@ class TMDBklijent {
         return odgovor;
     }
 }
+exports.TMDBklijent = TMDBklijent;
 module.exports = TMDBklijent;
