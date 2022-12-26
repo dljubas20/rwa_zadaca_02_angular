@@ -60,3 +60,9 @@ CREATE TABLE IF NOT EXISTS `zanrovi` (
   FOREIGN KEY (zanr_id) REFERENCES zanr(id),
   FOREIGN KEY (film_id) REFERENCES film(id)
 );
+
+INSERT INTO zanr(naziv, opis) VALUES("test1naziv", "test1opis");
+
+SELECT * FROM zanr;
+
+SELECT * FROM korisnik;
