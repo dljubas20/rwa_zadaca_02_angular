@@ -29,5 +29,5 @@
     "noUnusedParameters": false,
     "importsNotUsedAsValues": "error"
   },
-  "include": ["./src/*"]
+  "include": ["./src/**/*"]
 }
