@@ -1,4 +1,4 @@
-const ZanrDAO = require("./zanrDAO.js");
+import { ZanrDAO } from "./zanrDAO";
 const Konfiguracija = require("../../konfiguracija.js");
 import type { Request, Response } from "express";
 
@@ -45,7 +45,11 @@ exports.deleteZanrovi = function (zahtjev : Request, odgovor : Response) {
 exports.getZanr = function (zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
-    let id = zahtjev.params['id'];
+    let id : number = -1;
+
+    if (zahtjev.params['id'] !== undefined) {
+        id = parseInt(zahtjev.params['id']);
+    }
 
     let zdao = new ZanrDAO();
     zdao.dajZanr(id).then((poruka : any) => {
@@ -63,8 +67,13 @@ exports.postZanr = function (zahtjev : Request, odgovor : Response) {
 
 exports.putZanr = function (zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
+    
+    let id : number = -1;
 
-    let id = zahtjev.params['id'];
+    if (zahtjev.params['id'] !== undefined) {
+        id = parseInt(zahtjev.params['id']);
+    }
+    
     let podaci = zahtjev.body;
 
     let zdao = new ZanrDAO();
@@ -75,8 +84,12 @@ exports.putZanr = function (zahtjev : Request, odgovor : Response) {
 
 exports.deleteZanr = function (zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
+    
+    let id : number = -1;
 
-    let id = zahtjev.params['id'];
+    if (zahtjev.params['id'] !== undefined) {
+        id = parseInt(zahtjev.params['id']);
+    }
 
     let zdao = new ZanrDAO();
     zdao.obrisiZanr(id).then((poruka : boolean) => {
