@@ -1,32 +1,22 @@
-import { Database } from 'sqlite3';
+import { Baza } from "./baza";
 
 export class FilmDAO {
-    private baza : Database;
+    private baza : Baza;
 
     constructor() {
-        this.baza = new Database('../baza.sqlite');
-        this.baza.exec(`PRAGMA foreign_keys = ON;`);
+        this.baza = new Baza();
     }
 
     dajSve  = async (parametri : any) => {
         let sql = `SELECT * FROM film WHERE film.id IN (SELECT zanrovi.film_id FROM zanrovi WHERE zanrovi.film_id=film.id AND zanr_id=?);`;
 
-        let podaci : Array<any> | any = new Array<any>();
-        this.baza.all(sql, [parametri.idZanr], (err, rezultat) => {
-            podaci = rezultat;
-        });
-
-        return podaci;
+        return await this.baza.izvrsiSelectUpit(sql, [parametri.idZanr]);
     }
 
     dajFilm = async (id : number) => {
         let sql = `SELECT * FROM film WHERE id=?;`;
-        let podaci : any;
-        this.baza.get(sql, [id], (err, rezultat) => {
-            podaci = rezultat;
-        });
 
-        return podaci;
+        return await this.baza.izvrsiSelectUpit(sql, [id]);
     }
 
     dodaj = async (film : {
@@ -52,7 +42,7 @@ export class FilmDAO {
         prijedlog : boolean,
         korisnik_id : number
     }) => {
-        let sql = this.baza.prepare(`INSERT INTO film(tmdb_id, imdb_id, naziv, sazetak, trajanje, datumIzlaska, datumDodavanja, dobnoOgranicenje, putanjaPozadina, putanjaPoster, budzet, prihod, pocetnaStranica, izvorniJezik, popularnost, status, slogan, ocjena, brojOcjenjivaca, prijedlog, korisnik_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`);
+        let sql = `INSERT INTO film(tmdb_id, imdb_id, naziv, sazetak, trajanje, datumIzlaska, datumDodavanja, dobnoOgranicenje, putanjaPozadina, putanjaPoster, budzet, prihod, pocetnaStranica, izvorniJezik, popularnost, status, slogan, ocjena, brojOcjenjivaca, prijedlog, korisnik_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
 
         let podaci = [
             film.tmdb_id,
@@ -78,8 +68,7 @@ export class FilmDAO {
             film.korisnik_id
         ]
 
-        sql.run(podaci);
-        return true;
+        return await this.baza.izvrsiUpit(sql, podaci);
     }
 
     azuriraj = async (id : number, film : {
@@ -105,7 +94,7 @@ export class FilmDAO {
         prijedlog : boolean,
         korisnik_id : number
     }) => {
-        let sql = this.baza.prepare(`UPDATE korisnik SET tmdb_id=?, imdb_id=?, naziv=?, sazetak=?, trajanje=?, datumIzlaska=?, datumDodavanja=?, dobnoOgranicenje=?, putanjaPozadina=?, putanjaPoster=?, budzet=?, prihod=?, pocetnaStranica=?, izvorniJezik=?, popularnost=?, status=?, slogan=?, ocjena=?, brojOcjenjivaca=?, prijedlog=?, korisnik_id=? WHERE id=?;`);
+        let sql = `UPDATE korisnik SET tmdb_id=?, imdb_id=?, naziv=?, sazetak=?, trajanje=?, datumIzlaska=?, datumDodavanja=?, dobnoOgranicenje=?, putanjaPozadina=?, putanjaPoster=?, budzet=?, prihod=?, pocetnaStranica=?, izvorniJezik=?, popularnost=?, status=?, slogan=?, ocjena=?, brojOcjenjivaca=?, prijedlog=?, korisnik_id=? WHERE id=?;`;
         let podaci = [
             film.tmdb_id,
             film.imdb_id,
@@ -131,13 +120,11 @@ export class FilmDAO {
             id
         ];
         
-		sql.run(podaci);
-		return true;
+		return await this.baza.izvrsiUpit(sql, podaci);
     }
 
     obrisi = async (id : number) => {
-		let sql = this.baza.prepare(`DELETE FROM film WHERE id=?;`);
-		sql.run([id]);
-		return true;
+		let sql = `DELETE FROM film WHERE id=?;`;
+		return await this.baza.izvrsiUpit(sql, [id]);
 	}
 }
