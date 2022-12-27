@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RestTMDB = void 0;
 const klijentTMDB_1 = require("./klijentTMDB");
-const Konfiguracija = require("../konfiguracija.js");
+const Konfiguracija = require("../../konfiguracija.js");
 const konf = new Konfiguracija();
 konf.ucitajKonfiguraciju();
 class RestTMDB {

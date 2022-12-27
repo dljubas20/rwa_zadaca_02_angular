@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const ZanrDAO = require("./zanrDAO.js");
-const Konfiguracija = require("../konfiguracija.js");
+const Konfiguracija = require("../../konfiguracija.js");
 const konf = new Konfiguracija();
 konf.ucitajKonfiguraciju();
 exports.getZanrovi = function (zahtjev, odgovor) {
