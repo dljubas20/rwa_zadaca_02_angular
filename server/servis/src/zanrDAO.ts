@@ -1,66 +1,52 @@
-import { Database } from 'sqlite3';
+import { Baza } from "./baza";
 
 export class ZanrDAO {
-    private baza : Database;
+    private baza : Baza;
 
     constructor() {
-        this.baza = new Database('../baza.sqlite');
-        this.baza.exec(`PRAGMA foreign_keys = ON;`);
+        this.baza = new Baza();
     }
 
     dajSve = async () => {
         let sql = `SELECT * FROM zanr;`;
-        
-        let podaci : Array<any> | any = new Array<any>();
-        this.baza.all(sql, (err, rezultat) => {
-            podaci = rezultat;
-        });
 
-        return podaci;
+        return await this.baza.izvrsiSelectUpit(sql);
     }
 
     dodaj = async (podaci : {
         naziv : string,
         opis : string
     }) => {
-        let sql = this.baza.prepare(`INSERT INTO zanr(naziv, opis) VALUES(?, ?)`);
+        let sql = `INSERT INTO zanr(naziv, opis) VALUES(?, ?)`;
 
-        sql.run([podaci.naziv, podaci.opis]);
-        return true;
+        return await this.baza.izvrsiUpit(sql, [podaci.naziv, podaci.opis]);
     }
 
     obrisi = async () => {
-        let sql = this.baza.prepare(`DELETE FROM zanr WHERE NOT EXISTS (SELECT * FROM zanrovi WHERE zanrovi.zanr_id=zanr.id)`);
+        let sql = `DELETE FROM zanr WHERE NOT EXISTS (SELECT * FROM zanrovi WHERE zanrovi.zanr_id=zanr.id)`;
         
-        sql.run();
-        return true;
+        return await this.baza.izvrsiUpit(sql);
     }
 
     dajZanr = async (id : number) => {
         let sql = `SELECT * FROM zanr WHERE id=?`;
-        var podaci : any;
-        
-        this.baza.get(sql, [id], (err, rezultat) => {
-            podaci = rezultat;
-        });
 
-        return podaci;
+
+        return await this.baza.izvrsiSelectUpit(sql, [id]);
     }
 
     azurirajZanr = async (id : number, zanr : {
         naziv : string,
         opis : string
     }) => {
-		let sql = this.baza.prepare(`UPDATE zanr SET naziv=?, opis=? WHERE id=?`);
-        sql.run([zanr.naziv, zanr.opis, id]);
+		let sql = `UPDATE zanr SET naziv=?, opis=? WHERE id=?`;
 
-        return true;
+        return await this.baza.izvrsiUpit(sql, [zanr.naziv, zanr.opis, id]);
     }
 
     obrisiZanr = async (id : number) => {
-        let sql = this.baza.prepare(`DELETE FROM zanr WHERE id=?`);
-        sql.run([id]);
+        let sql = `DELETE FROM zanr WHERE id=?`;
 
-        return true;
+        return await this.baza.izvrsiUpit(sql, [id]);
     }
 }
