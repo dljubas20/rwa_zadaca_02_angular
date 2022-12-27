@@ -1,31 +1,22 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.KorisnikDAO = void 0;
-const sqlite3_1 = require("sqlite3");
+const baza_1 = require("./baza");
 class KorisnikDAO {
     baza;
     constructor() {
-        this.baza = new sqlite3_1.Database('../baza.sqlite');
-        this.baza.exec(`PRAGMA foreign_keys = ON;`);
+        this.baza = new baza_1.Baza();
     }
     dajSve = async () => {
         let sql = "SELECT * FROM korisnik;";
-        var podaci = new Array();
-        this.baza.all(sql, [], (err, rezultat) => {
-            podaci = rezultat;
-        });
-        return podaci;
+        return await this.baza.izvrsiSelectUpit(sql);
     };
     daj = async (korime) => {
         let sql = "SELECT * FROM korisnik WHERE korime=?;";
-        let podaci;
-        this.baza.get(sql, [korime], (err, rezultat) => {
-            podaci = rezultat;
-        });
-        return podaci;
+        return await this.baza.izvrsiSelectUpit(sql, [korime]);
     };
     dodaj = async (korisnik) => {
-        let sql = this.baza.prepare(`INSERT INTO korisnik (ime, prezime, lozinka, email, korime, tipKorisnika_id, aktivacijskiKod, totpKljuc) VALUES (?,?,?,?,?,?,?,?)`);
+        let sql = `INSERT INTO korisnik (ime, prezime, lozinka, email, korime, tipKorisnika_id, aktivacijskiKod, totpKljuc) VALUES (?,?,?,?,?,?,?,?)`;
         let podaci = [
             korisnik.ime,
             korisnik.prezime,
@@ -36,52 +27,47 @@ class KorisnikDAO {
             korisnik.aktivacijskiKod,
             korisnik.TOTPkljuc
         ];
-        sql.run(podaci);
-        return true;
+        return await this.baza.izvrsiUpit(sql, podaci);
     };
     obrisi = async (korime) => {
-        let sql = this.baza.prepare("DELETE FROM korisnik WHERE korime=?");
-        sql.run([korime]);
+        let sql = "DELETE FROM korisnik WHERE korime=?";
+        this.baza.izvrsiUpit(sql, [korime]);
         return true;
     };
     azuriraj = async (korime, korisnik) => {
         if (korisnik.ime == null && korisnik.prezime == null && korisnik.lozinka == null)
             return false;
         let podaci = [];
-        let upit = `UPDATE korisnik SET `;
+        let sql = `UPDATE korisnik SET `;
         if (korisnik.ime != null) {
-            upit += `ime=?`;
+            sql += `ime=?`;
             podaci.push(korisnik.ime);
         }
         if (korisnik.prezime != null) {
             if (korisnik.ime != null)
-                upit += `, `;
-            upit += `prezime=?`;
+                sql += `, `;
+            sql += `prezime=?`;
             podaci.push(korisnik.prezime);
         }
         if (korisnik.lozinka != null) {
             if (korisnik.ime != null || korisnik.prezime != null)
-                upit += `, `;
-            upit += `lozinka=? `;
+                sql += `, `;
+            sql += `lozinka=? `;
             podaci.push(korisnik.lozinka);
         }
-        upit += ` WHERE korime=?`;
+        sql += ` WHERE korime=?;`;
         podaci.push(korime);
-        let sql = this.baza.prepare(upit);
-        sql.run(podaci);
+        this.baza.izvrsiUpit(sql, podaci);
         return true;
     };
     aktiviraj = async (korime, kod) => {
         let dohvatiKod = `SELECT aktivacijskiKod FROM korisnik WHERE korime=?`;
-        let aktivacijskiKod = { aktivacijskiKod: 0 };
-        this.baza.get(dohvatiKod, [korime], (err, rezultat) => {
-            aktivacijskiKod = rezultat;
-        });
+        let aktivacijskiKod = await this.baza.izvrsiSelectUpit(dohvatiKod, [korime]);
         console.log(aktivacijskiKod);
         if (aktivacijskiKod.aktivacijskiKod == kod.aktivacijskiKod) {
-            let sql = this.baza.prepare(`UPDATE korisnik SET aktiviran=? WHERE korime=?`);
+            let sql = `UPDATE korisnik SET aktiviran=? WHERE korime=?`;
             let podaci = [1, korime];
-            sql.run(podaci);
+            await this.baza.izvrsiUpit(sql, podaci);
             return true;
         }
         else {

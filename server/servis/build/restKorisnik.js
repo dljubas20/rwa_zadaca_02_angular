@@ -8,7 +8,6 @@ exports.getKorisnici = function (zahtjev, odgovor) {
     odgovor.type("application/json");
     let kdao = new korisnikDAO_1.KorisnikDAO();
     kdao.dajSve().then((korisnici) => {
-        console.log(korisnici);
         odgovor.send(JSON.stringify(korisnici));
     });
 };

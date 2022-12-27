@@ -10,7 +10,6 @@ exports.getKorisnici = function (zahtjev : Request, odgovor : Response) {
 
     let kdao = new KorisnikDAO();
     kdao.dajSve().then((korisnici) => {
-        console.log(korisnici);
         odgovor.send(JSON.stringify(korisnici));
     });
 }
