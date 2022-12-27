@@ -7,7 +7,7 @@ const ProvjeraKonfiguracije = require("../../provjeraKonfiguracije.js");
 const restKorisnik = require("./restKorisnik.js");
 const restFilm = require("./restFilm.js");
 const restZanr = require("./restZanr.js");
-const RestTMDB = require("./restTMDB.js");
+const restTMDB_1 = require("./restTMDB");
 const server = express();
 let konf = new Konfiguracija();
 konf.ucitajKonfiguraciju().then(pokreniServer).catch((greska) => {
@@ -56,7 +56,7 @@ function pokreniServer() {
     });
 }
 function pripremiPutanjeTMDB() {
-    let restTMDB = new RestTMDB(konf.dajKonf()["tmdb.apikey.v3"]);
+    let restTMDB = new restTMDB_1.RestTMDB(konf.dajKonf()["tmdb.apikey.v3"]);
     server.get("/api/tmdb/zanr", restTMDB.getZanr.bind(restTMDB));
     server.post("/api/tmdb/zanr", restTMDB.postZanr.bind(restTMDB));
     server.put("/api/tmdb/zanr", restTMDB.putZanr.bind(restTMDB));

@@ -64,4 +64,3 @@ class TMDBklijent {
     }
 }
 exports.TMDBklijent = TMDBklijent;
-module.exports = TMDBklijent;

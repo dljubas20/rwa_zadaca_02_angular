@@ -64,5 +64,3 @@ export class TMDBklijent {
       return odgovor;
    }
 }
-
-module.exports = TMDBklijent;

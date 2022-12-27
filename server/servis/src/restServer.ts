@@ -5,7 +5,7 @@ const ProvjeraKonfiguracije = require("../../provjeraKonfiguracije.js");
 const restKorisnik = require("./restKorisnik.js");
 const restFilm = require("./restFilm.js");
 const restZanr = require("./restZanr.js");
-const RestTMDB = require("./restTMDB.js");
+import { RestTMDB } from "./restTMDB";
 import type { Request, Response, NextFunction } from "express";
 
 const server = express();
@@ -15,7 +15,7 @@ konf.ucitajKonfiguraciju().then(pokreniServer).catch((greska : any) => {
     if(process.argv.length == 2){
         console.error("Potrebno je dati naziv datoteke");
     } else {
-        console.error("Nije moguće otvoriti datoteku: "+greska.path);
+        console.error("Nije moguće otvoriti datoteku: " + greska.path);
     }
     process.exit();
 });
