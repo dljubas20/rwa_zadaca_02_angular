@@ -40,6 +40,8 @@ function pokreniServer() {
         process.exit();
     });
 
+    server.use("/", express.static("angular/"));
+
     pripremiPutanjePocetna();
     pripremiPutanjeAutentifikacija();
     pripremiPutanjePretrazivanjeFilmova();
