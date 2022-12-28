@@ -20,8 +20,8 @@ const routes: Routes = [
   { path: "dokumentacija", component: DokumentacijaComponent },
   { path: "profil", component: ProfilComponent },
   { path: "filmovi_pregled", component: FilmoviPregledComponent },
-  /* {path: "detalji", component:DetaljiFilmaComponent},
-  {path: "detalji/:naziv", component:DetaljiFilmaComponent}, */
+  { path: "prijava", component: PrijavaComponent },
+  { path: "odjava",  redirectTo: "", pathMatch: "full"},
   { path: "", redirectTo: "", pathMatch: "full" }
 ];
 
