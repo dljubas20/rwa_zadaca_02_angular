@@ -5,7 +5,7 @@
 
     <div class="nav-stavke">
         <div *ngFor="let s of stavke">
-            <a class="link" *ngIf="!s.admin || (s.admin && staticPrijavljen())" [routerLink]="'/' + s.putanja" routerLinkActive="trenutni-link" [routerLinkActiveOptions]="{exact: true}">{{ s.naziv }}</a>
+            <a class="link" *ngIf="!s.prijavljen || (s.prijavljen && staticPrijavljen())" [routerLink]="'/' + s.putanja" routerLinkActive="trenutni-link" [routerLinkActiveOptions]="{exact: true}">{{ s.naziv }}</a>
         </div>
     </div>
 
