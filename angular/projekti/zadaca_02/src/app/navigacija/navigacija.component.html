@@ -1,7 +1,25 @@
-<div>
-    <img src="/assets/Filmoteka.png" alt="Logo">
+<div class="navigacija">
+    <a routerLink="/pocetna">
+        <img src="/assets/slike/Filmoteka.png" alt="Logo">
+    </a>
 
-    <div *ngFor="let s of stavke">
-        <a href="#"> {{ s }} </a>
+    <div class="nav-stavke">
+        <div *ngFor="let s of stavke">
+            <a *ngIf="!s.admin || (s.admin && staticPrijavljen())" [routerLink]="'/' + s.putanja">{{ s.naziv }}</a>
+        </div>
+    </div>
+
+    <div class="prijava">
+        <div *ngIf="staticPrijavljen() == true; else elseBlock">
+            <p>
+                {{ korisnik.ime + " " + korisnik.prezime }}
+            </p>
+
+            <a routerLink="/odjava">Odjava</a>
+        </div>
+
+        <ng-template #elseBlock>
+            <a routerLink="/prijava">Prijava</a>
+        </ng-template>
     </div>
 </div>
