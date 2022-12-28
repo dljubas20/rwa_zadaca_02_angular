@@ -1,11 +1,11 @@
 <div class="navigacija">
-    <a routerLink="/pocetna">
+    <a routerLink="/">
         <img src="/assets/slike/Filmoteka.png" alt="Logo">
     </a>
 
     <div class="nav-stavke">
         <div *ngFor="let s of stavke">
-            <a *ngIf="!s.admin || (s.admin && staticPrijavljen())" [routerLink]="'/' + s.putanja">{{ s.naziv }}</a>
+            <a class="link" *ngIf="!s.admin || (s.admin && staticPrijavljen())" [routerLink]="'/' + s.putanja" routerLinkActive="trenutni-link" [routerLinkActiveOptions]="{exact: true}">{{ s.naziv }}</a>
         </div>
     </div>
 
@@ -15,11 +15,11 @@
                 {{ korisnik.ime + " " + korisnik.prezime }}
             </p>
 
-            <a routerLink="/odjava">Odjava</a>
+            <a class="link" routerLink="/odjava" routerLinkActive="trenutni-link">Odjava</a>
         </div>
 
         <ng-template #elseBlock>
-            <a routerLink="/prijava">Prijava</a>
+            <a class="link" routerLink="/prijava" routerLinkActive="trenutni-link">Prijava</a>
         </ng-template>
     </div>
 </div>

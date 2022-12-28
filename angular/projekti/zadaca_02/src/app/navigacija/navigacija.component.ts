@@ -10,7 +10,7 @@ import { INavStavka } from '../servisi/INavStavka';
 
 export class NavigacijaComponent {
   stavke: Array<INavStavka> = new Array<INavStavka>(
-    { naziv: "Početna", putanja: "pocetna", admin: false },
+    { naziv: "Početna", putanja: "", admin: false },
     { naziv: "Registracija", putanja: "registracija", admin: false },
     { naziv: "Pretraživanje filmova", putanja: "pretrazivanje_filmova", admin: true },
     { naziv: "Dokumentacija", putanja: "dokumentacija", admin: false },
