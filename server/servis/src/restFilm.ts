@@ -5,7 +5,7 @@ import type { Request, Response } from "express";
 const konf = new Konfiguracija();
 konf.ucitajKonfiguraciju();
 
-exports.getFilmovi = function (zahtjev : Request, odgovor : Response) {
+export function getFilmovi(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     let parametri = {
@@ -30,7 +30,7 @@ exports.getFilmovi = function (zahtjev : Request, odgovor : Response) {
     });
 }
 
-exports.postFilmovi = function (zahtjev : Request, odgovor : Response) {
+export function postFilmovi(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     let fdao = new FilmDAO();
@@ -40,7 +40,7 @@ exports.postFilmovi = function (zahtjev : Request, odgovor : Response) {
     });
 }
 
-exports.putFilmovi = function (zahtjev : Request, odgovor : Response) {
+export function putFilmovi(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     odgovor.status(501);
@@ -48,7 +48,7 @@ exports.putFilmovi = function (zahtjev : Request, odgovor : Response) {
     odgovor.send(JSON.stringify(poruka));
 }
 
-exports.deleteFilmovi = function (zahtjev : Request, odgovor : Response) {
+export function deleteFilmovi(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     odgovor.status(501);
@@ -56,7 +56,7 @@ exports.deleteFilmovi = function (zahtjev : Request, odgovor : Response) {
     odgovor.send(JSON.stringify(poruka));
 }
 
-exports.getFilm = function (zahtjev : Request, odgovor : Response) {
+export function getFilm(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     let id : number = -1;
@@ -72,7 +72,7 @@ exports.getFilm = function (zahtjev : Request, odgovor : Response) {
     });
 }
 
-exports.postFilm = function (zahtjev : Request, odgovor : Response) {
+export function postFilm(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     odgovor.status(405);
@@ -80,7 +80,7 @@ exports.postFilm = function (zahtjev : Request, odgovor : Response) {
     odgovor.send(JSON.stringify(poruka));
 }
 
-exports.putFilm = function (zahtjev : Request, odgovor : Response) {
+export function putFilm(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     let id : number = -1;
@@ -97,7 +97,7 @@ exports.putFilm = function (zahtjev : Request, odgovor : Response) {
     });
 }
 
-exports.deleteFilm = function (zahtjev : Request, odgovor : Response) {
+export function deleteFilm(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     let id : number = -1;

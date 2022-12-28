@@ -5,7 +5,7 @@ import type { Request, Response } from "express";
 const konf = new Konfiguracija();
 konf.ucitajKonfiguraciju();
 
-exports.getKorisnici = function (zahtjev : Request, odgovor : Response) {
+export function getKorisnici(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     let kdao = new KorisnikDAO();
@@ -14,7 +14,7 @@ exports.getKorisnici = function (zahtjev : Request, odgovor : Response) {
     });
 }
 
-exports.postKorisnici = function (zahtjev : Request, odgovor : Response) {
+export function postKorisnici(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
     
     let podaci = zahtjev.body;
@@ -24,7 +24,7 @@ exports.postKorisnici = function (zahtjev : Request, odgovor : Response) {
     });
 }
 
-exports.putKorisnici = function (zahtjev : Request, odgovor : Response) {
+export function putKorisnici(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     odgovor.status(501);
@@ -32,7 +32,7 @@ exports.putKorisnici = function (zahtjev : Request, odgovor : Response) {
     odgovor.send(JSON.stringify(poruka));
 }
 
-exports.deleteKorisnici = function (zahtjev : Request, odgovor : Response) {
+export function deleteKorisnici(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     odgovor.status(501);
@@ -40,7 +40,7 @@ exports.deleteKorisnici = function (zahtjev : Request, odgovor : Response) {
     odgovor.send(JSON.stringify(poruka));
 }
 
-exports.getKorisnik = function (zahtjev : Request, odgovor : Response) {
+export function getKorisnik(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     let kdao = new KorisnikDAO();
@@ -56,7 +56,7 @@ exports.getKorisnik = function (zahtjev : Request, odgovor : Response) {
     });
 }
 
-exports.postKorisnik = function (zahtjev : Request, odgovor : Response) {
+export function postKorisnik(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     odgovor.status(405);
@@ -64,7 +64,7 @@ exports.postKorisnik = function (zahtjev : Request, odgovor : Response) {
     odgovor.send(JSON.stringify(poruka));
 }
 
-exports.putKorisnik = function (zahtjev : Request, odgovor : Response) {
+export function putKorisnik(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     let korime : string = "";
@@ -80,7 +80,7 @@ exports.putKorisnik = function (zahtjev : Request, odgovor : Response) {
     });
 }
 
-exports.deleteKorisnik = function (zahtjev : Request, odgovor : Response) {
+export function deleteKorisnik(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     odgovor.status(501);
@@ -88,7 +88,7 @@ exports.deleteKorisnik = function (zahtjev : Request, odgovor : Response) {
     odgovor.send(JSON.stringify(poruka));
 }
 
-exports.getKorisnikAktivacija = function (zahtjev : Request, odgovor : Response) {
+export function getKorisnikAktivacija(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     odgovor.status(501);
@@ -96,7 +96,7 @@ exports.getKorisnikAktivacija = function (zahtjev : Request, odgovor : Response)
     odgovor.send(JSON.stringify(poruka));
 }
 
-exports.postKorisnikAktivacija = function (zahtjev : Request, odgovor : Response) {
+export function postKorisnikAktivacija(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     odgovor.status(405);
@@ -104,7 +104,7 @@ exports.postKorisnikAktivacija = function (zahtjev : Request, odgovor : Response
     odgovor.send(JSON.stringify(poruka));
 }
 
-exports.putKorisnikAktivacija = function (zahtjev : Request, odgovor : Response) {
+export function putKorisnikAktivacija(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     let kdao = new KorisnikDAO();
@@ -120,7 +120,7 @@ exports.putKorisnikAktivacija = function (zahtjev : Request, odgovor : Response)
     });
 }
 
-exports.deleteKorisnikAktivacija = function (zahtjev : Request, odgovor : Response) {
+export function deleteKorisnikAktivacija(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     odgovor.status(501);
@@ -128,7 +128,7 @@ exports.deleteKorisnikAktivacija = function (zahtjev : Request, odgovor : Respon
     odgovor.send(JSON.stringify(poruka));
 }
 
-exports.getKorisnikPrijava = function (zahtjev : Request, odgovor : Response) {
+export function getKorisnikPrijava(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     odgovor.status(501);
@@ -136,7 +136,7 @@ exports.getKorisnikPrijava = function (zahtjev : Request, odgovor : Response) {
     odgovor.send(JSON.stringify(poruka));
 }
 
-exports.postKorisnikPrijava = function (zahtjev : Request, odgovor : Response) {
+export function postKorisnikPrijava(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     let kdao = new KorisnikDAO();
@@ -158,7 +158,7 @@ exports.postKorisnikPrijava = function (zahtjev : Request, odgovor : Response) {
     });
 }
 
-exports.putKorisnikPrijava = function (zahtjev : Request, odgovor : Response) {
+export function putKorisnikPrijava(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     odgovor.status(501);
@@ -166,7 +166,7 @@ exports.putKorisnikPrijava = function (zahtjev : Request, odgovor : Response) {
     odgovor.send(JSON.stringify(poruka));
 }
 
-exports.deleteKorisnikPrijava = function (zahtjev : Request, odgovor : Response) {
+export function deleteKorisnikPrijava(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     odgovor.status(501);

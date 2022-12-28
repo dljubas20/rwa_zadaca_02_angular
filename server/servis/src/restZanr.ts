@@ -5,7 +5,7 @@ import type { Request, Response } from "express";
 const konf = new Konfiguracija();
 konf.ucitajKonfiguraciju();
 
-exports.getZanrovi = function (zahtjev : Request, odgovor : Response) {
+export function getZanrovi(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     let zdao = new ZanrDAO();
@@ -14,7 +14,7 @@ exports.getZanrovi = function (zahtjev : Request, odgovor : Response) {
     });
 }
 
-exports.postZanrovi = function (zahtjev : Request, odgovor : Response) {
+export function postZanrovi(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     let podaci = zahtjev.body;
@@ -25,7 +25,7 @@ exports.postZanrovi = function (zahtjev : Request, odgovor : Response) {
     });
 }
 
-exports.putZanrovi = function (zahtjev : Request, odgovor : Response) {
+export function putZanrovi(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     odgovor.status(501);
@@ -33,7 +33,7 @@ exports.putZanrovi = function (zahtjev : Request, odgovor : Response) {
     odgovor.send(JSON.stringify(poruka));
 }
 
-exports.deleteZanrovi = function (zahtjev : Request, odgovor : Response) {
+export function deleteZanrovi(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     let zdao = new ZanrDAO();
@@ -42,7 +42,7 @@ exports.deleteZanrovi = function (zahtjev : Request, odgovor : Response) {
     });
 }
 
-exports.getZanr = function (zahtjev : Request, odgovor : Response) {
+export function getZanr(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     let id : number = -1;
@@ -57,7 +57,7 @@ exports.getZanr = function (zahtjev : Request, odgovor : Response) {
     });
 }
 
-exports.postZanr = function (zahtjev : Request, odgovor : Response) {
+export function postZanr(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 
     odgovor.status(405);
@@ -65,7 +65,7 @@ exports.postZanr = function (zahtjev : Request, odgovor : Response) {
     odgovor.send(JSON.stringify(poruka));
 }
 
-exports.putZanr = function (zahtjev : Request, odgovor : Response) {
+export function putZanr(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
     
     let id : number = -1;
@@ -82,7 +82,7 @@ exports.putZanr = function (zahtjev : Request, odgovor : Response) {
     });
 }
 
-exports.deleteZanr = function (zahtjev : Request, odgovor : Response) {
+export function deleteZanr(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
     
     let id : number = -1;

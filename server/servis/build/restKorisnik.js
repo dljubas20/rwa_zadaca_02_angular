@@ -1,37 +1,42 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteKorisnikPrijava = exports.putKorisnikPrijava = exports.postKorisnikPrijava = exports.getKorisnikPrijava = exports.deleteKorisnikAktivacija = exports.putKorisnikAktivacija = exports.postKorisnikAktivacija = exports.getKorisnikAktivacija = exports.deleteKorisnik = exports.putKorisnik = exports.postKorisnik = exports.getKorisnik = exports.deleteKorisnici = exports.putKorisnici = exports.postKorisnici = exports.getKorisnici = void 0;
 const korisnikDAO_1 = require("./korisnikDAO");
 const Konfiguracija = require("../../konfiguracija.js");
 const konf = new Konfiguracija();
 konf.ucitajKonfiguraciju();
-exports.getKorisnici = function (zahtjev, odgovor) {
+function getKorisnici(zahtjev, odgovor) {
     odgovor.type("application/json");
     let kdao = new korisnikDAO_1.KorisnikDAO();
     kdao.dajSve().then((korisnici) => {
         odgovor.send(JSON.stringify(korisnici));
     });
-};
-exports.postKorisnici = function (zahtjev, odgovor) {
+}
+exports.getKorisnici = getKorisnici;
+function postKorisnici(zahtjev, odgovor) {
     odgovor.type("application/json");
     let podaci = zahtjev.body;
     let kdao = new korisnikDAO_1.KorisnikDAO();
     kdao.dodaj(podaci).then((poruka) => {
         odgovor.send(JSON.stringify(poruka));
     });
-};
-exports.putKorisnici = function (zahtjev, odgovor) {
+}
+exports.postKorisnici = postKorisnici;
+function putKorisnici(zahtjev, odgovor) {
     odgovor.type("application/json");
     odgovor.status(501);
     let poruka = { greska: "metoda nije implementirana" };
     odgovor.send(JSON.stringify(poruka));
-};
-exports.deleteKorisnici = function (zahtjev, odgovor) {
+}
+exports.putKorisnici = putKorisnici;
+function deleteKorisnici(zahtjev, odgovor) {
     odgovor.type("application/json");
     odgovor.status(501);
     let poruka = { greska: "metoda nije implementirana" };
     odgovor.send(JSON.stringify(poruka));
-};
-exports.getKorisnik = function (zahtjev, odgovor) {
+}
+exports.deleteKorisnici = deleteKorisnici;
+function getKorisnik(zahtjev, odgovor) {
     odgovor.type("application/json");
     let kdao = new korisnikDAO_1.KorisnikDAO();
     let korime = "";
@@ -42,14 +47,16 @@ exports.getKorisnik = function (zahtjev, odgovor) {
         console.log(korisnik);
         odgovor.send(JSON.stringify(korisnik));
     });
-};
-exports.postKorisnik = function (zahtjev, odgovor) {
+}
+exports.getKorisnik = getKorisnik;
+function postKorisnik(zahtjev, odgovor) {
     odgovor.type("application/json");
     odgovor.status(405);
     let poruka = { greska: "metoda nije dopuštena" };
     odgovor.send(JSON.stringify(poruka));
-};
-exports.putKorisnik = function (zahtjev, odgovor) {
+}
+exports.postKorisnik = postKorisnik;
+function putKorisnik(zahtjev, odgovor) {
     odgovor.type("application/json");
     let korime = "";
     if (zahtjev.params['korime'] !== undefined) {
@@ -60,26 +67,30 @@ exports.putKorisnik = function (zahtjev, odgovor) {
     kdao.azuriraj(korime, podaci).then((poruka) => {
         odgovor.send(JSON.stringify(poruka));
     });
-};
-exports.deleteKorisnik = function (zahtjev, odgovor) {
+}
+exports.putKorisnik = putKorisnik;
+function deleteKorisnik(zahtjev, odgovor) {
     odgovor.type("application/json");
     odgovor.status(501);
     let poruka = { greska: "metoda nije implementirana" };
     odgovor.send(JSON.stringify(poruka));
-};
-exports.getKorisnikAktivacija = function (zahtjev, odgovor) {
+}
+exports.deleteKorisnik = deleteKorisnik;
+function getKorisnikAktivacija(zahtjev, odgovor) {
     odgovor.type("application/json");
     odgovor.status(501);
     let poruka = { greska: "metoda nije implementirana" };
     odgovor.send(JSON.stringify(poruka));
-};
-exports.postKorisnikAktivacija = function (zahtjev, odgovor) {
+}
+exports.getKorisnikAktivacija = getKorisnikAktivacija;
+function postKorisnikAktivacija(zahtjev, odgovor) {
     odgovor.type("application/json");
     odgovor.status(405);
     let poruka = { greska: "metoda nije dopuštena" };
     odgovor.send(JSON.stringify(poruka));
-};
-exports.putKorisnikAktivacija = function (zahtjev, odgovor) {
+}
+exports.postKorisnikAktivacija = postKorisnikAktivacija;
+function putKorisnikAktivacija(zahtjev, odgovor) {
     odgovor.type("application/json");
     let kdao = new korisnikDAO_1.KorisnikDAO();
     let korime = "";
@@ -90,20 +101,23 @@ exports.putKorisnikAktivacija = function (zahtjev, odgovor) {
     kdao.aktiviraj(korime, podaci).then((poruka) => {
         odgovor.send(JSON.stringify(poruka));
     });
-};
-exports.deleteKorisnikAktivacija = function (zahtjev, odgovor) {
+}
+exports.putKorisnikAktivacija = putKorisnikAktivacija;
+function deleteKorisnikAktivacija(zahtjev, odgovor) {
     odgovor.type("application/json");
     odgovor.status(501);
     let poruka = { greska: "metoda nije implementirana" };
     odgovor.send(JSON.stringify(poruka));
-};
-exports.getKorisnikPrijava = function (zahtjev, odgovor) {
+}
+exports.deleteKorisnikAktivacija = deleteKorisnikAktivacija;
+function getKorisnikPrijava(zahtjev, odgovor) {
     odgovor.type("application/json");
     odgovor.status(501);
     let poruka = { greska: "metoda nije implementirana" };
     odgovor.send(JSON.stringify(poruka));
-};
-exports.postKorisnikPrijava = function (zahtjev, odgovor) {
+}
+exports.getKorisnikPrijava = getKorisnikPrijava;
+function postKorisnikPrijava(zahtjev, odgovor) {
     odgovor.type("application/json");
     let kdao = new korisnikDAO_1.KorisnikDAO();
     let korime = "";
@@ -120,16 +134,19 @@ exports.postKorisnikPrijava = function (zahtjev, odgovor) {
             odgovor.send(JSON.stringify({ greska: "Krivi podaci!" }));
         }
     });
-};
-exports.putKorisnikPrijava = function (zahtjev, odgovor) {
+}
+exports.postKorisnikPrijava = postKorisnikPrijava;
+function putKorisnikPrijava(zahtjev, odgovor) {
     odgovor.type("application/json");
     odgovor.status(501);
     let poruka = { greska: "metoda nije implementirana" };
     odgovor.send(JSON.stringify(poruka));
-};
-exports.deleteKorisnikPrijava = function (zahtjev, odgovor) {
+}
+exports.putKorisnikPrijava = putKorisnikPrijava;
+function deleteKorisnikPrijava(zahtjev, odgovor) {
     odgovor.type("application/json");
     odgovor.status(501);
     let poruka = { greska: "metoda nije implementirana" };
     odgovor.send(JSON.stringify(poruka));
-};
+}
+exports.deleteKorisnikPrijava = deleteKorisnikPrijava;

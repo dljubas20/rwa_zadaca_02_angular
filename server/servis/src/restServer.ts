@@ -1,12 +1,11 @@
-const konst = require("../../konstante.js");
-const express = require(konst.dirModula + 'express');
 const Konfiguracija = require("../../konfiguracija.js");
 const ProvjeraKonfiguracije = require("../../provjeraKonfiguracije.js");
-const restKorisnik = require("./restKorisnik.js");
-const restFilm = require("./restFilm.js");
-const restZanr = require("./restZanr.js");
+import * as restKorisnik from "./restKorisnik";
+import * as restFilm from "./restFilm";
+import * as restZanr from "./restZanr";
 import { RestTMDB } from "./restTMDB";
 import type { Request, Response, NextFunction } from "express";
+import express from "express";
 
 const server = express();
 
