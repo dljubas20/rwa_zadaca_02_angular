@@ -1,1 +1,15 @@
-<p>pocetna works!</p>
+<div *ngFor="let film of filmovi">
+    <mat-card>
+        <mat-card-header>
+            {{ film.naziv }}
+        </mat-card-header>
+
+        <mat-card-content>
+            {{ film.sazetak }}
+        </mat-card-content>
+
+        <mat-card-footer>
+            {{ film.ocjena }}
+        </mat-card-footer>
+    </mat-card>
+</div>

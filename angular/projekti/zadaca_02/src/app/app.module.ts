@@ -13,6 +13,7 @@ import { ProfilComponent } from './komponente/profil/profil.component';
 import { FilmoviPregledComponent } from './komponente/filmovi-pregled/filmovi-pregled.component';
 import { PrijavaComponent } from './komponente/prijava/prijava.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
 
 const routes: Routes = [
   { path: "", component: PocetnaComponent },
@@ -22,7 +23,7 @@ const routes: Routes = [
   { path: "profil", component: ProfilComponent },
   { path: "filmovi_pregled", component: FilmoviPregledComponent },
   { path: "prijava", component: PrijavaComponent },
-  { path: "odjava",  redirectTo: "", pathMatch: "full"},
+  { path: "odjava", redirectTo: "", pathMatch: "full" },
   { path: "", redirectTo: "", pathMatch: "full" }
 ];
 
@@ -42,7 +43,8 @@ const routes: Routes = [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(routes),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
