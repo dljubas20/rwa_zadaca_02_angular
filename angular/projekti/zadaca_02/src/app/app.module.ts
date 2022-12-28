@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavigacijaComponent } from './navigacija/navigacija.component';
+import { PocetnaComponent } from './pocetna/pocetna.component';
 
 const routes:Routes = [
   /* {path: "pocetna", component:PopisFilmovaComponent},
@@ -16,7 +17,8 @@ const routes:Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    NavigacijaComponent
+    NavigacijaComponent,
+    PocetnaComponent
   ],
   imports: [
     BrowserModule,
