@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IKorisnik } from '../servisi/IKorisnik';
-import { INavStavka } from '../servisi/INavStavka';
+import { IKorisnik } from '../../servisi/IKorisnik';
+import { INavStavka } from '../../servisi/INavStavka';
 
 @Component({
   selector: 'app-navigacija',

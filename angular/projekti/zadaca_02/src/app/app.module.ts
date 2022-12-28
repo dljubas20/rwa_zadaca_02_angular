@@ -4,14 +4,14 @@ import { RouterModule, Routes } from '@angular/router'
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { NavigacijaComponent } from './navigacija/navigacija.component';
-import { PocetnaComponent } from './pocetna/pocetna.component';
-import { RegistracijaComponent } from './registracija/registracija.component';
-import { PretrazivanjeFilmovaComponent } from './pretrazivanje-filmova/pretrazivanje-filmova.component';
-import { DokumentacijaComponent } from './dokumentacija/dokumentacija.component';
-import { ProfilComponent } from './profil/profil.component';
-import { FilmoviPregledComponent } from './filmovi-pregled/filmovi-pregled.component';
-import { PrijavaComponent } from './prijava/prijava.component';
+import { NavigacijaComponent } from './komponente/navigacija/navigacija.component';
+import { PocetnaComponent } from './komponente/pocetna/pocetna.component';
+import { RegistracijaComponent } from './komponente/registracija/registracija.component';
+import { PretrazivanjeFilmovaComponent } from './komponente/pretrazivanje-filmova/pretrazivanje-filmova.component';
+import { DokumentacijaComponent } from './komponente/dokumentacija/dokumentacija.component';
+import { ProfilComponent } from './komponente/profil/profil.component';
+import { FilmoviPregledComponent } from './komponente/filmovi-pregled/filmovi-pregled.component';
+import { PrijavaComponent } from './komponente/prijava/prijava.component';
 
 const routes: Routes = [
   { path: "", component: PocetnaComponent },
