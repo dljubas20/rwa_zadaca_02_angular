@@ -1,8 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router'
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavigacijaComponent } from './navigacija/navigacija.component';
+
+const routes:Routes = [
+  /* {path: "pocetna", component:PopisFilmovaComponent},
+  {path: "detalji", component:DetaljiFilmaComponent},
+  {path: "detalji/:naziv", component:DetaljiFilmaComponent}, */
+  {path: "", redirectTo:"popis", pathMatch:"full"}
+];
 
 @NgModule({
   declarations: [
@@ -10,7 +19,9 @@ import { NavigacijaComponent } from './navigacija/navigacija.component';
     NavigacijaComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
