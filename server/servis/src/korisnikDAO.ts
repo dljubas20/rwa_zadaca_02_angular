@@ -1,5 +1,4 @@
 import { Baza } from "./baza";
-import type { IKorisnik } from './klase/IKorisnik';
 
 export class KorisnikDAO {
     private baza : Baza;
@@ -88,7 +87,7 @@ export class KorisnikDAO {
 
 	aktiviraj = async (korime : string, kod : {aktivacijskiKod : number}) => {
 		let dohvatiKod = `SELECT aktivacijskiKod FROM korisnik WHERE korime=?`;
-		let aktivacijskiKod : IKorisnik = await this.baza.izvrsiSelectUpit(dohvatiKod, [korime]) as IKorisnik;
+		let aktivacijskiKod : {aktivacijskiKod : number} = await this.baza.izvrsiSelectUpit(dohvatiKod, [korime]) as {aktivacijskiKod : number};
 
 		console.log(aktivacijskiKod);
 		
