@@ -12,6 +12,7 @@ import { DokumentacijaComponent } from './komponente/dokumentacija/dokumentacija
 import { ProfilComponent } from './komponente/profil/profil.component';
 import { FilmoviPregledComponent } from './komponente/filmovi-pregled/filmovi-pregled.component';
 import { PrijavaComponent } from './komponente/prijava/prijava.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   { path: "", component: PocetnaComponent },
@@ -40,7 +41,8 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
