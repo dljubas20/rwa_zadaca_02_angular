@@ -4,11 +4,11 @@ import * as restKorisnik from "./restKorisnik";
 import * as restFilm from "./restFilm";
 import * as restZanr from "./restZanr";
 import { RestTMDB } from "./restTMDB";
-import type { Request, Response, NextFunction } from "express";
+import type { Application, Request, Response, NextFunction } from "express";
 import express from "express";
 import cors from "cors";
 
-const server = express();
+const server : Application = express();
 
 let konf = new Konfiguracija();
 konf.ucitajKonfiguraciju().then(pokreniServer).catch((greska : any) => {
