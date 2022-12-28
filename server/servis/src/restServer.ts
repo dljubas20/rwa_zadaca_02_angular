@@ -6,6 +6,7 @@ import * as restZanr from "./restZanr";
 import { RestTMDB } from "./restTMDB";
 import type { Request, Response, NextFunction } from "express";
 import express from "express";
+import cors from "cors";
 
 const server = express();
 
@@ -22,6 +23,10 @@ konf.ucitajKonfiguraciju().then(pokreniServer).catch((greska : any) => {
 function pokreniServer() : void {
     server.use(express.urlencoded({ extended: true }));
     server.use(express.json());
+    server.use(cors({
+        origin: "http://localhost:4200",
+        optionsSuccessStatus: 200
+    }));
 
     const port = konf.dajKonf()['rest.port'];
 

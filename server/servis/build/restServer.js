@@ -33,6 +33,7 @@ const restFilm = __importStar(require("./restFilm"));
 const restZanr = __importStar(require("./restZanr"));
 const restTMDB_1 = require("./restTMDB");
 const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
 const server = (0, express_1.default)();
 let konf = new Konfiguracija();
 konf.ucitajKonfiguraciju().then(pokreniServer).catch((greska) => {
@@ -47,6 +48,10 @@ konf.ucitajKonfiguraciju().then(pokreniServer).catch((greska) => {
 function pokreniServer() {
     server.use(express_1.default.urlencoded({ extended: true }));
     server.use(express_1.default.json());
+    server.use((0, cors_1.default)({
+        origin: "http://localhost:4200",
+        optionsSuccessStatus: 200
+    }));
     const port = konf.dajKonf()['rest.port'];
     server.all("*", async (zahtjev, odgovor, dalje) => {
         let provjera = new ProvjeraKonfiguracije();
