@@ -26,16 +26,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.provjeriTOTP = exports.kreirajTajniKljuc = void 0;
 const base32_encoding_1 = __importDefault(require("base32-encoding"));
 const kodovi = __importStar(require("./kodovi"));
 const totp_generator_1 = __importDefault(require("totp-generator"));
-exports.kreirajTajniKljuc = function (korime) {
+function kreirajTajniKljuc(korime) {
     let tekst = korime + new Date() + kodovi.dajNasumceBroj(10000000, 90000000);
     let hash = kodovi.kreirajSHA256(tekst);
     let tajniKljuc = base32_encoding_1.default.stringify(hash, "ABCDEFGHIJKLMNOPRSTQRYWXZ234567");
     return tajniKljuc.toUpperCase();
-};
-exports.provjeriTOTP = function (uneseniKod, tajniKljuc) {
+}
+exports.kreirajTajniKljuc = kreirajTajniKljuc;
+function provjeriTOTP(uneseniKod, tajniKljuc) {
     const kod = (0, totp_generator_1.default)(tajniKljuc, {
         digits: 6,
         algorithm: "SHA-512",
@@ -45,4 +47,5 @@ exports.provjeriTOTP = function (uneseniKod, tajniKljuc) {
     if (uneseniKod == kod)
         return true;
     return false;
-};
+}
+exports.provjeriTOTP = provjeriTOTP;

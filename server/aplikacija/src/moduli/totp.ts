@@ -2,14 +2,14 @@ import base32 from "base32-encoding";
 import * as kodovi from "./kodovi";
 import totp from "totp-generator";
 
-exports.kreirajTajniKljuc = function(korime : string){
+export function kreirajTajniKljuc(korime : string){
 	let tekst = korime + new Date() + kodovi.dajNasumceBroj(10000000,90000000);
 	let hash = kodovi.kreirajSHA256(tekst) as unknown as Uint8Array;
 	let tajniKljuc = base32.stringify(hash, "ABCDEFGHIJKLMNOPRSTQRYWXZ234567");
 	return tajniKljuc.toUpperCase();
 }
 
-exports.provjeriTOTP = function(uneseniKod : number, tajniKljuc : string){
+export function provjeriTOTP(uneseniKod : number, tajniKljuc : string){
 	const kod = totp(tajniKljuc, {
 		digits: 6,
 		algorithm: "SHA-512",
