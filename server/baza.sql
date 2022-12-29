@@ -61,8 +61,26 @@ CREATE TABLE IF NOT EXISTS `zanrovi` (
   FOREIGN KEY (film_id) REFERENCES film(id)
 );
 
-INSERT INTO zanr(naziv, opis) VALUES("test1naziv", "test1opis");
+INSERT INTO zanr(naziv, opis) VALUES("action", "action");
+INSERT INTO zanr(naziv, opis) VALUES("drama", "drama");
+INSERT INTO zanr(naziv, opis) VALUES("horror", "horror");
+
+INSERT INTO film(tmdb_id, imdb_id, naziv, sazetak, trajanje, datumIzlaska, datumDodavanja, dobnoOgranicenje, putanjaPozadina, putanjaPoster, budzet, prihod, pocetnaStranica, izvorniJezik, popularnost, status, slogan, ocjena, brojOcjenjivaca, prijedlog, korisnik_id) VALUES(1, 1, "Movie1", "sazetak", 120, "2015-12-31 11:00:00", NULL, 0, NULL, NULL, 120000, 150000, NULL, "English", 75, "released", "nema slogan", 4.5, 500, 0, 1);
+INSERT INTO film(tmdb_id, imdb_id, naziv, sazetak, trajanje, datumIzlaska, datumDodavanja, dobnoOgranicenje, putanjaPozadina, putanjaPoster, budzet, prihod, pocetnaStranica, izvorniJezik, popularnost, status, slogan, ocjena, brojOcjenjivaca, prijedlog, korisnik_id) VALUES(1, 1, "Movie2", "sazetak", 120, "2015-12-31 11:00:00", NULL, 0, NULL, NULL, 120000, 150000, NULL, "English", 75, "released", "nema slogan", 4.5, 500, 0, 1);
+INSERT INTO film(tmdb_id, imdb_id, naziv, sazetak, trajanje, datumIzlaska, datumDodavanja, dobnoOgranicenje, putanjaPozadina, putanjaPoster, budzet, prihod, pocetnaStranica, izvorniJezik, popularnost, status, slogan, ocjena, brojOcjenjivaca, prijedlog, korisnik_id) VALUES(1, 1, "Movie3", "sazetak", 120, "2015-12-31 11:00:00", NULL, 0, NULL, NULL, 120000, 150000, NULL, "English", 75, "released", "nema slogan", 4.5, 500, 0, 1);
+INSERT INTO film(tmdb_id, imdb_id, naziv, sazetak, trajanje, datumIzlaska, datumDodavanja, dobnoOgranicenje, putanjaPozadina, putanjaPoster, budzet, prihod, pocetnaStranica, izvorniJezik, popularnost, status, slogan, ocjena, brojOcjenjivaca, prijedlog, korisnik_id) VALUES(1, 1, "Movie4", "sazetak", 120, "2015-12-31 11:00:00", NULL, 0, NULL, NULL, 120000, 150000, NULL, "English", 75, "released", "nema slogan", 4.5, 500, 0, 1);
+INSERT INTO film(tmdb_id, imdb_id, naziv, sazetak, trajanje, datumIzlaska, datumDodavanja, dobnoOgranicenje, putanjaPozadina, putanjaPoster, budzet, prihod, pocetnaStranica, izvorniJezik, popularnost, status, slogan, ocjena, brojOcjenjivaca, prijedlog, korisnik_id) VALUES(1, 1, "Movie5", "sazetak", 120, "2015-12-31 11:00:00", NULL, 0, NULL, NULL, 120000, 150000, NULL, "English", 75, "released", "nema slogan", 4.5, 500, 0, 1);
+INSERT INTO film(tmdb_id, imdb_id, naziv, sazetak, trajanje, datumIzlaska, datumDodavanja, dobnoOgranicenje, putanjaPozadina, putanjaPoster, budzet, prihod, pocetnaStranica, izvorniJezik, popularnost, status, slogan, ocjena, brojOcjenjivaca, prijedlog, korisnik_id) VALUES(1, 1, "Movie6", "sazetak", 120, "2015-12-31 11:00:00", NULL, 0, NULL, NULL, 120000, 150000, NULL, "English", 75, "released", "nema slogan", 4.5, 500, 0, 1);
+
+INSERT INTO zanrovi(zanr_id, film_id) VALUES(1, 1);
+INSERT INTO zanrovi(zanr_id, film_id) VALUES(1, 2);
+INSERT INTO zanrovi(zanr_id, film_id) VALUES(2, 3);
+INSERT INTO zanrovi(zanr_id, film_id) VALUES(2, 4);
+INSERT INTO zanrovi(zanr_id, film_id) VALUES(3, 5);
+INSERT INTO zanrovi(zanr_id, film_id) VALUES(3, 6);
 
 SELECT * FROM zanr;
 
 SELECT * FROM korisnik;
+
+SELECT * FROM film;
