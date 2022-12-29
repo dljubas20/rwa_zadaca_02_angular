@@ -1,4 +1,5 @@
 export interface IFilm {
+    id : number;
     tmdb_id : number,
     imdb_id : number;
     naziv : string;

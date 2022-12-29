@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FilmService } from '../../servisi/film.service';
 import { IFilm } from '../../servisi/IFilm';
+import { IZanr } from '../../servisi/IZanr';
 
 @Component({
   selector: 'app-pocetna',
@@ -8,7 +9,13 @@ import { IFilm } from '../../servisi/IFilm';
   styleUrls: ['./pocetna.component.scss']
 })
 export class PocetnaComponent implements OnInit{
-  filmovi : Array<IFilm> = new Array<IFilm>();
+  filmovi : Array<{
+    zanr: IZanr,
+    filmovi: Array<IFilm>
+  }> = new Array<{
+    zanr: IZanr,
+    filmovi: Array<IFilm>
+  }>();
   
   constructor(private filmServis : FilmService) {
     

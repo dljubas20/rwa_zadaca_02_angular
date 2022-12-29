@@ -1,56 +1,60 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { IFilm } from './IFilm';
+import { IZanr } from './IZanr';
+import { ZanrService } from './zanr.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilmService {
   restServis?: string = "http://localhost:" + environment.restPort + "/api";
-  filmovi = new Array<IFilm>();
+  zanr_filmovi = new Array<{
+    zanr: IZanr,
+    filmovi: Array<IFilm>
+  }>();
 
-  /* constructor() {
-    let filmovi = localStorage.getItem("filmovi");
-    if (filmovi == null) {
-      this.osvjeziFilmove(1, "");
-    } else {
-      this.filmoviTMDB = JSON.parse(filmovi) as FilmoviTmdbI;
-    }
+  constructor(private zanrServis : ZanrService) {
+
   }
 
-  async osvjeziFilmove(stranica: number, kljucnaRijec: string) {
-    let parametri = "?stranica=" + stranica + "&kljucnaRijec=" + kljucnaRijec;
-    let o = (await fetch(this.restServis + "tmdb/filmovi" + parametri)) as Response;
-    if (o.status == 200) {
-      let r = JSON.parse(await o.text()) as FilmoviTmdbI;
-      console.log(r);
-      this.filmoviTMDB = r;
-      localStorage.setItem("filmovi",JSON.stringify(r));
-    }
-  } */
+  async dajFilmove(): Promise<Array<{
+    zanr: IZanr,
+    filmovi: Array<IFilm>
+  }>> {
+    if (this.zanr_filmovi.length == 0) {  
+        this.zanr_filmovi = new Array<{
+          zanr: IZanr,
+          filmovi: Array<IFilm>
+        }>();
 
-  async dajFilmove(): Promise<Array<IFilm>> {
-    if (this.filmovi.length == 0) {  
-        this.filmovi = new Array<IFilm>();
         let zaglavlje : Headers = new Headers();
         zaglavlje.set("Content-Type", "application/json");
         let token = await fetch("http://localhost:12112/generirajToken");
         zaglavlje.set("Authorization", await token.text());
-        console.log(zaglavlje.get("Authorization"));
-        let o : Response = (await fetch(this.restServis + "/filmovi?stranica=1&brojFilmova=10", {
-          method: 'GET',
-          headers: zaglavlje
-        })) as Response;
         
-        if (o.status == 200) {
-            this.filmovi = JSON.parse(await o.text()) as Array<IFilm>;
-            console.log(this.filmovi);
+        let zanrovi : Array<IZanr> = await this.zanrServis.dajZanrove();
+
+        for (let zanr of zanrovi) {
+          let o : Response = (await fetch(this.restServis + "/filmovi?stranica=1&brojFilmova=10&zanr=" + zanr.id, {
+            method: 'GET',
+            headers: zaglavlje
+          })) as Response;
+          if (o.status == 200) {
+              this.zanr_filmovi.push({
+                zanr: zanr,
+                filmovi: JSON.parse(await o.text()) as Array<IFilm>
+              });
+              console.log(this.zanr_filmovi);
+          }
         }
+
         
-        return this.filmovi;
+        
+        return this.zanr_filmovi;
       
     } else {
-      return this.filmovi;
+      return this.zanr_filmovi;
     }
   }
 
