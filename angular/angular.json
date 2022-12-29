@@ -52,7 +52,7 @@
               "projekti/zadaca_02/src/assets"
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/purple-green.css",
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "projekti/zadaca_02/src/styles.scss"
             ],
             "scripts": []
