@@ -1,5 +1,5 @@
 const Konfiguracija = require("../../konfiguracija.js");
-const ProvjeraKonfiguracije = require("../../provjeraKonfiguracije.js");
+const konst = require("../../konstante.js");
 import * as restKorisnik from "./restKorisnik";
 import * as restFilm from "./restFilm";
 import * as restZanr from "./restZanr";
@@ -7,6 +7,7 @@ import { RestTMDB } from "./restTMDB";
 import type { Application, Request, Response, NextFunction } from "express";
 import express from "express";
 import cors from "cors";
+import jwt from "jsonwebtoken";
 
 const server : Application = express();
 
@@ -31,22 +32,19 @@ function pokreniServer() : void {
     const port = konf.dajKonf()['rest.port'];
 
     server.all("*", async (zahtjev : Request, odgovor : Response, dalje : NextFunction) => {
-            let provjera = new ProvjeraKonfiguracije();
-        
-            await provjera.provjeriKorime(zahtjev.query['korime']);
-            await provjera.provjeriLozinku(zahtjev.query['lozinka']);
-
-            if (provjera.dajGreskeKorime() != "" || provjera.dajGreskeLozinka() != "" || zahtjev.query['korime'] == null || zahtjev.query['lozinka'] == null) {
-                odgovor.status(400);
-                odgovor.send({ greska: "nevaljani zahtjev"});
-            }
-            else if (zahtjev.query['korime'] != konf.dajKonf()['rest.korime'] || zahtjev.query['lozinka'] != konf.dajKonf()['rest.lozinka']) {
-                odgovor.status(401);
-                console.log(provjera.dajGreskeLozinka());
-                odgovor.send({ greska: "neautoriziran pristup"});
+            if (zahtjev.headers.authorization !== undefined) {
+                try {
+                    jwt.verify(JSON.parse(zahtjev.headers.authorization).token, konst.tajniKljucJWT);
+                    
+                    dalje();
+                } catch (e) {
+                    odgovor.status(401);
+                    odgovor.send({ greska: "neautoriziran pristup"});
+                }
             }
             else {
-                dalje();
+                odgovor.status(401);
+                odgovor.send({ greska: "neautoriziran pristup"});
             }
     });
 

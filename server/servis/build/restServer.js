@@ -27,13 +27,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Konfiguracija = require("../../konfiguracija.js");
-const ProvjeraKonfiguracije = require("../../provjeraKonfiguracije.js");
+const konst = require("../../konstante.js");
 const restKorisnik = __importStar(require("./restKorisnik"));
 const restFilm = __importStar(require("./restFilm"));
 const restZanr = __importStar(require("./restZanr"));
 const restTMDB_1 = require("./restTMDB");
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const server = (0, express_1.default)();
 let konf = new Konfiguracija();
 konf.ucitajKonfiguraciju().then(pokreniServer).catch((greska) => {
@@ -54,20 +55,19 @@ function pokreniServer() {
     }));
     const port = konf.dajKonf()['rest.port'];
     server.all("*", async (zahtjev, odgovor, dalje) => {
-        let provjera = new ProvjeraKonfiguracije();
-        await provjera.provjeriKorime(zahtjev.query['korime']);
-        await provjera.provjeriLozinku(zahtjev.query['lozinka']);
-        if (provjera.dajGreskeKorime() != "" || provjera.dajGreskeLozinka() != "" || zahtjev.query['korime'] == null || zahtjev.query['lozinka'] == null) {
-            odgovor.status(400);
-            odgovor.send({ greska: "nevaljani zahtjev" });
-        }
-        else if (zahtjev.query['korime'] != konf.dajKonf()['rest.korime'] || zahtjev.query['lozinka'] != konf.dajKonf()['rest.lozinka']) {
-            odgovor.status(401);
-            console.log(provjera.dajGreskeLozinka());
-            odgovor.send({ greska: "neautoriziran pristup" });
+        if (zahtjev.headers.authorization !== undefined) {
+            try {
+                jsonwebtoken_1.default.verify(JSON.parse(zahtjev.headers.authorization).token, konst.tajniKljucJWT);
+                dalje();
+            }
+            catch (e) {
+                odgovor.status(401);
+                odgovor.send({ greska: "neautoriziran pristup" });
+            }
         }
         else {
-            dalje();
+            odgovor.status(401);
+            odgovor.send({ greska: "neautoriziran pristup" });
         }
     });
     pripremiPutanjeKorisnici();

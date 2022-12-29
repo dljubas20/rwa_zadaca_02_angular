@@ -6,6 +6,8 @@ const Konfiguracija = require("../konfiguracija");
 const htmlUpravitelj = require("./htmlUpravitelj.js");
 const fetchUpravitelj = require("./fetchUpravitelj.js");
 const server = express();
+const cors = require(konst.dirModula + 'cors');
+const jwt = require(konst.dirModula + 'jsonwebtoken');
 
 let konf = new Konfiguracija();
 konf.ucitajKonfiguraciju().then(pokreniServer).catch((greska) => {
@@ -27,10 +29,23 @@ function pokreniServer() {
         cookie: {  maxAge: 1000 * 60 * 60 * 3 },
         resave: false
     }));
+    server.use(cors({
+        origin: "http://localhost:4200",
+        optionsSuccessStatus: 200
+    }));
 
     const port = konf.dajKonf()['app.port'];
+    let zaglavlje = new Headers();
 
-    fetch("http://localhost:" + konf.dajKonf()['rest.port'] + "?korime=" + konf.dajKonf()['rest.korime'] + "&lozinka=" + konf.dajKonf()['rest.lozinka']).then((odgovor) => {
+    zaglavlje.set("Content-Type", "application/json");
+    zaglavlje.set("Authorization", JSON.stringify({
+        token: jwt.sign({ korime: konf.dajKonf()['rest.korime'] }, konst.tajniKljucJWT, { expiresIn: "15s" })
+    }));
+    
+    fetch("http://localhost:" + konf.dajKonf()['rest.port'], {
+        method: 'GET',
+        headers: zaglavlje
+    }).then((odgovor) => {
         if (odgovor.status == 400 || odgovor.status == 401) {
             console.log("Problem kod spajanja na udaljeni servis. Server se gasi.");
             process.exit();
@@ -84,6 +99,7 @@ function pripremiPutanjeAutentifikacija() {
     server.get("/prijava", htmlUpravitelj.prijava);
     server.post("/prijava", htmlUpravitelj.prijava);
     server.get("/getJWT", fetchUpravitelj.getJWT);
+    server.get("/generirajToken", fetchUpravitelj.generirajToken);
     server.get("/aktivacijaRacuna", fetchUpravitelj.aktvacijaRacuna);
 }
 

@@ -32,8 +32,15 @@ export class FilmService {
   async dajFilmove(): Promise<Array<IFilm>> {
     if (this.filmovi.length == 0) {  
         this.filmovi = new Array<IFilm>();
-
-        let o : Response = (await fetch(this.restServis + "/filmovi")) as Response;
+        let zaglavlje : Headers = new Headers();
+        zaglavlje.set("Content-Type", "application/json");
+        let token = await fetch("http://localhost:12112/generirajToken");
+        zaglavlje.set("Authorization", await token.text());
+        console.log(zaglavlje.get("Authorization"));
+        let o : Response = (await fetch(this.restServis + "/filmovi?stranica=1&brojFilmova=10", {
+          method: 'GET',
+          headers: zaglavlje
+        })) as Response;
         
         if (o.status == 200) {
             this.filmovi = JSON.parse(await o.text()) as Array<IFilm>;

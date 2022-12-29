@@ -1,8 +1,10 @@
 const FilmoviPretrazivanje = require("./filmoviPretrazivanje.js");
-const jwt = require("./moduli/jwt.js")
-const Autentifikacija = require("./autentifikacija.js")
+const jwt = require("./moduli/jwt.js");
+const Autentifikacija = require("./autentifikacija.js");
+const Konfiguracija = require("../konfiguracija");
 let auth = new Autentifikacija();
 let fp = new FilmoviPretrazivanje();
+let konf = new Konfiguracija();
 
 exports.aktvacijaRacuna = async function (zahtjev, odgovor) {
     console.log(zahtjev.query);
@@ -39,6 +41,16 @@ exports.getJWT = async function (zahtjev, odgovor) {
     } 
     odgovor.status(401);
     odgovor.send({ greska: "nemam token!" });
+}
+
+exports.generirajToken = async function (zahtjev, odgovor) {
+    odgovor.type('json')
+    konf.ucitajKonfiguraciju().then(() => {
+        let k = { korime: konf.dajKonf()['rest.korime'] };
+        let noviToken = jwt.kreirajToken(k)
+        odgovor.send({ token: noviToken });
+    });
+    return;
 }
 
 exports.filmoviPretrazivanje = async function (zahtjev, odgovor) {
