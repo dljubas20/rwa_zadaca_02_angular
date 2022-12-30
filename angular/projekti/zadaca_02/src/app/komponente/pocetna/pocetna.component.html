@@ -1,15 +1,29 @@
-<div *ngFor="let film of filmovi">
-    <mat-card>
+<div id="zanrovi">
+    <mat-card *ngFor="let zanr of filmovi">
         <mat-card-header>
-            {{ film.naziv }}
+            <mat-card-title>
+                {{ zanr.zanr.naziv }}
+            </mat-card-title>
         </mat-card-header>
-
+        
         <mat-card-content>
-            {{ film.sazetak }}
+            <mat-card *ngFor="let film of zanr.filmovi">
+                <mat-card-header>
+                    <img mat-card-xl-image src="/assets/slike/Dario.jpg">
+                    <mat-card-title>
+                        {{ film.naziv }}
+                    </mat-card-title>
+                </mat-card-header>
+            
+                <mat-card-content>
+                    
+                </mat-card-content>
+            
+                <mat-card-footer>
+                    {{ film.sazetak }}
+                </mat-card-footer>
+            </mat-card>
+            <div></div>
         </mat-card-content>
-
-        <mat-card-footer>
-            {{ film.ocjena }}
-        </mat-card-footer>
     </mat-card>
 </div>
