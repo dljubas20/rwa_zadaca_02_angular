@@ -17,6 +17,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field'; 
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { StranicaNijePronadenaComponent } from './komponente/stranica-nije-pronadena/stranica-nije-pronadena.component';
 
 const routes: Routes = [
   { path: "", component: PocetnaComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: "filmovi_pregled", component: FilmoviPregledComponent },
   { path: "prijava", component: PrijavaComponent },
   { path: "odjava", redirectTo: "", pathMatch: "full" },
+  { path: "**", component: StranicaNijePronadenaComponent },
   { path: "", redirectTo: "", pathMatch: "full" }
 ];
 
@@ -40,7 +42,8 @@ const routes: Routes = [
     DokumentacijaComponent,
     ProfilComponent,
     FilmoviPregledComponent,
-    PrijavaComponent
+    PrijavaComponent,
+    StranicaNijePronadenaComponent
   ],
   imports: [
     BrowserModule,
