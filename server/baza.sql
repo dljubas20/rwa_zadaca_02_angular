@@ -61,6 +61,9 @@ CREATE TABLE IF NOT EXISTS `zanrovi` (
   FOREIGN KEY (film_id) REFERENCES film(id)
 );
 
+INSERT INTO tipKorisnika(naziv, opis) VALUES("administrator", "admin moze sve");
+INSERT INTO tipKorisnika(naziv, opis) VALUES("obican", "obican korisnik moze samo nesto");
+
 INSERT INTO zanr(naziv, opis) VALUES("action", "action");
 INSERT INTO zanr(naziv, opis) VALUES("drama", "drama");
 INSERT INTO zanr(naziv, opis) VALUES("horror", "horror");
@@ -88,3 +91,5 @@ SELECT * FROM zanr;
 SELECT * FROM korisnik;
 
 SELECT * FROM film;
+
+SELECT * FROM tipKorisnika;
