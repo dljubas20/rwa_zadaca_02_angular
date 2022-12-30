@@ -55,24 +55,19 @@ function pokreniServer() {
         process.exit();
     });
     
-    // pripremiPutanjePocetna();
+    pripremiPutanjePocetna();
     pripremiPutanjeAutentifikacija();
-    // pripremiPutanjePretrazivanjeFilmova();
-    // pripremiPutanjeKorisnik();
+    pripremiPutanjePretrazivanjeFilmova();
+    pripremiPutanjeKorisnik();
 
     server.use(express.static("angular/"));
     server.get("*", (zahtjev, odgovor) => {
         odgovor.sendFile(__dirname + '/angular/');
     });
 
-    server.get("/dokumentacija", htmlUpravitelj.dokumentacija);
     server.get("/filmoviPregled", htmlUpravitelj.filmoviPregled);
     server.get("/dajSveFilmove", fetchUpravitelj.dajSveFilmove);
 
-    server.use("/dokumentacija", express.static(__dirname + "/../dokumentacija"));
-    server.use("/materijali", express.static(__dirname + "/materijali"));
-
-    server.use("/js", express.static(__dirname + "/js"));
     server.use((zahtjev, odgovor) => {
         odgovor.status(404);
         var poruka = { greska: "Stranica nije pronađena!" };
@@ -85,29 +80,28 @@ function pokreniServer() {
 }
 
 function pripremiPutanjePocetna() {
-    server.get("/", htmlUpravitelj.pocetna);
-    server.get('/dajSveZanrove', fetchUpravitelj.dajSveZanrove);
-    server.get('/dajDvaFilma', fetchUpravitelj.dajDvaFilma);
+    server.get('/api/dajSveZanrove', fetchUpravitelj.dajSveZanrove);
+    server.get('/api/dajDvaFilma', fetchUpravitelj.dajDvaFilma);
 }
 
 function pripremiPutanjePretrazivanjeFilmova() {
-    server.get('/filmoviPretrazivanje', htmlUpravitelj.filmoviPretrazivanje);
-    server.post('/filmoviPretrazivanje', fetchUpravitelj.filmoviPretrazivanje);
-    server.post('/dodajFilm', fetchUpravitelj.dodajFilm);
+    server.get('/api/filmoviPretrazivanje', htmlUpravitelj.filmoviPretrazivanje);
+    server.post('/api/filmoviPretrazivanje', fetchUpravitelj.filmoviPretrazivanje);
+    server.post('/api/dodajFilm', fetchUpravitelj.dodajFilm);
 }
 
 function pripremiPutanjeAutentifikacija() {
-    // server.get("/registracija", htmlUpravitelj.registracija);
-    // server.post("/registracija", htmlUpravitelj.registracija);
-    // server.get("/odjava", htmlUpravitelj.odjava);
-    // server.get("/prijava", htmlUpravitelj.prijava);
-    // server.post("/prijava", htmlUpravitelj.prijava);
-    server.get("/getJWT", fetchUpravitelj.getJWT);
-    server.get("/generirajToken", fetchUpravitelj.generirajToken);
-    // server.get("/aktivacijaRacuna", fetchUpravitelj.aktvacijaRacuna);
+    server.get("/api/registracija", htmlUpravitelj.registracija);
+    server.post("/api/registracija", htmlUpravitelj.registracija);
+    server.get("/api/odjava", htmlUpravitelj.odjava);
+    server.get("/api/prijava", htmlUpravitelj.prijava);
+    server.post("/api/prijava", htmlUpravitelj.prijava);
+    server.get("/api/getJWT", fetchUpravitelj.getJWT);
+    server.get("/api/generirajToken", fetchUpravitelj.generirajToken);
+    server.get("/api/aktivacijaRacuna", fetchUpravitelj.aktvacijaRacuna);
 }
 
 function pripremiPutanjeKorisnik() {
-    server.get("/profil", htmlUpravitelj.profil);
-    server.post("/profil", htmlUpravitelj.profil);
+    server.get("/api/profil", htmlUpravitelj.profil);
+    server.post("/api/profil", htmlUpravitelj.profil);
 }

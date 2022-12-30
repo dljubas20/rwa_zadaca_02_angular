@@ -30,7 +30,8 @@ export class FilmService {
 
         let zaglavlje : Headers = new Headers();
         zaglavlje.set("Content-Type", "application/json");
-        let token = await fetch("http://localhost:12112/generirajToken");
+        let token = await fetch("http://localhost:12112/api/generirajToken");
+
         zaglavlje.set("Authorization", await token.text());
         
         let zanrovi : Array<IZanr> = await this.zanrServis.dajZanrove();

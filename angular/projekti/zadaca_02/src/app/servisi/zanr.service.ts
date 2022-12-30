@@ -14,9 +14,9 @@ export class ZanrService {
         this.zanrovi = new Array<IZanr>();
         let zaglavlje : Headers = new Headers();
         zaglavlje.set("Content-Type", "application/json");
-        let token = await fetch("http://localhost:12112/generirajToken");
+        let token = await fetch("http://localhost:12112/api/generirajToken");
         zaglavlje.set("Authorization", await token.text());
-        
+
         let o : Response = (await fetch(this.restServis + "/zanr", {
           method: 'GET',
           headers: zaglavlje
