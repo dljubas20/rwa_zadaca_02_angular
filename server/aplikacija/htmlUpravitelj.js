@@ -19,7 +19,6 @@ exports.dokumentacija = async function (zahtjev, odgovor) {
 
 exports.registracija = async function (zahtjev, odgovor) {
     let greska = "";
-    console.log(zahtjev.session);
     if (zahtjev.method == "POST") {
         let uspjeh = await auth.dodajKorisnika(zahtjev.body);
         if (uspjeh) {
@@ -27,12 +26,9 @@ exports.registracija = async function (zahtjev, odgovor) {
             return;
         } else {
             greska = "Dodavanje nije uspjelo provjerite podatke!";
+            odgovor.json({greska: greska});
         }
     }
-
-    let stranica = await ucitajStranicu("registracija", greska);
-    stranica = await prijavaHTML(stranica, zahtjev.session.korisnik);
-    odgovor.send(stranica);
 }
 
 exports.odjava = async function (zahtjev, odgovor) {

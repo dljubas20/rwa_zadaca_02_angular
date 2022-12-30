@@ -85,7 +85,6 @@ function pripremiPutanjePretrazivanjeFilmova() {
 }
 
 function pripremiPutanjeAutentifikacija() {
-    server.get("/api/registracija", htmlUpravitelj.registracija);
     server.post("/api/registracija", htmlUpravitelj.registracija);
     server.get("/api/odjava", htmlUpravitelj.odjava);
     server.get("/api/prijava", htmlUpravitelj.prijava);

@@ -18,7 +18,8 @@ export class Baza {
 			});
 		}).then(() => {
 			vratiMe = true;
-		}).catch(() => {
+		}).catch((e) => {
+			console.log(e);
 			vratiMe = false;
 		});
 

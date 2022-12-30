@@ -1,4 +1,3 @@
-const konst = require("../konstante.js");
 const mail = require("./moduli/mail.js")
 const kodovi = require("./moduli/kodovi.js")
 const totp = require("./moduli/totp.js")
@@ -7,9 +6,13 @@ const Konfiguracija = require("../konfiguracija.js");
 class Autentifikacija {
     constructor() {
         this.konf = new Konfiguracija();
-        this.konf.ucitajKonfiguraciju();
+        this.portRest = "";
+        this.portApp = "";
         this.sol = "jabuka";
-        this.portRest = this.konf.dajKonf()['rest.port'];
+        this.konf.ucitajKonfiguraciju().then(() => {
+            this.portRest = this.konf.dajKonf()['rest.port'];
+            this.portApp = this.konf.dajKonf()['app.port'];
+        });
     }
 
     async dodajKorisnika(korisnik) {
@@ -27,7 +30,10 @@ class Autentifikacija {
         tijelo["TOTPkljuc"] = tajniTOTPkljuc;
 
         let zaglavlje = new Headers();
+        
         zaglavlje.set("Content-Type", "application/json");
+        let token = await fetch("http://localhost:" + this.portApp + "/api/generirajToken");
+        zaglavlje.set("Authorization", await token.text());
 
         let parametri = {
             method: 'POST',
@@ -35,15 +41,15 @@ class Autentifikacija {
             headers: zaglavlje
         }
         
-        let odgovor = await fetch("http://localhost:" + this.portRest + "/api/korisnici?korime=" + this.konf.dajKonf()['rest.korime'] + "&lozinka=" + this.konf.dajKonf()['rest.lozinka'], parametri);
+        let odgovor = await fetch("http://localhost:" + this.portRest + "/api/korisnici", parametri);
         
         if (odgovor.status == 200) {
             console.log("Korisnik ubačen na servisu");
-            let mailPoruka = "aktivacijski kod:" + aktivacijskiKod
-                + " http://localhost:12112/aktivacijaRacuna?korime=" + korisnik.korime + "&kod=" + aktivacijskiKod
+            /* let mailPoruka = "aktivacijski kod:" + aktivacijskiKod
+                + " http://localhost:" + this.portApp + "/aktivacijaRacuna?korime=" + korisnik.korime + "&kod=" + aktivacijskiKod
             mailPoruka += " TOTP Kljuc: " + tajniTOTPkljuc;
             let poruka = await mail.posaljiMail("dljubas20@foi.hr", korisnik.email,
-                "Aktivacijski kod", mailPoruka);
+                "Aktivacijski kod", mailPoruka); */
             return true;
         } else {
             console.log(odgovor.status);

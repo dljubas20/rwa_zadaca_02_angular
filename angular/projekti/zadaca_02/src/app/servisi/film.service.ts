@@ -9,6 +9,7 @@ import { ZanrService } from './zanr.service';
 })
 export class FilmService {
   restServis?: string = "http://localhost:" + environment.restPort + "/api";
+  appServis?: string = "http://localhost:" + environment.appPort + "/api";
   zanr_filmovi = new Array<{
     zanr: IZanr,
     filmovi: Array<IFilm>
@@ -30,7 +31,7 @@ export class FilmService {
 
         let zaglavlje : Headers = new Headers();
         zaglavlje.set("Content-Type", "application/json");
-        let token = await fetch("http://localhost:12112/api/generirajToken");
+        let token = await fetch( this.appServis + "/generirajToken");
 
         zaglavlje.set("Authorization", await token.text());
         
