@@ -45,7 +45,6 @@ export class FilmService {
                 zanr: zanr,
                 filmovi: JSON.parse(await o.text()) as Array<IFilm>
               });
-              console.log(this.zanr_filmovi);
           }
         }
 

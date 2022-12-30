@@ -16,7 +16,7 @@ export class ZanrService {
         zaglavlje.set("Content-Type", "application/json");
         let token = await fetch("http://localhost:12112/generirajToken");
         zaglavlje.set("Authorization", await token.text());
-        console.log(zaglavlje.get("Authorization"));
+        
         let o : Response = (await fetch(this.restServis + "/zanr", {
           method: 'GET',
           headers: zaglavlje
