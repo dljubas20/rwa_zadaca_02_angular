@@ -47,13 +47,14 @@ konf.ucitajKonfiguraciju().then(pokreniServer).catch((greska) => {
     process.exit();
 });
 function pokreniServer() {
+    const restPort = konf.dajKonf()['rest.port'];
+    const appPort = konf.dajKonf()['app.port'];
     server.use(express_1.default.urlencoded({ extended: true }));
     server.use(express_1.default.json());
     server.use((0, cors_1.default)({
-        origin: "http://localhost:4200",
+        origin: ["http://localhost:4200", "http://localhost:" + appPort],
         optionsSuccessStatus: 200
     }));
-    const port = konf.dajKonf()['rest.port'];
     server.all("*", async (zahtjev, odgovor, dalje) => {
         if (zahtjev.headers.authorization !== undefined) {
             try {
@@ -81,8 +82,8 @@ function pokreniServer() {
         };
         odgovor.json(poruka);
     });
-    server.listen(port, () => {
-        console.log(`Server pokrenut na portu: ${port}`);
+    server.listen(restPort, () => {
+        console.log(`Server pokrenut na portu: ${restPort}`);
     });
 }
 function pripremiPutanjeTMDB() {

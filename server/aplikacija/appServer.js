@@ -54,13 +54,17 @@ function pokreniServer() {
         console.log("Udaljeni servis nedostupan. Server se gasi.");
         process.exit();
     });
-
-    server.use("/", express.static("angular/"));
-
-    pripremiPutanjePocetna();
+    
+    // pripremiPutanjePocetna();
     pripremiPutanjeAutentifikacija();
-    pripremiPutanjePretrazivanjeFilmova();
-    pripremiPutanjeKorisnik();
+    // pripremiPutanjePretrazivanjeFilmova();
+    // pripremiPutanjeKorisnik();
+
+    server.use(express.static("angular/"));
+    server.get("*", (zahtjev, odgovor) => {
+        odgovor.sendFile(__dirname + '/angular/');
+    });
+
     server.get("/dokumentacija", htmlUpravitelj.dokumentacija);
     server.get("/filmoviPregled", htmlUpravitelj.filmoviPregled);
     server.get("/dajSveFilmove", fetchUpravitelj.dajSveFilmove);
@@ -93,14 +97,14 @@ function pripremiPutanjePretrazivanjeFilmova() {
 }
 
 function pripremiPutanjeAutentifikacija() {
-    server.get("/registracija", htmlUpravitelj.registracija);
-    server.post("/registracija", htmlUpravitelj.registracija);
-    server.get("/odjava", htmlUpravitelj.odjava);
-    server.get("/prijava", htmlUpravitelj.prijava);
-    server.post("/prijava", htmlUpravitelj.prijava);
+    // server.get("/registracija", htmlUpravitelj.registracija);
+    // server.post("/registracija", htmlUpravitelj.registracija);
+    // server.get("/odjava", htmlUpravitelj.odjava);
+    // server.get("/prijava", htmlUpravitelj.prijava);
+    // server.post("/prijava", htmlUpravitelj.prijava);
     server.get("/getJWT", fetchUpravitelj.getJWT);
     server.get("/generirajToken", fetchUpravitelj.generirajToken);
-    server.get("/aktivacijaRacuna", fetchUpravitelj.aktvacijaRacuna);
+    // server.get("/aktivacijaRacuna", fetchUpravitelj.aktvacijaRacuna);
 }
 
 function pripremiPutanjeKorisnik() {

@@ -22,14 +22,15 @@ konf.ucitajKonfiguraciju().then(pokreniServer).catch((greska : any) => {
 });
 
 function pokreniServer() : void {
+    const restPort = konf.dajKonf()['rest.port'];
+    const appPort = konf.dajKonf()['app.port'];
+
     server.use(express.urlencoded({ extended: true }));
     server.use(express.json());
     server.use(cors({
-        origin: "http://localhost:4200",
+        origin: ["http://localhost:4200", "http://localhost:" + appPort],
         optionsSuccessStatus: 200
     }));
-
-    const port = konf.dajKonf()['rest.port'];
 
     server.all("*", async (zahtjev : Request, odgovor : Response, dalje : NextFunction) => {
             if (zahtjev.headers.authorization !== undefined) {
@@ -61,8 +62,8 @@ function pokreniServer() : void {
         odgovor.json(poruka);
     });
 
-    server.listen(port, () => {
-        console.log(`Server pokrenut na portu: ${port}`);
+    server.listen(restPort, () => {
+        console.log(`Server pokrenut na portu: ${restPort}`);
     });
 }
 
