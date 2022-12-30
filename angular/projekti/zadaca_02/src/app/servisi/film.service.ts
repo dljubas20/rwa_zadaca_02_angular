@@ -41,11 +41,17 @@ export class FilmService {
             method: 'GET',
             headers: zaglavlje
           })) as Response;
+
           if (o.status == 200) {
-              this.zanr_filmovi.push({
-                zanr: zanr,
-                filmovi: JSON.parse(await o.text()) as Array<IFilm>
-              });
+            let rezultat = JSON.parse(await o.text()) as Array<IFilm>;
+
+            this.zanr_filmovi.push({
+              zanr: zanr,
+              filmovi: [
+                rezultat[this.dajNasumceBroj(0, rezultat.length)],
+                rezultat[this.dajNasumceBroj(0, rezultat.length)]
+              ]
+            });
           }
         }
 
@@ -56,6 +62,12 @@ export class FilmService {
     } else {
       return this.zanr_filmovi;
     }
+  }
+
+  dajNasumceBroj(min : number, max : number) : number {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); 
   }
 
   /* async dajFilm(naziv: string): IFilm | null {

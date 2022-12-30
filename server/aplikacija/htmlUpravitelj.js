@@ -99,7 +99,7 @@ exports.profil = async function (zahtjev, odgovor) {
     if (zahtjev.method == "POST") {
         if (!jwt.provjeriToken(zahtjev)) {
             odgovor.status(401);
-            odgovor.json({ greska: "neaoutorizirani pristup" });
+            odgovor.json({ greska: "neautorizirani pristup" });
         } else {
             console.log("Dobiveni zahtjev body za azuriranje profila je: ");
             console.log(zahtjev.body);

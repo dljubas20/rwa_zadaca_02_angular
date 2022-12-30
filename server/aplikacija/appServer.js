@@ -55,7 +55,6 @@ function pokreniServer() {
         process.exit();
     });
     
-    pripremiPutanjePocetna();
     pripremiPutanjeAutentifikacija();
     pripremiPutanjePretrazivanjeFilmova();
     pripremiPutanjeKorisnik();
@@ -77,11 +76,6 @@ function pokreniServer() {
     server.listen(port, () => {
         console.log(`Server pokrenut na portu: ${port}`);
     });
-}
-
-function pripremiPutanjePocetna() {
-    server.get('/api/dajSveZanrove', fetchUpravitelj.dajSveZanrove);
-    server.get('/api/dajDvaFilma', fetchUpravitelj.dajDvaFilma);
 }
 
 function pripremiPutanjePretrazivanjeFilmova() {

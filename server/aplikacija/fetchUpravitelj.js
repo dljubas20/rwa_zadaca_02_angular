@@ -21,12 +21,6 @@ exports.aktvacijaRacuna = async function (zahtjev, odgovor) {
     }
 }
 
-exports.dajSveZanrove = async function (zahtjev, odgovor) {
-    odgovor.json(await fp.dohvatiSveZanrove());
-}
-exports.dajDvaFilma = async function (zahtjev, odgovor) {
-    odgovor.json(await fp.dohvatiNasumceFilm(zahtjev.query.zanr))
-}
 exports.dajSveFilmove = async function (zahtjev, odgovor) {
     odgovor.json(await fp.dohvatiSveFilmove());
 }
@@ -56,7 +50,7 @@ exports.generirajToken = async function (zahtjev, odgovor) {
 exports.filmoviPretrazivanje = async function (zahtjev, odgovor) {
         if (!jwt.provjeriToken(zahtjev)) {
             odgovor.status(401);
-            odgovor.json({ greska: "neaoutorizirani pristup" });
+            odgovor.json({ greska: "neautorizirani pristup" });
         } else {
             let str = zahtjev.query.str;
             let filter = zahtjev.query.filter;
@@ -68,7 +62,7 @@ exports.filmoviPretrazivanje = async function (zahtjev, odgovor) {
 exports.dodajFilm = async function (zahtjev, odgovor) {
     if (!jwt.provjeriToken(zahtjev)) {
         odgovor.status(401);
-        odgovor.json({ greska: "neaoutorizirani pristup" });
+        odgovor.json({ greska: "neautorizirani pristup" });
      } else {
         //TODO obradi zahtjev
 
