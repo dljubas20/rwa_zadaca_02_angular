@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { IKorisnik } from './interfaces/IKorisnik';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'zadaca_02';
+
+  korisnik : IKorisnik = {
+    ime : "",
+    prezime : "",
+    admin : false,
+    prijavljen : false
+  };
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IKorisnik } from '../../interfaces/IKorisnik';
 import { INavStavka } from '../../interfaces/INavStavka';
 
@@ -18,15 +18,14 @@ export class NavigacijaComponent {
     { naziv: "Filmovi pregled", putanja: "filmovi_pregled", prijavljen: true }
   );
 
-  static prijavljen : boolean = true;
-
-  korisnik : IKorisnik = {
+  @Input() korisnik: IKorisnik = {
     ime : "",
     prezime : "",
-    admin : false
+    admin : false,
+    prijavljen : false
   };
 
   staticPrijavljen() : boolean {
-    return NavigacijaComponent.prijavljen;
+    return this.korisnik.prijavljen;
   }
 }
