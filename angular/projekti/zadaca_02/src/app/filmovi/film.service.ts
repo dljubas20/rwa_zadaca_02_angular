@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { IFilm } from './IFilm';
-import { IZanr } from './IZanr';
+import { IFilm } from '../interfaces/IFilm';
+import { IZanr } from '../interfaces/IZanr';
 import { ZanrService } from './zanr.service';
 
 @Injectable({

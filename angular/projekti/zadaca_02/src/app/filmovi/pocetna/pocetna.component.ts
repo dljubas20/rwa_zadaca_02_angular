@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FilmService } from '../../servisi/film.service';
-import { IFilm } from '../../servisi/IFilm';
-import { IZanr } from '../../servisi/IZanr';
+import { FilmService } from '../film.service';
+import { IFilm } from '../../interfaces/IFilm';
+import { IZanr } from '../../interfaces/IZanr';
 
 @Component({
   selector: 'app-pocetna',
