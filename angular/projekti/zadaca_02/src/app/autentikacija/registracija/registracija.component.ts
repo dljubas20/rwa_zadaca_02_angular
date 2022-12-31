@@ -35,6 +35,12 @@ export class RegistracijaComponent {
       headers: zaglavlje,
       body: tijelo
     });
+
+    let rezultat = JSON.parse(await odgovor.text()).registracija;
+    
+    if (rezultat == "OK") {
+      location.replace("http://localhost:" + environment.appPort + "/prijava");
+    }
   }
   
 }

@@ -22,11 +22,11 @@ exports.registracija = async function (zahtjev, odgovor) {
     if (zahtjev.method == "POST") {
         let uspjeh = await auth.dodajKorisnika(zahtjev.body);
         if (uspjeh) {
-            odgovor.redirect("/prijava");
+            odgovor.json({registracija: "OK"});
             return;
         } else {
             greska = "Dodavanje nije uspjelo provjerite podatke!";
-            odgovor.json({greska: greska});
+            odgovor.json({registracija: greska});
         }
     }
 }
