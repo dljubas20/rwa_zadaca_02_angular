@@ -34,6 +34,10 @@ export class RegistracijaComponent {
     let tijelo = JSON.stringify(this.regForma.value);
     console.log(tijelo);
     
+    if (this.regForma.value.korime == '' || this.regForma.value.lozinka == '' || this.regForma.value.email == '') {
+      return;
+    }
+    
     let odgovor = await fetch(this.appServis + "/registracija", {
       method: "POST",
       headers: zaglavlje,
