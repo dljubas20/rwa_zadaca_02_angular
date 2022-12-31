@@ -34,9 +34,7 @@ export class RegistracijaComponent {
       method: "POST",
       headers: zaglavlje,
       body: tijelo
-    })
-
-    console.log(this.regForma.value);
+    });
   }
   
 }

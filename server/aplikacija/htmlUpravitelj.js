@@ -34,7 +34,7 @@ exports.registracija = async function (zahtjev, odgovor) {
 exports.odjava = async function (zahtjev, odgovor) {
     zahtjev.session.jwt = null;
     zahtjev.session.korisnik = null;
-    odgovor.redirect("/");
+    odgovor.json({odjava: "OK"});
 };
 
 exports.prijava = async function (zahtjev, odgovor) {
@@ -42,41 +42,20 @@ exports.prijava = async function (zahtjev, odgovor) {
     if (zahtjev.method == "POST") {
         var korime = zahtjev.body.korime;
         var lozinka = zahtjev.body.lozinka;
-        console.log("Zahtjev BODY za PRIJAVU je:");
-        console.log(zahtjev.body);
 
         var korisnik = JSON.parse(await auth.prijaviKorisnika(korime, lozinka));
 
         if (korisnik) {
-            if (korisnik.aktiviran != 1) {
-                greska = "Niste aktivirali korisnički račun.";
-            }
-            else {
-                let totpKljuc = korisnik.totpKljuc;
-                let totpKod = zahtjev.body.totp;
-                console.log(totpKod);
-                console.log(totpKljuc);
-
-                if (!totp.provjeriTOTP(totpKod, totpKljuc)) {
-                    greska = "TOTP kod nije dobar!";
-                } else {
-                    zahtjev.session.jwt = jwt.kreirajToken(korisnik);
-                    zahtjev.session.korisnik = korisnik.ime + " " + korisnik.prezime;
-                    zahtjev.session.korime = korisnik.korime;
-                    zahtjev.session.email = korisnik.email;
-                    odgovor.redirect("/");
-                    return;
-                }
-            }
-            
+            zahtjev.session.jwt = jwt.kreirajToken(korisnik);
+            zahtjev.session.korisnik = korisnik.ime + " " + korisnik.prezime;
+            zahtjev.session.korime = korisnik.korime;
+            zahtjev.session.email = korisnik.email;
+            odgovor.json({prijava: "OK"});
         } else {
             greska = "Netocni podaci!";
+            odgovor.json({prijava: greska});
         }
     }
-
-    let stranica = await ucitajStranicu("prijava", greska);
-    stranica = await prijavaHTML(stranica, zahtjev.session.korisnik);
-    odgovor.send(stranica);
 }
 
 

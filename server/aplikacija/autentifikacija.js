@@ -78,14 +78,17 @@ class Autentifikacija {
         };
 
         let zaglavlje = new Headers();
+        
         zaglavlje.set("Content-Type", "application/json");
+        let token = await fetch("http://localhost:" + this.portApp + "/api/generirajToken");
+        zaglavlje.set("Authorization", await token.text());
 
         let parametri = {
             method: 'POST',
             body: JSON.stringify(tijelo),
             headers: zaglavlje
         }
-        let odgovor = await fetch("http://localhost:" + this.portRest + "/api/korisnici/" + korime + "/prijava?korime=" + this.konf.dajKonf()['rest.korime'] + "&lozinka=" + this.konf.dajKonf()['rest.lozinka'], parametri);
+        let odgovor = await fetch("http://localhost:" + this.portRest + "/api/korisnici/" + korime + "/prijava", parametri);
         
         if (odgovor.status == 200) {
             return await odgovor.text();
