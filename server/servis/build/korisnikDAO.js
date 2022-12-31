@@ -16,6 +16,20 @@ class KorisnikDAO {
         return await this.baza.izvrsiSelectUpit(sql, [korime]);
     };
     dodaj = async (korisnik) => {
+        let provjeraKorime = `SELECT * FROM korisnik WHERE korime=?`;
+        let provjeraEmail = `SELECT * FROM korisnik WHERE email=?`;
+        let greske = { korime: '', email: '' };
+        let rezultatKorime = await this.baza.izvrsiSelectUpit(provjeraKorime, [korisnik.korime]);
+        let rezultatEmail = await this.baza.izvrsiSelectUpit(provjeraEmail, [korisnik.email]);
+        if (rezultatKorime.length != 0) {
+            greske.korime = 'Korisničko ime je zauzeto!';
+        }
+        if (rezultatEmail.length != 0) {
+            greske.email = 'Email je zauzet!';
+        }
+        if (greske.korime != '' || greske.email != '') {
+            return greske;
+        }
         let sql = `INSERT INTO korisnik (ime, prezime, lozinka, email, korime, tipKorisnika_id, aktivacijskiKod, totpKljuc) VALUES (?,?,?,?,?,?,?,?)`;
         let podaci = [
             korisnik.ime,

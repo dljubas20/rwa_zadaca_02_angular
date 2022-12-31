@@ -44,7 +44,7 @@ class Autentifikacija {
         let odgovor = await fetch("http://localhost:" + this.portRest + "/api/korisnici", parametri);
         
         if (odgovor.status == 200) {
-            console.log("Korisnik ubačen na servisu");
+
             /* let mailPoruka = "aktivacijski kod:" + aktivacijskiKod
                 + " http://localhost:" + this.portApp + "/aktivacijaRacuna?korime=" + korisnik.korime + "&kod=" + aktivacijskiKod
             mailPoruka += " TOTP Kljuc: " + tajniTOTPkljuc;
@@ -52,9 +52,7 @@ class Autentifikacija {
                 "Aktivacijski kod", mailPoruka); */
             return true;
         } else {
-            console.log(odgovor.status);
-            console.log(await odgovor.text());
-            return false;
+            return JSON.parse(await odgovor.text());
         }
     }
 

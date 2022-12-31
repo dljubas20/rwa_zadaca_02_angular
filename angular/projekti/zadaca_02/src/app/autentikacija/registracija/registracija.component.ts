@@ -9,6 +9,10 @@ import { environment } from '../../../environments/environment';
 })
 export class RegistracijaComponent {
   appServis?: string = "http://localhost:" + environment.appPort + "/api";
+  greske?: {
+    korime: string,
+    email: string
+  };
 
   constructor(private formBuilder: FormBuilder) {
     
@@ -36,10 +40,14 @@ export class RegistracijaComponent {
       body: tijelo
     });
 
-    let rezultat = JSON.parse(await odgovor.text()).registracija;
-    
-    if (rezultat == "OK") {
-      location.replace("http://localhost:" + environment.appPort + "/prijava");
+    let rezultat = JSON.parse(await odgovor.text());
+
+    if ('registracija' in rezultat) {
+      if (rezultat.registracija == "OK") {
+        location.replace("http://localhost:" + environment.appPort + "/prijava");
+      }
+    } else {
+      this.greske = rezultat;
     }
   }
   

@@ -20,6 +20,11 @@ export function postKorisnici(zahtjev : Request, odgovor : Response) {
     let podaci = zahtjev.body;
     let kdao = new KorisnikDAO();
     kdao.dodaj(podaci).then((poruka) => {
+        if (!(typeof poruka == "boolean")) {
+            odgovor.status(409);
+            odgovor.json(poruka);
+            return;
+        }
         odgovor.send(JSON.stringify(poruka));
     });
 }

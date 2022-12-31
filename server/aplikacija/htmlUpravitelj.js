@@ -18,15 +18,14 @@ exports.dokumentacija = async function (zahtjev, odgovor) {
 }
 
 exports.registracija = async function (zahtjev, odgovor) {
-    let greska = "";
     if (zahtjev.method == "POST") {
         let uspjeh = await auth.dodajKorisnika(zahtjev.body);
-        if (uspjeh) {
-            odgovor.json({registracija: "OK"});
+        if (typeof uspjeh == "boolean") {
+            odgovor.send(JSON.stringify({registracija: "OK"}));
             return;
-        } else {
-            greska = "Dodavanje nije uspjelo provjerite podatke!";
-            odgovor.json({registracija: greska});
+        } else if (typeof uspjeh == "object") {
+            odgovor.status(409);
+            odgovor.send(JSON.stringify(uspjeh));
         }
     }
 }
