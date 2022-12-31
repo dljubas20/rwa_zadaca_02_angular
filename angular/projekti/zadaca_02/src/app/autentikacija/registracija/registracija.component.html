@@ -5,9 +5,9 @@
         </mat-card-header>
         
         <mat-card-content>
-            <div *ngIf="greske">
-                <p>{{ greske.email }}</p>
-                <p>{{ greske.korime }}</p>
+            <div id="greske" *ngIf="greske">
+                <p *ngIf="greske.email != ''">{{ greske.email }}</p>
+                <p *ngIf="greske.korime != ''">{{ greske.korime }}</p>
             </div>
             <form [formGroup]="regForma" (ngSubmit)="onSubmit()">
                 <mat-form-field appearance="outline">

@@ -1,25 +1,27 @@
-<div class="navigacija">
-    <a routerLink="/">
-        <img src="/assets/slike/Filmoteka.png" alt="Logo">
-    </a>
+<mat-toolbar color="primary">
+    <mat-toolbar-row class="navigacija">
+        <a routerLink="/">
+            <img src="/assets/slike/Filmoteka.png" alt="Logo">
+        </a>
 
-    <div class="nav-stavke">
-        <div *ngFor="let s of stavke">
-            <a class="link" *ngIf="!s.prijavljen || (s.prijavljen && staticPrijavljen())" [routerLink]="'/' + s.putanja" routerLinkActive="trenutni-link" [routerLinkActiveOptions]="{exact: true}">{{ s.naziv }}</a>
-        </div>
-    </div>
-
-    <div class="prijava">
-        <div *ngIf="staticPrijavljen() == true; else elseBlock">
-            <p>
-                {{ korisnik.ime + " " + korisnik.prezime }}
-            </p>
-
-            <a class="link" routerLink="/odjava" routerLinkActive="trenutni-link">Odjava</a>
+        <div class="nav-stavke">
+            <div *ngFor="let s of stavke">
+                <a class="link" *ngIf="!s.prijavljen || (s.prijavljen && staticPrijavljen())" [routerLink]="'/' + s.putanja" routerLinkActive="trenutni-link" [routerLinkActiveOptions]="{exact: true}">{{ s.naziv }}</a>
+            </div>
         </div>
 
-        <ng-template #elseBlock>
-            <a class="link" routerLink="/prijava" routerLinkActive="trenutni-link">Prijava</a>
-        </ng-template>
-    </div>
-</div>
+        <div class="prijava">
+            <div *ngIf="staticPrijavljen() == true; else elseBlock">
+                <p>
+                    {{ korisnik.ime + " " + korisnik.prezime }}
+                </p>
+
+                <a class="link" routerLink="/odjava" routerLinkActive="trenutni-link">Odjava</a>
+            </div>
+
+            <ng-template #elseBlock>
+                <a class="link" routerLink="/prijava" routerLinkActive="trenutni-link">Prijava</a>
+            </ng-template>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
