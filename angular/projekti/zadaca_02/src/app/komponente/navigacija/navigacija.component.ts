@@ -22,7 +22,7 @@ export class NavigacijaComponent {
     ime : "",
     prezime : "",
     admin : false,
-    prijavljen : false
+    prijavljen : true
   };
 
   staticPrijavljen() : boolean {

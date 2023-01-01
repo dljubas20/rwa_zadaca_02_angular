@@ -8,9 +8,16 @@ export class FilmDAO {
     }
 
     dajSve  = async (parametri : any) => {
-        let sql = `SELECT * FROM film WHERE film.id IN (SELECT zanrovi.film_id FROM zanrovi WHERE zanrovi.film_id=film.id AND zanr_id=?);`;
+        let sql = '';
+        if (parametri.idZanr != null) {
+            sql = `SELECT * FROM film WHERE film.id IN (SELECT zanrovi.film_id FROM zanrovi WHERE zanrovi.film_id=film.id AND zanr_id=?);`;
+            return await this.baza.izvrsiSelectUpit(sql, [parametri.idZanr]);
+        }
+        else {
+            sql = `SELECT * FROM film;`
+            return await this.baza.izvrsiSelectUpit(sql);
+        }
 
-        return await this.baza.izvrsiSelectUpit(sql, [parametri.idZanr]);
     }
 
     dajFilm = async (id : number) => {

@@ -10,21 +10,23 @@ import { ZanrService } from './zanr.service';
 export class FilmService {
   restServis?: string = "http://localhost:" + environment.restPort + "/api";
   appServis?: string = "http://localhost:" + environment.appPort + "/api";
-  zanr_filmovi = new Array<{
+  pocetna_filmovi = new Array<{
     zanr: IZanr,
     filmovi: Array<IFilm>
   }>();
+
+  pregled_filmovi = new Array<IFilm>();
 
   constructor(private zanrServis : ZanrService) {
 
   }
 
-  async dajFilmove(): Promise<Array<{
+  async dajFilmovePocetna() : Promise<Array<{
     zanr: IZanr,
     filmovi: Array<IFilm>
   }>> {
-    if (this.zanr_filmovi.length == 0) {  
-        this.zanr_filmovi = new Array<{
+    if (this.pocetna_filmovi.length == 0) {  
+        this.pocetna_filmovi = new Array<{
           zanr: IZanr,
           filmovi: Array<IFilm>
         }>();
@@ -38,15 +40,15 @@ export class FilmService {
         let zanrovi : Array<IZanr> = await this.zanrServis.dajZanrove();
 
         for (let zanr of zanrovi) {
-          let o : Response = (await fetch(this.restServis + "/filmovi?stranica=1&brojFilmova=10&zanr=" + zanr.id, {
+          let odgovor : Response = (await fetch(this.restServis + "/filmovi?stranica=1&brojFilmova=10&zanr=" + zanr.id, {
             method: 'GET',
             headers: zaglavlje
           })) as Response;
 
-          if (o.status == 200) {
-            let rezultat = JSON.parse(await o.text()) as Array<IFilm>;
+          if (odgovor.status == 200) {
+            let rezultat = JSON.parse(await odgovor.text()) as Array<IFilm>;
 
-            this.zanr_filmovi.push({
+            this.pocetna_filmovi.push({
               zanr: zanr,
               filmovi: [
                 rezultat[this.dajNasumceBroj(0, rezultat.length)],
@@ -55,17 +57,33 @@ export class FilmService {
             });
           }
         }
-
-        
-        
-        return this.zanr_filmovi;
+        return this.pocetna_filmovi;
       
     } else {
-      return this.zanr_filmovi;
+      return this.pocetna_filmovi;
     }
   }
 
-  dajNasumceBroj(min : number, max : number) : number {
+  async dajFilmovePregled() : Promise<Array<IFilm>> {
+    let zaglavlje : Headers = new Headers();
+    zaglavlje.set("Content-Type", "application/json");
+    let token = await fetch( this.appServis + "/generirajToken");
+
+    zaglavlje.set("Authorization", await token.text());
+  
+    let odgovor : Response = (await fetch(this.restServis + "/filmovi?stranica=1&brojFilmova=10", {
+      method: 'GET',
+      headers: zaglavlje
+    })) as Response;
+
+    if (odgovor.status == 200) {
+      this.pregled_filmovi = JSON.parse(await odgovor.text()) as Array<IFilm>;
+    }
+
+    return this.pregled_filmovi;
+  }
+
+  private dajNasumceBroj(min : number, max : number) : number {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); 

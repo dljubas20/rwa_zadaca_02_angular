@@ -28,6 +28,6 @@ export class PocetnaComponent implements OnInit{
   }
 
   async dohvatiFilmove() {
-    this.filmovi = await this.filmServis.dajFilmove();
+    this.filmovi = await this.filmServis.dajFilmovePocetna();
   }
 }

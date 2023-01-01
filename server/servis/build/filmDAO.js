@@ -8,8 +8,15 @@ class FilmDAO {
         this.baza = new baza_1.Baza();
     }
     dajSve = async (parametri) => {
-        let sql = `SELECT * FROM film WHERE film.id IN (SELECT zanrovi.film_id FROM zanrovi WHERE zanrovi.film_id=film.id AND zanr_id=?);`;
-        return await this.baza.izvrsiSelectUpit(sql, [parametri.idZanr]);
+        let sql = '';
+        if (parametri.idZanr != null) {
+            sql = `SELECT * FROM film WHERE film.id IN (SELECT zanrovi.film_id FROM zanrovi WHERE zanrovi.film_id=film.id AND zanr_id=?);`;
+            return await this.baza.izvrsiSelectUpit(sql, [parametri.idZanr]);
+        }
+        else {
+            sql = `SELECT * FROM film;`;
+            return await this.baza.izvrsiSelectUpit(sql);
+        }
     };
     dajFilm = async (id) => {
         let sql = `SELECT * FROM film WHERE id=?;`;

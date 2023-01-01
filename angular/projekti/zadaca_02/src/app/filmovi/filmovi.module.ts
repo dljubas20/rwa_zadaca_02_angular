@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table'; 
 
 import { PocetnaComponent } from './pocetna/pocetna.component';
 import { FilmoviPregledComponent } from './filmovi-pregled/filmovi-pregled.component';
@@ -14,7 +15,8 @@ import { PretrazivanjeFilmovaComponent } from './pretrazivanje-filmova/pretraziv
   ],
   imports: [
     CommonModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule
   ]
 })
 export class FilmoviModule { }
