@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -14,7 +16,7 @@ export class RegistracijaComponent {
     email: string
   };
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private router: Router) {
     
   }
 
@@ -48,7 +50,7 @@ export class RegistracijaComponent {
 
     if ('registracija' in rezultat) {
       if (rezultat.registracija == "OK") {
-        location.replace("http://localhost:" + environment.appPort + "/prijava");
+        this.router.navigate(['/prijava']);
       }
     } else {
       this.greske = rezultat;

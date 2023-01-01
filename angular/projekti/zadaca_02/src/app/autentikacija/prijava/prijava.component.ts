@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -11,7 +13,7 @@ export class PrijavaComponent {
   appServis? : string = "http://localhost:" + environment.appPort + "/api";
   netocniPodaci : boolean = false;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private router : Router) {
     
   }
 
@@ -37,7 +39,7 @@ export class PrijavaComponent {
     let rezultat = JSON.parse(await odgovor.text()).prijava;
     
     if (rezultat == "OK") {
-      location.replace("http://localhost:" + environment.appPort);
+      this.router.navigate(['/']);
     }
     else {
       this.netocniPodaci = true;
