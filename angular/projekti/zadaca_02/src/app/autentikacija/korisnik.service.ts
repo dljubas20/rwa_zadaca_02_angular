@@ -21,4 +21,15 @@ export class KorisnikService {
       return '';
     }
   }
+
+  async dajStatusKorisnika() : Promise<boolean> {
+    let odgovor = await (await fetch(this.appServis + "/getStatusKorisnika")).text();
+    let rezultat = JSON.parse(odgovor);
+    if ('admin' in rezultat) {
+      return rezultat.admin;
+    }
+    else {
+      return false;
+    }
+  }
 }

@@ -3,6 +3,8 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { environment } from '../../../environments/environment';
+import { AppComponent } from '../../app.component';
+import { KorisnikService } from '../korisnik.service';
 
 @Component({
   selector: 'app-prijava',
@@ -10,18 +12,17 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./prijava.component.scss']
 })
 export class PrijavaComponent {
-  appServis? : string = "http://localhost:" + environment.appPort + "/api";
+  private appServis? : string = "http://localhost:" + environment.appPort + "/api";
   netocniPodaci : boolean = false;
-
-  constructor(private formBuilder: FormBuilder, private router : Router) {
-    
-  }
-
   prijavaForma = this.formBuilder.group({
     korime: '',
     lozinka: ''
   });
   
+  constructor(private formBuilder: FormBuilder, private router : Router, private korisnikServis : KorisnikService) {
+    
+  }
+
   async onSubmit() : Promise<void> {
     let zaglavlje : Headers = new Headers();
 
@@ -39,6 +40,8 @@ export class PrijavaComponent {
     let rezultat = JSON.parse(await odgovor.text()).prijava;
     
     if (rezultat == "OK") {
+      AppComponent.korisnik.admin = await this.korisnikServis.dajStatusKorisnika();
+      AppComponent.korisnik.prijavljen = true;
       this.router.navigate(['/']);
     }
     else {

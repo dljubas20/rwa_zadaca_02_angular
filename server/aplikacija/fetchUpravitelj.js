@@ -31,10 +31,20 @@ exports.getJWT = async function (zahtjev, odgovor) {
         let k = { korime: jwt.dajTijelo(zahtjev.session.jwt).korime };
         let noviToken = jwt.kreirajToken(k)
         odgovor.send({ ok: noviToken });
-        return
+        return;
     } 
     odgovor.status(401);
     odgovor.send({ greska: "nemam token!" });
+}
+
+exports.getStatusKorisnika = async function (zahtjev, odgovor) {
+    odgovor.type('json')
+    if (zahtjev.session.jwt != null && zahtjev.session.admin != null) {
+        odgovor.send({ admin: zahtjev.session.admin });
+        return;
+    } 
+    odgovor.status(401);
+    odgovor.send({ greska: "korisnik nije prijavljen!" });
 }
 
 exports.generirajToken = async function (zahtjev, odgovor) {

@@ -49,6 +49,8 @@ exports.prijava = async function (zahtjev, odgovor) {
             zahtjev.session.korisnik = korisnik.ime + " " + korisnik.prezime;
             zahtjev.session.korime = korisnik.korime;
             zahtjev.session.email = korisnik.email;
+            zahtjev.session.admin = (korisnik.tipKorisnika_id == 1) ? true : false;
+            
             odgovor.json({prijava: "OK"});
         } else {
             greska = "Netocni podaci!";

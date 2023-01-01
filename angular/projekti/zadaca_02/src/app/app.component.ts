@@ -9,7 +9,7 @@ import { IKorisnik } from './interfaces/IKorisnik';
 export class AppComponent {
   title = 'zadaca_02';
 
-  korisnik : IKorisnik = {
+  static korisnik : IKorisnik = {
     ime : "",
     prezime : "",
     admin : false,
