@@ -25,7 +25,6 @@ export function getFilmovi(zahtjev : Request, odgovor : Response) {
 
     let fdao = new FilmDAO();
     fdao.dajSve(parametri).then((filmovi : Array<any> | any) => {
-        console.log(filmovi);
         odgovor.send(JSON.stringify(filmovi));
     });
 }
@@ -35,7 +34,6 @@ export function postFilmovi(zahtjev : Request, odgovor : Response) {
 
     let fdao = new FilmDAO();
     fdao.dodaj(zahtjev.body).then((uspjeh : boolean) => {
-        console.log(uspjeh);
         odgovor.send(JSON.stringify(uspjeh));
     });
 }
@@ -67,7 +65,6 @@ export function getFilm(zahtjev : Request, odgovor : Response) {
 
     let fdao = new FilmDAO();
     fdao.dajFilm(id).then((film : any) => {
-        console.log(film);
         odgovor.send(JSON.stringify(film));
     });
 }
