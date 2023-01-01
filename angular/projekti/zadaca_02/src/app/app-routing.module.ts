@@ -9,16 +9,21 @@ import { ProfilComponent } from './komponente/profil/profil.component';
 import { FilmoviPregledComponent } from './filmovi/filmovi-pregled/filmovi-pregled.component';
 import { PrijavaComponent } from './autentikacija/prijava/prijava.component';
 import { StranicaNijePronadenaComponent } from './komponente/stranica-nije-pronadena/stranica-nije-pronadena.component';
+import { FilmComponent } from './filmovi/film/film.component';
 
 const routes: Routes = [
-  { title: "Početna", path: "", component: PocetnaComponent, data: {prijavljen: false, admin: false} },
-  { title: "Registracija", path: "registracija", component: RegistracijaComponent, data: {prijavljen: false, admin: false} },
-  { title: "Pretraživanje filmova", path: "pretrazivanje_filmova", component: PretrazivanjeFilmovaComponent, data: {prijavljen: true, admin: false} },
-  { title: "Dokumentacija", path: "dokumentacija", component: DokumentacijaComponent, data: {prijavljen: false, admin: false} },
-  { title: "Profil", path: "profil", component: ProfilComponent, data: {prijavljen: true, admin: false} },
-  { title: "Pregled filmova", path: "filmovi_pregled", component: FilmoviPregledComponent, data: {prijavljen: true, admin: false} },
-  { title: "Prijava", path: "prijava", component: PrijavaComponent, data: {prijavljen: false, admin: false} },
-  { title: "Stranica nije pronađena", path: "**", component: StranicaNijePronadenaComponent, data: {prijavljen: false, admin: false} },
+  { title: "Početna", path: "", component: PocetnaComponent },
+  { title: "Registracija", path: "registracija", component: RegistracijaComponent },
+  { title: "Pretraživanje filmova", path: "pretrazivanje_filmova", component: PretrazivanjeFilmovaComponent },
+  { title: "Dokumentacija", path: "dokumentacija", component: DokumentacijaComponent },
+  { title: "Profil", path: "profil", component: ProfilComponent },
+  { title: "Pregled filmova", path: "filmovi_pregled", children: [
+      { path: "", component: FilmoviPregledComponent },
+      { path: ":id", component: FilmComponent }
+    ]
+  },
+  { title: "Prijava", path: "prijava", component: PrijavaComponent },
+  { title: "Stranica nije pronađena", path: "**", component: StranicaNijePronadenaComponent },
   { path: "", redirectTo: "", pathMatch: "full" }
 ];
 

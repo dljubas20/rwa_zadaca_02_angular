@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IFilm } from '../../interfaces/IFilm';
 import { FilmService } from '../film.service';
 
@@ -10,7 +11,7 @@ import { FilmService } from '../film.service';
 export class FilmoviPregledComponent implements OnInit{
   filmovi : Array<IFilm> = new Array<IFilm>();
 
-  constructor (private filmServis : FilmService) {
+  constructor (private filmServis : FilmService, private router : Router, private route : ActivatedRoute) {
 
   }
 
@@ -22,5 +23,9 @@ export class FilmoviPregledComponent implements OnInit{
 
   async dohvatiFilmove() {
     this.filmovi = await this.filmServis.dajFilmovePregled();
+  }
+
+  prikaziDetalje(red : IFilm) {
+    this.router.navigate([red.id], {relativeTo: this.route})
   }
 }

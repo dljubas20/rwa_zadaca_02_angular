@@ -6,12 +6,14 @@ import { MatTableModule } from '@angular/material/table';
 import { PocetnaComponent } from './pocetna/pocetna.component';
 import { FilmoviPregledComponent } from './filmovi-pregled/filmovi-pregled.component';
 import { PretrazivanjeFilmovaComponent } from './pretrazivanje-filmova/pretrazivanje-filmova.component';
+import { FilmComponent } from './film/film.component';
 
 @NgModule({
   declarations: [
     PocetnaComponent,
     FilmoviPregledComponent,
-    PretrazivanjeFilmovaComponent
+    PretrazivanjeFilmovaComponent,
+    FilmComponent
   ],
   imports: [
     CommonModule,
