@@ -5,8 +5,8 @@
         </mat-card-header>
         
         <mat-card-content>
-            <div *ngIf="netocniPodaci">
-                Netocni podaci
+            <div id="greska" *ngIf="netocniPodaci">
+                <p>Netočni podaci!</p>
             </div>
             <form [formGroup]="prijavaForma" (ngSubmit)="onSubmit()">
                 <mat-form-field appearance="outline">
