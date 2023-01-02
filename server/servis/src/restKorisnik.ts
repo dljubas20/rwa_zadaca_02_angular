@@ -50,13 +50,22 @@ export function getKorisnik(zahtjev : Request, odgovor : Response) {
 
     let kdao = new KorisnikDAO();
     let korime : string = "";
+    let id : number = -1;
 
     if (zahtjev.params['korime'] !== undefined) {
         korime = zahtjev.params['korime']
     }
 
-    kdao.daj(korime).then((korisnik) => {
-        console.log(korisnik);
+    if (zahtjev.params['id'] !== undefined) {
+        id = parseInt(zahtjev.params['id']);
+
+        kdao.daj("", id).then((korisnik) => {
+            odgovor.send(JSON.stringify(korisnik));
+        });
+        return;
+    }
+
+    kdao.daj(korime, -1).then((korisnik) => {
         odgovor.send(JSON.stringify(korisnik));
     });
 }
@@ -152,8 +161,6 @@ export function postKorisnikPrijava(zahtjev : Request, odgovor : Response) {
     }
 
     kdao.daj(korime).then((korisnik) => {
-        console.log(korisnik)
-        console.log(zahtjev.body)
         if(korisnik!=null && korisnik.lozinka==zahtjev.body.lozinka)
             odgovor.send(JSON.stringify(korisnik));
         else{ 

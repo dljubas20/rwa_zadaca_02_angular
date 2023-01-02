@@ -57,6 +57,21 @@ export function getZanr(zahtjev : Request, odgovor : Response) {
     });
 }
 
+export function getZanrFilm(zahtjev : Request, odgovor : Response) {
+    odgovor.type("application/json");
+
+    let idFilma : number = -1;
+
+    if (zahtjev.params['idFilma'] !== undefined) {
+        idFilma = parseInt(zahtjev.params['idFilma']);
+    }
+
+    let zdao = new ZanrDAO();
+    zdao.dajZanrFilma(idFilma).then((poruka : any) => {
+        odgovor.send(JSON.stringify(poruka));
+    });
+}
+
 export function postZanr(zahtjev : Request, odgovor : Response) {
     odgovor.type("application/json");
 

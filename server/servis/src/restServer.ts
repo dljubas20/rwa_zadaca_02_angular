@@ -92,6 +92,8 @@ function pripremiPutanjeKorisnici() : void {
     server.put("/api/korisnici/:korime", restKorisnik.putKorisnik);
     server.delete("/api/korisnici/:korime", restKorisnik.deleteKorisnik);
 
+    server.get("/api/korisnici/id/:id", restKorisnik.getKorisnik);
+
     server.get("/api/korisnici/:korime/aktivacija", restKorisnik.getKorisnikAktivacija);
     server.post("/api/korisnici/:korime/aktivacija", restKorisnik.postKorisnikAktivacija);
     server.put("/api/korisnici/:korime/aktivacija", restKorisnik.putKorisnikAktivacija);
@@ -120,6 +122,8 @@ function pripremiPutanjeZanrovi() : void {
     server.post("/api/zanr", restZanr.postZanrovi);
     server.put("/api/zanr", restZanr.putZanrovi);
     server.delete("/api/zanr", restZanr.deleteZanrovi);
+
+    server.get("/api/zanr/film/:idFilma", restZanr.getZanrFilm);
 
     server.get("/api/zanr/:id", restZanr.getZanr);
     server.post("/api/zanr/:id", restZanr.postZanr);

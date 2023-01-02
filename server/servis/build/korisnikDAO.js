@@ -11,9 +11,15 @@ class KorisnikDAO {
         let sql = "SELECT * FROM korisnik;";
         return await this.baza.izvrsiSelectUpit(sql);
     };
-    daj = async (korime) => {
-        let sql = "SELECT * FROM korisnik WHERE korime=?;";
-        return await this.baza.izvrsiSelectUpit(sql, [korime]);
+    daj = async (korime = "", id = -1) => {
+        if (korime == "") {
+            let sql = "SELECT * FROM korisnik WHERE id=?;";
+            return await this.baza.izvrsiSelectUpit(sql, [id]);
+        }
+        else {
+            let sql = "SELECT * FROM korisnik WHERE korime=?;";
+            return await this.baza.izvrsiSelectUpit(sql, [korime]);
+        }
     };
     dodaj = async (korisnik) => {
         let provjeraKorime = `SELECT * FROM korisnik WHERE korime=?`;

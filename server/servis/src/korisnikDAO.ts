@@ -13,10 +13,16 @@ export class KorisnikDAO {
 		return await this.baza.izvrsiSelectUpit(sql);
 	}
 
-	daj = async (korime : string) => {
-		let sql = "SELECT * FROM korisnik WHERE korime=?;";
+	daj = async (korime : string = "", id : number = -1) => {
+		if (korime == "") {
+			let sql = "SELECT * FROM korisnik WHERE id=?;";
+			return await this.baza.izvrsiSelectUpit(sql, [id]);
+		}
+		else {
+			let sql = "SELECT * FROM korisnik WHERE korime=?;";
+			return await this.baza.izvrsiSelectUpit(sql, [korime]);
+		}
 
-		return await this.baza.izvrsiSelectUpit(sql, [korime]);
 	}
 
 	dodaj = async (korisnik : {

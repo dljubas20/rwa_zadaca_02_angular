@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteZanr = exports.putZanr = exports.postZanr = exports.getZanr = exports.deleteZanrovi = exports.putZanrovi = exports.postZanrovi = exports.getZanrovi = void 0;
+exports.deleteZanr = exports.putZanr = exports.postZanr = exports.getZanrFilm = exports.getZanr = exports.deleteZanrovi = exports.putZanrovi = exports.postZanrovi = exports.getZanrovi = void 0;
 const zanrDAO_1 = require("./zanrDAO");
 const Konfiguracija = require("../../konfiguracija.js");
 const konf = new Konfiguracija();
@@ -49,6 +49,18 @@ function getZanr(zahtjev, odgovor) {
     });
 }
 exports.getZanr = getZanr;
+function getZanrFilm(zahtjev, odgovor) {
+    odgovor.type("application/json");
+    let idFilma = -1;
+    if (zahtjev.params['idFilma'] !== undefined) {
+        idFilma = parseInt(zahtjev.params['idFilma']);
+    }
+    let zdao = new zanrDAO_1.ZanrDAO();
+    zdao.dajZanrFilma(idFilma).then((poruka) => {
+        odgovor.send(JSON.stringify(poruka));
+    });
+}
+exports.getZanrFilm = getZanrFilm;
 function postZanr(zahtjev, odgovor) {
     odgovor.type("application/json");
     odgovor.status(405);
