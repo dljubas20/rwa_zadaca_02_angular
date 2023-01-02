@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { IKorisnik } from '../interfaces/IKorisnik';
 
 @Injectable({
   providedIn: 'root'
 })
 export class KorisnikService {
-  appServis?: string = "http://localhost:" + environment.appPort + "/api";
+  private appServis?: string = "http://localhost:" + environment.appPort + "/api";
+  private restServis?: string = "http://localhost:" + environment.restPort + "/api";
 
   constructor() {
 
@@ -31,5 +33,20 @@ export class KorisnikService {
     else {
       return false;
     }
+  }
+
+  async dajKorisnika(id : number) : Promise<IKorisnik> {
+    let zaglavlje : Headers = new Headers();
+    zaglavlje.set("Content-Type", "application/json");
+    let token = await fetch( this.appServis + "/generirajToken");
+
+    zaglavlje.set("Authorization", await token.text());
+
+    let korisnik = JSON.parse(await (await fetch(this.restServis + "/korisnici/id/" + id, {
+      method: "GET",
+      headers: zaglavlje
+    })).text()) as IKorisnik;
+
+    return korisnik;
   }
 }

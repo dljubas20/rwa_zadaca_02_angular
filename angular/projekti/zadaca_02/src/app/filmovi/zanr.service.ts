@@ -6,6 +6,7 @@ import { IZanr } from '../interfaces/IZanr';
   providedIn: 'root'
 })
 export class ZanrService {
+  appServis?: string = "http://localhost:" + environment.appPort + "/api";
   restServis?: string = "http://localhost:" + environment.restPort + "/api";
   zanrovi = new Array<IZanr>();
 
@@ -33,16 +34,17 @@ export class ZanrService {
     }
   }
 
-  /* async dajFilm(naziv: string): IFilm | null {
-    if (this.filmoviTMDB == undefined)
-      return null;
-    if (this.filmoviTMDB.results.length == 0)
-      return null;
-    for (let film of this.filmoviTMDB.results) {
-      if (film.original_title == naziv) {
-        return film;
-      }
-    }
-    return null;
-  } */
+  async dajZanrFilma(film_id : number) : Promise<IZanr> {
+    let zaglavlje : Headers = new Headers();
+    zaglavlje.set("Content-Type", "application/json");
+    let token = await fetch( this.appServis + "/generirajToken");
+
+    zaglavlje.set("Authorization", await token.text());
+    let zanr = JSON.parse(await (await fetch(this.restServis + "/zanr/film/" + film_id, {
+      method: "GET",
+      headers: zaglavlje
+    })).text()) as IZanr;
+    
+    return zanr;
+  }
 }

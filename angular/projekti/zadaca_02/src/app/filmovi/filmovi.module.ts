@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table'; 
+import { MatChipsModule } from '@angular/material/chips'; 
 
 import { PocetnaComponent } from './pocetna/pocetna.component';
 import { FilmoviPregledComponent } from './filmovi-pregled/filmovi-pregled.component';
@@ -18,7 +19,8 @@ import { FilmComponent } from './film/film.component';
   imports: [
     CommonModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatChipsModule
   ]
 })
 export class FilmoviModule { }

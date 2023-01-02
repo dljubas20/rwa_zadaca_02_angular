@@ -1,0 +1,20 @@
+<div id="film">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                {{ film?.naziv }}
+            </mat-card-title>
+            <img mat-card-avatar src="/assets/slike/default_korisnik.png" alt="">
+            <mat-card-subtitle>
+               {{ film?.datumIzlaska | date : 'yyyy' }} &#x2022; {{ film?.dobnoOgranicenje ? 'R' : 'G' }} &#x2022; {{ film?.trajanje }}m
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <img src="" alt="">
+            <mat-chip>
+                {{ zanrFilma?.naziv }}
+            </mat-chip>
+            <p>{{ film?.sazetak }}</p>
+        </mat-card-content>
+    </mat-card>
+</div>

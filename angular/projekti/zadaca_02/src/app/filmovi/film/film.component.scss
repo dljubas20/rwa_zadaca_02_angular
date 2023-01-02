@@ -1,0 +1,27 @@
+* {
+    font-size: large;
+}
+
+#film {
+    margin: 5vh;
+
+    mat-card {
+        padding: 1vh;
+
+        mat-card-header {    
+            mat-card-subtitle {
+                margin-left: 1vh;
+            }
+        }
+        
+        mat-card-content {
+            display: flex;
+            flex-direction: column;
+            width: fit-content;
+    
+            mat-chip {
+                margin-top: 2vh;
+            }
+        }
+    }
+}

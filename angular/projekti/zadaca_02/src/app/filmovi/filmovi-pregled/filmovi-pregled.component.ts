@@ -26,6 +26,6 @@ export class FilmoviPregledComponent implements OnInit{
   }
 
   prikaziDetalje(red : IFilm) {
-    this.router.navigate([red.id], {relativeTo: this.route})
+    this.router.navigate([red.id], {relativeTo: this.route, state: red});
   }
 }
