@@ -10,11 +10,11 @@ export class FilmDAO {
     dajSve  = async (parametri : any) => {
         let sql = '';
         if (parametri.idZanr != null) {
-            sql = `SELECT * FROM film WHERE film.id IN (SELECT zanrovi.film_id FROM zanrovi WHERE zanrovi.film_id=film.id AND zanr_id=?);`;
+            sql = `SELECT * FROM film WHERE film.id IN (SELECT zanrovi.film_id FROM zanrovi WHERE zanrovi.film_id=film.id AND zanr_id=?) AND film.prijedlog=0;`;
             return await this.baza.izvrsiSelectUpit(sql, [parametri.idZanr]);
         }
         else {
-            sql = `SELECT * FROM film;`
+            sql = `SELECT * FROM film WHERE film.prijedlog=0;`
             return await this.baza.izvrsiSelectUpit(sql);
         }
 

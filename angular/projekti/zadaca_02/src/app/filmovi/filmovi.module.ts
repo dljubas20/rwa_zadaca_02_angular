@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table'; 
 import { MatChipsModule } from '@angular/material/chips'; 
+import { MatDividerModule } from '@angular/material/divider'; 
 
 import { PocetnaComponent } from './pocetna/pocetna.component';
 import { FilmoviPregledComponent } from './filmovi-pregled/filmovi-pregled.component';
@@ -20,7 +21,8 @@ import { FilmComponent } from './film/film.component';
     CommonModule,
     MatCardModule,
     MatTableModule,
-    MatChipsModule
+    MatChipsModule,
+    MatDividerModule
   ]
 })
 export class FilmoviModule { }

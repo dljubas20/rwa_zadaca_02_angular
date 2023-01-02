@@ -50,10 +50,10 @@ export class FilmService {
 
             this.pocetna_filmovi.push({
               zanr: zanr,
-              filmovi: [
+              filmovi: (rezultat.length != 0) ? [
                 rezultat[this.dajNasumceBroj(0, rezultat.length)],
                 rezultat[this.dajNasumceBroj(0, rezultat.length)]
-              ]
+              ] : []
             });
           }
         }

@@ -34,17 +34,25 @@ export class ZanrService {
     }
   }
 
-  async dajZanrFilma(film_id : number) : Promise<IZanr> {
+  async dajZanroveFilma(film_id : number) : Promise<Array<IZanr>> {
     let zaglavlje : Headers = new Headers();
     zaglavlje.set("Content-Type", "application/json");
     let token = await fetch( this.appServis + "/generirajToken");
 
     zaglavlje.set("Authorization", await token.text());
-    let zanr = JSON.parse(await (await fetch(this.restServis + "/zanr/film/" + film_id, {
+    let zanrovi : Array<IZanr> = new Array<IZanr>();
+    zanrovi = JSON.parse(await (await fetch(this.restServis + "/zanr/film/" + film_id, {
       method: "GET",
       headers: zaglavlje
-    })).text()) as IZanr;
+    })).text()) as Array<IZanr>;
     
-    return zanr;
+    if ((zanrovi.constructor === ({}).constructor)) {
+      let poljeZanrova = new Array<IZanr>();
+      poljeZanrova.push(zanrovi as unknown as IZanr);
+      
+      return poljeZanrova;
+    }
+    
+    return zanrovi;
   }
 }

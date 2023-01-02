@@ -24,7 +24,7 @@ class ZanrDAO {
         return await this.baza.izvrsiSelectUpit(sql, [id]);
     };
     dajZanrFilma = async (idFilma) => {
-        let sql = `SELECT * FROM zanr WHERE id = (SELECT zanr_id FROM zanrovi WHERE zanrovi.film_id = ? LIMIT 1);`;
+        let sql = `SELECT * FROM zanr WHERE id IN (SELECT zanr_id FROM zanrovi WHERE zanrovi.film_id = ?);`;
         return await this.baza.izvrsiSelectUpit(sql, [idFilma]);
     };
     azurirajZanr = async (id, zanr) => {
