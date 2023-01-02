@@ -4,6 +4,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table'; 
 import { MatChipsModule } from '@angular/material/chips'; 
 import { MatDividerModule } from '@angular/material/divider'; 
+import { MatIconModule } from '@angular/material/icon'
+import { RouterModule } from '@angular/router'
+
 
 import { PocetnaComponent } from './pocetna/pocetna.component';
 import { FilmoviPregledComponent } from './filmovi-pregled/filmovi-pregled.component';
@@ -22,7 +25,9 @@ import { FilmComponent } from './film/film.component';
     MatCardModule,
     MatTableModule,
     MatChipsModule,
-    MatDividerModule
+    MatDividerModule,
+    MatIconModule,
+    RouterModule
   ]
 })
 export class FilmoviModule { }

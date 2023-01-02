@@ -6,21 +6,46 @@
     margin: 5vh;
 
     mat-card {
-        padding: 1vh;
+        padding: 2vh;
 
-        mat-card-header {    
-            mat-card-subtitle {
-                margin-left: 1vh;
+        mat-card-header {
+            mat-card-title {
+                font-size: xx-large;
+                margin-bottom: 1vh;
             }
         }
         
         mat-card-content {
             display: flex;
             flex-direction: column;
-            width: fit-content;
+            width: 100%;
+            
+            mat-divider {
+                margin-right: 3vh;
+            }
     
             mat-chip {
                 margin-top: 2vh;
+            }
+            
+            p {
+                display: flex;
+                flex-direction: row;
+                align-items: center !important;
+                align-content: center !important;
+                
+                mat-chip {
+                    margin: 1vh;
+                }
+
+                b {
+                    margin-right: 1vh;
+                }
+
+                mat-icon {
+                    color:gold;
+                    font-size: x-large;
+                }
             }
         }
     }

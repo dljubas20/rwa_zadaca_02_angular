@@ -15,7 +15,7 @@ import { ZanrService } from '../zanr.service';
 export class FilmComponent implements OnInit{
   idFilma? : number;
   film? : IFilm;
-  zanrFilma? : IZanr;
+  zanroviFilma? : Array<IZanr>;
   korisnik? : IKorisnik;
   putanjaPoster? : string;
 
@@ -37,6 +37,8 @@ export class FilmComponent implements OnInit{
     }
 
     this.korisnik = await this.korisnikServis.dajKorisnika(this.film?.korisnik_id as number);
-    this.zanrFilma = await this.zanrServis.dajZanrFilma(this.film?.id as number);
+    console.log(this.korisnik);
+    
+    this.zanroviFilma = await this.zanrServis.dajZanroveFilma(this.film?.id as number);
   }
 }
