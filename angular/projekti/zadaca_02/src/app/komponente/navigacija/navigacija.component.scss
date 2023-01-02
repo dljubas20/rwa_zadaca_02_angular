@@ -42,5 +42,18 @@ img {
         display: flex;
         flex-direction: row;
         align-items: center;
+        
+        mat-card {
+            width: fit-content;
+            height: fit-content;
+
+            p {
+                color: black;
+                font-size: large;
+                margin: 0vh;
+                margin-left: 1vh;
+                margin-right: 1vh;
+            }
+        }
     }
 }

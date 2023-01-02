@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { AppComponent } from '../../app.component';
 import { IKorisnik } from '../../interfaces/IKorisnik';
 import { INavStavka } from '../../interfaces/INavStavka';
 
@@ -10,22 +11,29 @@ import { INavStavka } from '../../interfaces/INavStavka';
 
 export class NavigacijaComponent {
   stavke: Array<INavStavka> = new Array<INavStavka>(
-    { naziv: "Početna", putanja: "", prijavljen: false },
-    { naziv: "Registracija", putanja: "registracija", prijavljen: false },
-    { naziv: "Pretraživanje filmova", putanja: "pretrazivanje_filmova", prijavljen: true },
-    { naziv: "Dokumentacija", putanja: "dokumentacija", prijavljen: false },
-    { naziv: "Profil", putanja: "profil", prijavljen: true },
-    { naziv: "Filmovi pregled", putanja: "filmovi_pregled", prijavljen: true }
+    { naziv: "Početna", putanja: "", prijavljen: false, admin: false },
+    { naziv: "Registracija", putanja: "registracija", prijavljen: false, admin: false },
+    { naziv: "Pretraživanje filmova", putanja: "pretrazivanje_filmova", prijavljen: true, admin: false },
+    { naziv: "Dokumentacija", putanja: "dokumentacija", prijavljen: false, admin: false },
+    { naziv: "Profil", putanja: "profil", prijavljen: true, admin: false },
+    { naziv: "Filmovi pregled", putanja: "filmovi_pregled", prijavljen: true, admin: false },
+    { naziv: "Filmovi prijedlozi", putanja: "filmovi_prijedlozi", prijavljen: true, admin: true },
+    { naziv: "Žanrovi", putanja: "zanrovi", prijavljen: true, admin: true },
   );
 
-  @Input() korisnik: IKorisnik = {
-    ime : "",
-    prezime : "",
-    admin : false,
-    prijavljen : true
-  };
+  jePrijavljen() : boolean {
+    return AppComponent.korisnik.prijavljen;
+  }
 
-  staticPrijavljen() : boolean {
-    return this.korisnik.prijavljen;
+  jeAdmin() : boolean {
+    return AppComponent.korisnik.admin;
+  }
+
+  dajIme() : string {
+    return AppComponent.korisnik.ime;
+  }
+
+  dajPrezime() : string {
+    return AppComponent.korisnik.prezime;
   }
 }

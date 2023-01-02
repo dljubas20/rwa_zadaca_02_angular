@@ -37,10 +37,17 @@ exports.getJWT = async function (zahtjev, odgovor) {
     odgovor.send({ greska: "nemam token!" });
 }
 
-exports.getStatusKorisnika = async function (zahtjev, odgovor) {
+exports.getSesijaKorisnik = async function (zahtjev, odgovor) {
     odgovor.type('json')
-    if (zahtjev.session.jwt != null && zahtjev.session.admin != null) {
-        odgovor.send({ admin: zahtjev.session.admin });
+    if (zahtjev.session.jwt != null) {
+        odgovor.send({ 
+            ime: zahtjev.session.korisnik.ime,
+            prezime: zahtjev.session.korisnik.prezime,
+            korime: zahtjev.session.korime,
+            email: zahtjev.session.email,
+            admin: zahtjev.session.admin
+        });
+        
         return;
     } 
     odgovor.status(401);

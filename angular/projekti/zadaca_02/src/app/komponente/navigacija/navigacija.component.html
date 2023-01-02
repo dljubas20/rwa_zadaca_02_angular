@@ -6,20 +6,22 @@
 
         <div class="nav-stavke">
             <div *ngFor="let s of stavke">
-                <a class="link" *ngIf="!s.prijavljen || (s.prijavljen && staticPrijavljen())" [routerLink]="'/' + s.putanja" routerLinkActive="trenutni-link" [routerLinkActiveOptions]="{exact: true}">{{ s.naziv }}</a>
+                <a class="link" *ngIf="!s.prijavljen || (s.prijavljen && jePrijavljen() && !s.admin) || (s.prijavljen && s.admin && jePrijavljen() && jeAdmin())" [routerLink]="'/' + s.putanja" routerLinkActive="trenutni-link" [routerLinkActiveOptions]="{exact: true}">{{ s.naziv }}</a>
             </div>
         </div>
 
         <div class="prijava">
-            <div *ngIf="staticPrijavljen() == true; else elseBlock">
-                <p>
-                    {{ korisnik.ime + " " + korisnik.prezime }}
-                </p>
+            <div *ngIf="jePrijavljen() == true; else nijePrijavljen">
+                <mat-card>
+                    <p class="link">
+                        {{ dajIme() + " " + dajPrezime() }}
+                    </p>
+                </mat-card>
 
                 <a class="link" routerLink="/odjava" routerLinkActive="trenutni-link">Odjava</a>
             </div>
 
-            <ng-template #elseBlock>
+            <ng-template #nijePrijavljen>
                 <a class="link" routerLink="/prijava" routerLinkActive="trenutni-link">Prijava</a>
             </ng-template>
         </div>

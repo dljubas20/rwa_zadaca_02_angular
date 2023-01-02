@@ -90,7 +90,7 @@ function pripremiPutanjeAutentifikacija() {
     server.get("/api/prijava", htmlUpravitelj.prijava);
     server.post("/api/prijava", htmlUpravitelj.prijava);
     server.get("/api/getJWT", fetchUpravitelj.getJWT);
-    server.get("/api/getStatusKorisnika", fetchUpravitelj.getStatusKorisnika);
+    server.get("/api/getSesijaKorisnik", fetchUpravitelj.getSesijaKorisnik);
     server.get("/api/generirajToken", fetchUpravitelj.generirajToken);
     server.get("/api/aktivacijaRacuna", fetchUpravitelj.aktvacijaRacuna);
 }

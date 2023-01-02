@@ -33,6 +33,9 @@ exports.registracija = async function (zahtjev, odgovor) {
 exports.odjava = async function (zahtjev, odgovor) {
     zahtjev.session.jwt = null;
     zahtjev.session.korisnik = null;
+    zahtjev.session.korime = null;
+    zahtjev.session.email = null;
+    zahtjev.session.admin = null;
     odgovor.json({odjava: "OK"});
 };
 
@@ -46,15 +49,15 @@ exports.prijava = async function (zahtjev, odgovor) {
 
         if (korisnik) {
             zahtjev.session.jwt = jwt.kreirajToken(korisnik);
-            zahtjev.session.korisnik = korisnik.ime + " " + korisnik.prezime;
+            zahtjev.session.korisnik = {ime: korisnik.ime, prezime: korisnik.prezime};
             zahtjev.session.korime = korisnik.korime;
             zahtjev.session.email = korisnik.email;
             zahtjev.session.admin = (korisnik.tipKorisnika_id == 1) ? true : false;
-            
-            odgovor.json({prijava: "OK"});
+
+            odgovor.send({prijava: "OK"});
         } else {
             greska = "Netocni podaci!";
-            odgovor.json({prijava: greska});
+            odgovor.send({prijava: greska});
         }
     }
 }

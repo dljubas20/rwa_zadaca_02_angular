@@ -40,9 +40,15 @@ export class PrijavaComponent {
     let rezultat = JSON.parse(await odgovor.text()).prijava;
     
     if (rezultat == "OK") {
-      AppComponent.korisnik.admin = await this.korisnikServis.dajStatusKorisnika();
-      AppComponent.korisnik.prijavljen = true;
-      this.router.navigate(['/']);
+      let korisnik = await this.korisnikServis.dajSesijaKorisnik();
+      if (!(typeof korisnik == 'boolean')) {
+        AppComponent.korisnik.ime = korisnik.ime;
+        AppComponent.korisnik.prezime = korisnik.prezime;
+        AppComponent.korisnik.admin = korisnik.admin;
+        AppComponent.korisnik.prijavljen = true;
+        
+        this.router.navigate(['/']);
+      }
     }
     else {
       this.netocniPodaci = true;

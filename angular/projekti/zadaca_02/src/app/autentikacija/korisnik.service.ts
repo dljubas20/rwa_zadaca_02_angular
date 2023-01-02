@@ -24,11 +24,23 @@ export class KorisnikService {
     }
   }
 
-  async dajStatusKorisnika() : Promise<boolean> {
-    let odgovor = await (await fetch(this.appServis + "/getStatusKorisnika")).text();
-    let rezultat = JSON.parse(odgovor);
-    if ('admin' in rezultat) {
-      return rezultat.admin;
+  async dajSesijaKorisnik() : Promise<{
+    ime : string,
+    prezime : string,
+    korime : string,
+    email : string,
+    admin :boolean
+  } | boolean> {
+    let odgovor = await fetch(this.appServis + "/getSesijaKorisnik");
+    if (odgovor.status == 200) {
+      let rezultat = JSON.parse(await odgovor.text()) as {
+        ime : string,
+        prezime : string,
+        korime : string,
+        email : string,
+        admin : boolean
+      };
+      return rezultat;
     }
     else {
       return false;
