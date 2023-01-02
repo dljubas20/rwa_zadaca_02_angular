@@ -17,6 +17,12 @@ mat-card-content {
 mat-card-header {
     display: flex;
     flex-direction: column-reverse;
+    height: fit-content;
+    width: fit-content;
+
+    img {
+        width: 25vh;
+    }
 }
 
 .filmovi {
