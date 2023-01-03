@@ -24,8 +24,18 @@
         <ng-container matColumnDef="odobravanje">
             <th mat-header-cell *matHeaderCellDef>Odobri film?</th>
             <td mat-cell *matCellDef="let element" id="gumbovi">
-                <button mat-flat-button (click)="odobriFilm(element)" color="primary" id="odobri">Odobri</button>
-                <button mat-flat-button (click)="ponistiFilm(element)" color="warn" id="ponisti">Poništi</button>
+                <div *ngIf="element.prijedlog == 1; else kliknuto">
+                    <button mat-flat-button (click)="odobriFilm(element)" color="primary" id="odobri">Odobri</button>
+                    <button mat-flat-button (click)="ponistiFilm(element)" color="warn" id="ponisti">Poništi</button>
+                </div>
+                <ng-template #kliknuto>
+                    <div *ngIf="element.id == -1; else odobreno">
+                        <p id="ponisteno">Poništeno</p>
+                    </div>
+                    <ng-template #odobreno>
+                        <p id="odobreno">Odobreno</p>
+                    </ng-template>
+                </ng-template>
             </td>
         </ng-container>
 

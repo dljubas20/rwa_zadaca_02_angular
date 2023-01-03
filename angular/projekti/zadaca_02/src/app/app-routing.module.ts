@@ -24,7 +24,7 @@ const routes: Routes = [
     ]
   },
   { title: "Prijava", path: "prijava", component: PrijavaComponent },
-  { title: "Prijedlozi filmova", path: "prijedlozi_filmova", component: PrijedloziFilmovaComponent },
+  { title: "Prijedlozi filmova", path: "filmovi_prijedlozi", component: PrijedloziFilmovaComponent },
   { title: "Stranica nije pronađena", path: "**", component: StranicaNijePronadenaComponent },
   { path: "", redirectTo: "", pathMatch: "full" }
 ];

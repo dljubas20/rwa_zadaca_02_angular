@@ -14,11 +14,11 @@ export class NavigacijaComponent {
   stavke: Array<INavStavka> = new Array<INavStavka>(
     { naziv: "Početna", putanja: "", prijavljen: false, admin: false },
     { naziv: "Registracija", putanja: "registracija", prijavljen: false, admin: false },
-    { naziv: "Pretraživanje filmova", putanja: "pretrazivanje_filmova", prijavljen: true, admin: false },
+    { naziv: "Pretraživanje", putanja: "pretrazivanje_filmova", prijavljen: true, admin: false },
     { naziv: "Dokumentacija", putanja: "dokumentacija", prijavljen: false, admin: false },
     { naziv: "Profil", putanja: "profil", prijavljen: true, admin: false },
     { naziv: "Filmovi pregled", putanja: "filmovi_pregled", prijavljen: true, admin: false },
-    { naziv: "Filmovi prijedlozi", putanja: "filmovi_prijedlozi", prijavljen: true, admin: true },
+    { naziv: "Prijedlozi", putanja: "filmovi_prijedlozi", prijavljen: true, admin: true },
     { naziv: "Žanrovi", putanja: "zanrovi", prijavljen: true, admin: true },
   );
 
