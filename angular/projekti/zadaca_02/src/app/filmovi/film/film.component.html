@@ -9,19 +9,21 @@
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-            <img src="" alt="">
+            <div id="slike">
+                <img [src]="'/posteri/' + film?.putanjaPoster" alt="Poster">
+                
+                <a [routerLink]="'galerija'" id="vidi-vise">
+                    <div>
+                        <mat-icon>collections</mat-icon>
+                        <p>Galerija slika</p>
+                    </div>
+                </a>
+            </div>
+            
             <div id="zanroviFilma">
                 <mat-chip *ngFor="let zanr of zanroviFilma">
                     {{ zanr?.naziv }}
                 </mat-chip>
-            </div>
-
-            <div>
-                Slika postera
-            </div>
-
-            <div>
-                <a [routerLink]="">Galerija slika</a>
             </div>
 
             <div>

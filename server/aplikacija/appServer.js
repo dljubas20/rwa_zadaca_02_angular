@@ -59,6 +59,7 @@ function pokreniServer() {
     pripremiPutanjePretrazivanjeFilmova();
     pripremiPutanjeKorisnik();
 
+    server.use("/posteri", express.static("posteri/"));
     server.use(express.static("angular/"));
     server.get("*", (zahtjev, odgovor) => {
         odgovor.sendFile(__dirname + '/angular/');
