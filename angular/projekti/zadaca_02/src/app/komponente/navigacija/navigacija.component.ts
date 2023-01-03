@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AppComponent } from '../../app.component';
+import { KorisnikService } from '../../autentikacija/korisnik.service';
 import { IKorisnik } from '../../interfaces/IKorisnik';
 import { INavStavka } from '../../interfaces/INavStavka';
 
@@ -21,6 +22,10 @@ export class NavigacijaComponent {
     { naziv: "Žanrovi", putanja: "zanrovi", prijavljen: true, admin: true },
   );
 
+  constructor(private korisnikServis : KorisnikService) {
+
+  }
+
   jePrijavljen() : boolean {
     return AppComponent.korisnik.prijavljen;
   }
@@ -35,5 +40,9 @@ export class NavigacijaComponent {
 
   dajPrezime() : string {
     return AppComponent.korisnik.prezime;
+  }
+
+  async odjava() : Promise<void> {
+    await this.korisnikServis.odjava();
   }
 }
