@@ -7,8 +7,13 @@ export class FilmDAO {
         this.baza = new Baza();
     }
 
-    dajSve  = async (parametri : any) => {
+    dajSve  = async (parametri : any, dajPrijedloge : boolean = false) => {
         let sql = '';
+        if (dajPrijedloge) {
+            sql = `SELECT * FROM film WHERE film.prijedlog=1;`
+            return await this.baza.izvrsiSelectUpit(sql);
+        }
+
         if (parametri.idZanr != null) {
             sql = `SELECT * FROM film WHERE film.id IN (SELECT zanrovi.film_id FROM zanrovi WHERE zanrovi.film_id=film.id AND zanr_id=?) AND film.prijedlog=0;`;
             return await this.baza.izvrsiSelectUpit(sql, [parametri.idZanr]);
@@ -78,7 +83,7 @@ export class FilmDAO {
         return await this.baza.izvrsiUpit(sql, podaci);
     }
 
-    azuriraj = async (id : number, film : {
+    azuriraj = async (id : number, odobriFilm : boolean = false, film? : {
         tmdb_id : number,
         imdb_id : number,
         naziv : string,
@@ -101,29 +106,34 @@ export class FilmDAO {
         prijedlog : boolean,
         korisnik_id : number
     }) => {
-        let sql = `UPDATE korisnik SET tmdb_id=?, imdb_id=?, naziv=?, sazetak=?, trajanje=?, datumIzlaska=?, datumDodavanja=?, dobnoOgranicenje=?, putanjaPozadina=?, putanjaPoster=?, budzet=?, prihod=?, pocetnaStranica=?, izvorniJezik=?, popularnost=?, status=?, slogan=?, ocjena=?, brojOcjenjivaca=?, prijedlog=?, korisnik_id=? WHERE id=?;`;
+        if (odobriFilm) {
+            let sql = `UPDATE film SET prijedlog = 0 WHERE id = ?;`;
+            return await this.baza.izvrsiUpit(sql, [id]);
+        }
+
+        let sql = `UPDATE film SET tmdb_id=?, imdb_id=?, naziv=?, sazetak=?, trajanje=?, datumIzlaska=?, datumDodavanja=?, dobnoOgranicenje=?, putanjaPozadina=?, putanjaPoster=?, budzet=?, prihod=?, pocetnaStranica=?, izvorniJezik=?, popularnost=?, status=?, slogan=?, ocjena=?, brojOcjenjivaca=?, prijedlog=?, korisnik_id=? WHERE id=?;`;
         let podaci = [
-            film.tmdb_id,
-            film.imdb_id,
-            film.naziv,
-            film.sazetak,
-            film.trajanje,
-            film.datumIzlaska,
-            film.datumDodavanja,
-            film.dobnoOgranicenje,
-            film.putanjaPozadina,
-            film.putanjaPoster,
-            film.budzet,
-            film.prihod,
-            film.pocetnaStranica,
-            film.izvorniJezik,
-            film.popularnost,
-            film.status,
-            film.slogan,
-            film.ocjena,
-            film.brojOcjenjivaca,
-            film.prijedlog,
-            film.korisnik_id,
+            film?.tmdb_id,
+            film?.imdb_id,
+            film?.naziv,
+            film?.sazetak,
+            film?.trajanje,
+            film?.datumIzlaska,
+            film?.datumDodavanja,
+            film?.dobnoOgranicenje,
+            film?.putanjaPozadina,
+            film?.putanjaPoster,
+            film?.budzet,
+            film?.prihod,
+            film?.pocetnaStranica,
+            film?.izvorniJezik,
+            film?.popularnost,
+            film?.status,
+            film?.slogan,
+            film?.ocjena,
+            film?.brojOcjenjivaca,
+            film?.prijedlog,
+            film?.korisnik_id,
             id
         ];
         
@@ -131,7 +141,14 @@ export class FilmDAO {
     }
 
     obrisi = async (id : number) => {
-		let sql = `DELETE FROM film WHERE id=?;`;
-		return await this.baza.izvrsiUpit(sql, [id]);
+        let sql = `DELETE FROM zanrovi WHERE zanrovi.film_id=?`
+        let obrisiZanrovi = await this.baza.izvrsiUpit(sql, [id]);
+		sql = ``;
+
+        if (obrisiZanrovi) {
+            sql = `DELETE FROM film WHERE id=?;`;
+            return await this.baza.izvrsiUpit(sql, [id]);
+        }
+        return false;
 	}
 }

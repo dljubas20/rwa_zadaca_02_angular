@@ -10,6 +10,7 @@ import { FilmoviPregledComponent } from './filmovi/filmovi-pregled/filmovi-pregl
 import { PrijavaComponent } from './autentikacija/prijava/prijava.component';
 import { StranicaNijePronadenaComponent } from './komponente/stranica-nije-pronadena/stranica-nije-pronadena.component';
 import { FilmComponent } from './filmovi/film/film.component';
+import { PrijedloziFilmovaComponent } from './filmovi/prijedlozi-filmova/prijedlozi-filmova.component';
 
 const routes: Routes = [
   { title: "Početna", path: "", component: PocetnaComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
     ]
   },
   { title: "Prijava", path: "prijava", component: PrijavaComponent },
+  { title: "Prijedlozi filmova", path: "prijedlozi_filmova", component: PrijedloziFilmovaComponent },
   { title: "Stranica nije pronađena", path: "**", component: StranicaNijePronadenaComponent },
   { path: "", redirectTo: "", pathMatch: "full" }
 ];

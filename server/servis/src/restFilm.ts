@@ -17,6 +17,12 @@ export function getFilmovi(zahtjev : Request, odgovor : Response) {
         sortiraj: zahtjev.query['sortiraj']
     };
 
+
+    let dajPrijedloge = false;
+    if (zahtjev.query['dajPrijedloge'] == '1') {
+        dajPrijedloge = true;
+    }
+
     if(parametri.stranica == null || parametri.brojFilmova == null){
         odgovor.status(417);
         odgovor.send({greska: "neocekivani podaci"});
@@ -24,7 +30,7 @@ export function getFilmovi(zahtjev : Request, odgovor : Response) {
     }
 
     let fdao = new FilmDAO();
-    fdao.dajSve(parametri).then((filmovi : Array<any> | any) => {
+    fdao.dajSve(parametri, dajPrijedloge).then((filmovi : Array<any> | any) => {
         odgovor.send(JSON.stringify(filmovi));
     });
 }
@@ -87,9 +93,14 @@ export function putFilm(zahtjev : Request, odgovor : Response) {
     }
 
     let podaci = zahtjev.body;
+    let odobriFilm : boolean = false;
+
+    if ('odobriFilm' in podaci) {
+        odobriFilm = podaci.odobriFilm;
+    }
 
     let fdao = new FilmDAO();
-    fdao.azuriraj(id, podaci).then((poruka : any) => {
+    fdao.azuriraj(id, odobriFilm, podaci).then((poruka : any) => {
         odgovor.send(JSON.stringify(poruka));
     });
 }

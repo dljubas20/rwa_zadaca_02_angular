@@ -16,6 +16,7 @@ export class FilmService {
   }>();
 
   pregled_filmovi = new Array<IFilm>();
+  prijedlozi_filmovi = new Array<IFilm>();
 
   constructor(private zanrServis : ZanrService) {
 
@@ -81,6 +82,70 @@ export class FilmService {
     }
 
     return this.pregled_filmovi;
+  }
+
+  async dajFilmovePrijedlozi(): Promise<Array<IFilm>> {
+    let zaglavlje : Headers = new Headers();
+    zaglavlje.set("Content-Type", "application/json");
+    let token = await fetch( this.appServis + "/generirajToken");
+
+    zaglavlje.set("Authorization", await token.text());
+  
+    let odgovor : Response = (await fetch(this.restServis + "/filmovi?stranica=1&dajPrijedloge=1", {
+      method: 'GET',
+      headers: zaglavlje,
+    })) as Response;
+
+    if (odgovor.status == 200) {
+      let rezultat = JSON.parse(await odgovor.text()) as Array<IFilm>;
+      if (!(rezultat instanceof Array<IFilm>)) {
+        this.prijedlozi_filmovi.push(rezultat);
+      }
+      else {
+        this.prijedlozi_filmovi = rezultat;
+      }
+    }
+
+    return this.prijedlozi_filmovi;
+  }
+
+  async odobriFilm(idFilma : number) : Promise<boolean> {
+    let zaglavlje : Headers = new Headers();
+    zaglavlje.set("Content-Type", "application/json");
+    let token = await fetch( this.appServis + "/generirajToken");
+
+    zaglavlje.set("Authorization", await token.text());
+  
+    let odgovor : Response = (await fetch(this.restServis + "/filmovi/" + idFilma, {
+      method: 'PUT',
+      headers: zaglavlje,
+      body: JSON.stringify({odobriFilm: true})
+    })) as Response;
+
+    if (odgovor.status == 200) {
+      return true;
+    }
+
+    return false;
+  }
+
+  async ponistiFilm(idFilma : number) : Promise<boolean> {
+    let zaglavlje : Headers = new Headers();
+    zaglavlje.set("Content-Type", "application/json");
+    let token = await fetch( this.appServis + "/generirajToken");
+
+    zaglavlje.set("Authorization", await token.text());
+  
+    let odgovor : Response = (await fetch(this.restServis + "/filmovi/" + idFilma, {
+      method: 'DELETE',
+      headers: zaglavlje
+    })) as Response;
+
+    if (odgovor.status == 200) {
+      return true;
+    }
+
+    return false;
   }
 
   async dajFilm(idFilma : number) : Promise<IFilm> {
