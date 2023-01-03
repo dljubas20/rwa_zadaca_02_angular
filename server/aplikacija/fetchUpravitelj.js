@@ -1,5 +1,8 @@
 const FilmoviPretrazivanje = require("./filmoviPretrazivanje.js");
 const jwt = require("./moduli/jwt.js");
+const konst = require("../konstante.js");
+const noviFetch = require("./noviFetch.js");
+const ds = require("fs");
 const Autentifikacija = require("./autentifikacija.js");
 const Konfiguracija = require("../konfiguracija");
 let auth = new Autentifikacija();
@@ -84,6 +87,30 @@ exports.dodajFilm = async function (zahtjev, odgovor) {
         //TODO obradi zahtjev
 
         odgovor.json({ok: "OK"});
+     }
+}
+
+exports.preuzmiPoster = async function (zahtjev, odgovor) {
+    if (!jwt.provjeriToken(zahtjev)) {
+        odgovor.status(401);
+        odgovor.json({ greska: "neautorizirani pristup" });
+     } else {
+        let putanjaPoster = konst.putanjaPosteri + "/" + zahtjev.params.putanjaPoster;
+
+        let datoteka = ds.createWriteStream("./posteri/" + zahtjev.params.putanjaPoster);
+
+        let o = await noviFetch.fetch(putanjaPoster);
+
+        o.body.pipe(datoteka);
+        let uspjeh = false;
+        datoteka.on("finish", () => {
+            datoteka.close();
+            odgovor.json({ok: "OK"});
+        });
+        datoteka.on("error", () => {
+            odgovor.status(404);
+            odgovor.json({greska: "greska u preuzimanju postera"});
+        });
      }
 }
 

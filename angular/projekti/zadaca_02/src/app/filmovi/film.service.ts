@@ -118,7 +118,7 @@ export class FilmService {
     return this.prijedlozi_filmovi;
   }
 
-  async odobriFilm(idFilma : number) : Promise<boolean> {
+  async odobriFilm(idFilma : number, putanjaPoster : string) : Promise<boolean> {
     let zaglavlje : Headers = new Headers();
     zaglavlje.set("Content-Type", "application/json");
     let token = await fetch( this.appServis + "/generirajToken");
@@ -132,7 +132,21 @@ export class FilmService {
     })) as Response;
 
     if (odgovor.status == 200) {
-      return true;
+      let z : Headers = new Headers();
+      z.set("Content-Type", "application/json");
+      let token = await fetch( this.appServis + "/getJWT");
+
+      z.set("Authorization", JSON.parse(await token.text()).ok);
+
+      let o : Response = await fetch(this.appServis + "/preuzmiPoster/" + putanjaPoster, {
+        method: "GET",
+        headers: z
+      });
+
+      if (o.status == 200) {
+        return true;
+      }
+
     }
 
     return false;

@@ -4,3 +4,4 @@
 *.sqlite
 
 /aplikacija/angular/*
+/aplikacija/posteri/*

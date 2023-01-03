@@ -28,7 +28,7 @@ export class PrijedloziFilmovaComponent implements OnInit{
   }
 
   async odobriFilm(film : IFilm) {
-    let odobren = await this.filmServis.odobriFilm(film.id);
+    let odobren = await this.filmServis.odobriFilm(film.id, film.putanjaPoster);
 
     if (odobren) {
       this.filmovi[this.filmovi.indexOf(film)].prijedlog = false;
