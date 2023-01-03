@@ -48,6 +48,15 @@ export class FilmService {
 
           if (odgovor.status == 200) {
             let rezultat = JSON.parse(await odgovor.text()) as Array<IFilm>;
+            
+            if (!(rezultat instanceof Array<IFilm>)) {
+              let polje = new Array<IFilm>();
+              
+              polje.push(rezultat);
+              
+              rezultat = polje;
+            }
+            console.log(rezultat);
 
             this.pocetna_filmovi.push({
               zanr: zanr,
