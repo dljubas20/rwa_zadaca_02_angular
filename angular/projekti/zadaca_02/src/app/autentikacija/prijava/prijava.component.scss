@@ -6,7 +6,10 @@
 mat-card {
     display: flex;
     margin: 3vh;
-    width: 75vh;
+    padding-left: 7vh;
+    padding-right: 7vh;
+    padding-bottom: 3vh;
+    width: fit-content;
 
     mat-card-header {
         justify-content: center;

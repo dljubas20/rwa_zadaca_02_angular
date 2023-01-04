@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatToolbarModule } from '@angular/material/toolbar'; 
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppRoutingModule } from './app-routing.module';
-import { MatCardModule } from '@angular/material/card'; 
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 import { NavigacijaComponent } from './komponente/navigacija/navigacija.component';
 
@@ -14,7 +15,8 @@ import { NavigacijaComponent } from './komponente/navigacija/navigacija.componen
     CommonModule,
     MatToolbarModule,
     AppRoutingModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule
   ],
   exports: [
     NavigacijaComponent,

@@ -1,20 +1,29 @@
-img {
-    width: 30vh;
-    height: 10vh;
-}
-
 .navigacija {
     position: sticky;
     top: 0;
     margin: 0px;
     width: 100%;
-    height: fit-content;
     color: #87a7b8;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 20px;
     font-weight: 500;
+
+    #logo-link {
+        text-decoration: none;
+
+        mat-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            
+            font-size: 5vh;
+            padding: 2vh;
+            color: white;
+        }
+    }
 }
 
 .nav-stavke {
