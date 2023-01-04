@@ -13,17 +13,28 @@ export class ZanrDAO {
         return await this.baza.izvrsiSelectUpit(sql);
     }
 
-    dodaj = async (podaci : {
+    dodaj = async (podaci : Array<{
+        id : number,
         naziv : string,
-        opis : string
-    }) => {
-        let sql = `INSERT INTO zanr(naziv, opis) VALUES(?, ?)`;
+        opis? : string
+    }>) => {
+        let sviUbaceni = true;
 
-        return await this.baza.izvrsiUpit(sql, [podaci.naziv, podaci.opis]);
+        for (let zanr of podaci) {
+            let sql = `INSERT OR IGNORE INTO zanr(id, naziv, opis) VALUES(?, ?, ?);`;
+    
+            let ubacen = await this.baza.izvrsiUpit(sql, [zanr.id, zanr.naziv, zanr.opis]);
+
+            if (!ubacen) {
+                sviUbaceni = false;
+            }
+        }
+
+        return sviUbaceni;
     }
 
     obrisi = async () => {
-        let sql = `DELETE FROM zanr WHERE NOT EXISTS (SELECT * FROM zanrovi WHERE zanrovi.zanr_id=zanr.id)`;
+        let sql = `DELETE FROM zanr WHERE NOT EXISTS (SELECT * FROM zanrovi WHERE zanrovi.zanr_id=zanr.id);`;
         
         return await this.baza.izvrsiUpit(sql);
     }
