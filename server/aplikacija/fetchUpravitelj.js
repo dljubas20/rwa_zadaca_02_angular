@@ -119,17 +119,22 @@ exports.getSlikeKorisnici = async function (zahtjev, odgovor) {
         odgovor.status(401);
         odgovor.json({ greska: "neautorizirani pristup" });
      } else {
-        let direktoriji = (await ds.promises.readdir("slike", { withFileTypes: true })).filter(dirent => dirent.isDirectory()).map(dirent => dirent.name);
-        console.log("direktoriji:");
-        console.log(direktoriji);
+        if (zahtjev.params.idFilma == undefined) {
+             odgovor.status(404);
+             odgovor.json({greska: "nema resursa!"});
+        }
+
+        let idFilma = zahtjev.params.idFilma;
+        
+        let direktoriji = (await ds.promises.readdir("slike/" + idFilma, { withFileTypes: true })).filter(dirent => dirent.isDirectory()).map(dirent => dirent.name);
         await new Promise(async (uspjeh, neuspjeh) => {
             let rezultat = [];
             for (korime of direktoriji) {
-                let slike = (await (ds.promises.readdir("slike/" + korime, { withFileTypes: true }))).filter(dirent => !dirent.isDirectory()).map(dirent => dirent.name);
+                let slike = (await (ds.promises.readdir("slike/" + idFilma + "/" + korime, { withFileTypes: true }))).filter(dirent => !dirent.isDirectory()).map(dirent => dirent.name);
                 
                 rezultat.push({
                     korime: korime,
-                    slike: slike
+                    naziviSlika: slike
                 });
             }
 

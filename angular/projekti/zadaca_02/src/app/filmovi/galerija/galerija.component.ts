@@ -23,16 +23,17 @@ export class GalerijaComponent implements OnInit{
   }
   
   async ngOnInit(): Promise<void> {
+    this.idFilma = this.route.snapshot.paramMap.get('id') as unknown as number;
     await this.dohvatiSlikeKorisnici();
     if (this.slikePutanja?.length == 0)
       setTimeout(this.dohvatiSlikeKorisnici.bind(this), 3000);
 
-    this.idFilma = this.route.snapshot.paramMap.get('id') as unknown as number;
     
   }
 
   async dohvatiSlikeKorisnici() {
-    let slikeKorisnici = await this.korisnikServis.dajSlikeKorisnici();
+    let slikeKorisnici = await this.korisnikServis.dajSlikeKorisnici(this.idFilma!);
+    console.log(slikeKorisnici);
     
     if (typeof slikeKorisnici != "boolean") {
       this.slikePutanja = slikeKorisnici;

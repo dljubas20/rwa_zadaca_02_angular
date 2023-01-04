@@ -109,7 +109,7 @@ export class KorisnikService {
     }
   }
 
-  async dajSlikeKorisnici() : Promise<Array<{
+  async dajSlikeKorisnici(idFilma : number) : Promise<Array<{
     korime : string,
     naziviSlika : Array<string>
   }> | boolean> {
@@ -119,14 +119,16 @@ export class KorisnikService {
     
     zaglavlje.set("Authorization", jwt);
 
-    let odgovor = await fetch(this.appServis + "/filmoviSlikeKorisnici", {
+    let odgovor = await fetch(this.appServis + "/filmoviSlikeKorisnici/" + idFilma, {
       method: "GET",
       headers: zaglavlje
     });
 
     if (odgovor.status == 200) {
-      console.log(JSON.parse(await odgovor.text()));
-      
+      return JSON.parse(await odgovor.text()) as Array<{
+        korime : string,
+        naziviSlika : Array<string>
+      }>;
     }
 
     return false;
