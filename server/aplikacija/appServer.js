@@ -84,6 +84,7 @@ function pripremiPutanjePretrazivanjeFilmova() {
     server.post('/api/filmoviPretrazivanje', fetchUpravitelj.filmoviPretrazivanje);
     server.post('/api/dodajFilm', fetchUpravitelj.dodajFilm);
     server.get('/api/preuzmiPoster/:putanjaPoster', fetchUpravitelj.preuzmiPoster);
+    server.get('/api/filmoviSlikeKorisnici', fetchUpravitelj.getSlikeKorisnici);
 }
 
 function pripremiPutanjeAutentifikacija() {

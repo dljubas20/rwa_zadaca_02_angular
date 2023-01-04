@@ -108,4 +108,27 @@ export class KorisnikService {
       this.router.navigate(['']);
     }
   }
+
+  async dajSlikeKorisnici() : Promise<Array<{
+    korime : string,
+    naziviSlika : Array<string>
+  }> | boolean> {
+    let zaglavlje = new Headers();
+    zaglavlje.set("Content-Type", "application/json");
+    let jwt = await this.dajJWT();
+    
+    zaglavlje.set("Authorization", jwt);
+
+    let odgovor = await fetch(this.appServis + "/filmoviSlikeKorisnici", {
+      method: "GET",
+      headers: zaglavlje
+    });
+
+    if (odgovor.status == 200) {
+      console.log(JSON.parse(await odgovor.text()));
+      
+    }
+
+    return false;
+  }
 }

@@ -114,3 +114,37 @@ exports.preuzmiPoster = async function (zahtjev, odgovor) {
      }
 }
 
+exports.getSlikeKorisnici = async function (zahtjev, odgovor) {
+    if (!jwt.provjeriToken(zahtjev)) {
+        odgovor.status(401);
+        odgovor.json({ greska: "neautorizirani pristup" });
+     } else {
+        let direktoriji = (await ds.promises.readdir("slike", { withFileTypes: true })).filter(dirent => dirent.isDirectory()).map(dirent => dirent.name);
+        console.log("direktoriji:");
+        console.log(direktoriji);
+        await new Promise(async (uspjeh, neuspjeh) => {
+            let rezultat = [];
+            for (korime of direktoriji) {
+                let slike = (await (ds.promises.readdir("slike/" + korime, { withFileTypes: true }))).filter(dirent => !dirent.isDirectory()).map(dirent => dirent.name);
+                
+                rezultat.push({
+                    korime: korime,
+                    slike: slike
+                });
+            }
+
+            if (rezultat.length > 0) {
+                uspjeh(rezultat);
+            }
+            else {
+                neuspjeh();
+            }
+
+        }).then((rezultat) => {
+            odgovor.json(rezultat);
+        }).catch(() => {
+            odgovor.status(404);
+            odgovor.json({greska: "nema resursa!"});
+        });
+     }
+}

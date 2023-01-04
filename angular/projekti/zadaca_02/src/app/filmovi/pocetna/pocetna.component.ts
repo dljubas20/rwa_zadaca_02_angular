@@ -21,8 +21,8 @@ export class PocetnaComponent implements OnInit{
     
   }
   
-  ngOnInit(): void {
-    this.dohvatiFilmove();
+  async ngOnInit(): Promise<void> {
+    await this.dohvatiFilmove();
     if(this.filmovi.length == 0)
       setTimeout(this.dohvatiFilmove.bind(this), 3000);
   }
