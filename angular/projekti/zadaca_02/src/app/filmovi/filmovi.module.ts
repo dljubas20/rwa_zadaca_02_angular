@@ -14,6 +14,7 @@ import { FilmoviPregledComponent } from './filmovi-pregled/filmovi-pregled.compo
 import { PretrazivanjeFilmovaComponent } from './pretrazivanje-filmova/pretrazivanje-filmova.component';
 import { FilmComponent } from './film/film.component';
 import { PrijedloziFilmovaComponent } from './prijedlozi-filmova/prijedlozi-filmova.component';
+import { GalerijaComponent } from './galerija/galerija.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { PrijedloziFilmovaComponent } from './prijedlozi-filmova/prijedlozi-film
     FilmoviPregledComponent,
     PretrazivanjeFilmovaComponent,
     FilmComponent,
-    PrijedloziFilmovaComponent
+    PrijedloziFilmovaComponent,
+    GalerijaComponent
   ],
   imports: [
     CommonModule,
