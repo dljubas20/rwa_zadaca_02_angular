@@ -9,7 +9,7 @@ export class ZanrService {
   appServis?: string = "http://localhost:" + environment.appPort + "/api";
   restServis?: string = "http://localhost:" + environment.restPort + "/api";
   zanrovi = new Array<IZanr>();
-  tmdbZanrovi = new Array<IZanr>();
+  tmdbZanrovi = new Array<{id: number, name: string}>();
 
   async dajZanrove(): Promise<Array<IZanr>> {
     if (this.zanrovi.length == 0) {  
@@ -27,6 +27,13 @@ export class ZanrService {
         if (o.status == 200) {
             this.zanrovi = JSON.parse(await o.text()) as Array<IZanr>;
         }
+
+        if ((this.zanrovi.constructor === ({}).constructor)) {
+          let poljeZanrova = new Array<IZanr>();
+          poljeZanrova.push(this.zanrovi as unknown as IZanr);
+          
+          return poljeZanrova;
+        }
         
         return this.zanrovi;
       
@@ -35,8 +42,8 @@ export class ZanrService {
     }
   }
 
-  async dajTmdbZanrove() : Promise<Array<IZanr>> {
-    this.tmdbZanrovi = new Array<IZanr>();
+  async dajTmdbZanrove() : Promise<Array<{id: number, name: string}>> {
+    this.tmdbZanrovi = new Array<{id: number, name: string}>();
     let zaglavlje : Headers = new Headers();
     zaglavlje.set("Content-Type", "application/json");
     let token = await fetch("http://localhost:12112/api/generirajToken");
@@ -48,7 +55,14 @@ export class ZanrService {
     })) as Response;
 
     if (o.status == 200) {
-      this.tmdbZanrovi = JSON.parse(await o.text()).genres as Array<IZanr>;
+      this.tmdbZanrovi = JSON.parse(await o.text()).genres as Array<{id: number, name: string}>;
+    }
+
+    if ((this.tmdbZanrovi.constructor === ({}).constructor)) {
+      let poljeZanrova = new Array<{id: number, name: string}>();
+      poljeZanrova.push(this.tmdbZanrovi as unknown as {id: number, name: string});
+      
+      return poljeZanrova;
     }
 
     return this.tmdbZanrovi;

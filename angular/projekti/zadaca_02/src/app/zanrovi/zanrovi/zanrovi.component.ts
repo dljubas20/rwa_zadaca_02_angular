@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTable } from '@angular/material/table';
+import { SelectionModel } from '@angular/cdk/collections';
+
 import { IZanr } from '../../interfaces/IZanr';
 import { ZanrService } from '../zanr.service';
 import { ZanroviDijalogComponent } from '../zanrovi-dijalog/zanrovi-dijalog.component';
@@ -10,8 +13,11 @@ import { ZanroviDijalogComponent } from '../zanrovi-dijalog/zanrovi-dijalog.comp
   styleUrls: ['./zanrovi.component.scss']
 })
 export class ZanroviComponent implements OnInit {
-  zanrovi? : Array<IZanr>;
-  tmdbZanrovi? : Array<IZanr>;
+  zanrovi : Array<IZanr> = new Array<IZanr>();
+  tmdbZanrovi? : Array<{id: number, name: string}>;
+
+  oznaceni = new SelectionModel<IZanr>(true, []);
+  @ViewChild(MatTable) tablica?: MatTable<any>;
 
   constructor(private dijalog : MatDialog, private zanrServis : ZanrService) {
 
@@ -29,8 +35,28 @@ export class ZanroviComponent implements OnInit {
   }
 
   otvoriDijalog() : void {
-    let dijalogRef = this.dijalog.open(ZanroviDijalogComponent, {
-      data: this.tmdbZanrovi
-    })
+    let dijalogRef = this.dijalog.open(ZanroviDijalogComponent);
+
+    dijalogRef.afterClosed().subscribe(odabraniZanrovi => {
+      this.dohvatiZanrove();
+      this.tablica?.renderRows();
+    });
+  }
+
+  sveOznaceno() : boolean {
+    if (this.oznaceni.selected.length == this.zanrovi!.length) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  oznaciSve() : void {
+    if (this.sveOznaceno()) {
+      this.oznaceni.clear();
+      return;
+    }
+
+    this.oznaceni.select(...this.zanrovi!);
   }
 }

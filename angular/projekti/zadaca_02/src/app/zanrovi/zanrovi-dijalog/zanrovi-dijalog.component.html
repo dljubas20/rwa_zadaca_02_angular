@@ -1,7 +1,7 @@
 <div id="zanrovi-dijalog">
     <h2>Odaberite žanr</h2>
     <div id="okvir-tablice">
-            <table id="tablica" mat-table [dataSource]="data">
+            <table id="tablica" mat-table [dataSource]="tmdbZanrovi">
                 
                 <ng-container matColumnDef="oznaci">
                     <th mat-header-cell *matHeaderCellDef>
@@ -31,8 +31,8 @@
             </table>
     </div>
 
-    <div id="gumbovi">
-        <button mat-raised-button (click)="spremi()" color="primary">
+    <mat-dialog-actions id="gumbovi">
+        <button mat-raised-button (click)="spremi()" color="primary" cdkFocusInitial>
             Spremi
         </button>
         
@@ -40,6 +40,6 @@
             Odustani
         </button>
 
-    </div>
+    </mat-dialog-actions>
 
 </div>

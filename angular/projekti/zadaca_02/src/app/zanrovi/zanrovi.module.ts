@@ -5,6 +5,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 
 import { ZanroviComponent } from './zanrovi/zanrovi.component';
@@ -23,7 +24,8 @@ import { ZanroviDijalogComponent } from './zanrovi-dijalog/zanrovi-dijalog.compo
     MatTableModule,
     MatCheckboxModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ]
 })
 export class ZanroviModule { }

@@ -1,5 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ZanrService } from '../zanr.service';
 import { IZanr } from '../../interfaces/IZanr';
@@ -9,19 +9,24 @@ import { IZanr } from '../../interfaces/IZanr';
   templateUrl: './zanrovi-dijalog.component.html',
   styleUrls: ['./zanrovi-dijalog.component.scss']
 })
-export class ZanroviDijalogComponent {
+export class ZanroviDijalogComponent implements OnInit {
   oznaceni = new SelectionModel<{id: number, name: string}>(true, []);
+  spremiZanrove = new Array<IZanr>();
+  tmdbZanrovi = new Array<{id: number, name: string}>();
 
   constructor(
     public dijalogRef: MatDialogRef<ZanroviDijalogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Array<{id: number, name: string}>,
     private zanrServis : ZanrService
   ) {
 
   }
 
+  async ngOnInit(): Promise<void> {
+    this.tmdbZanrovi = await this.zanrServis.dajTmdbZanrove();
+  }
+
   sveOznaceno() : boolean {
-    if (this.oznaceni.selected.length == this.data.length) {
+    if (this.oznaceni.selected.length == this.tmdbZanrovi.length) {
       return true;
     } else {
       return false;
@@ -34,22 +39,22 @@ export class ZanroviDijalogComponent {
       return;
     }
 
-    this.oznaceni.select(...this.data);
+    this.oznaceni.select(...this.tmdbZanrovi);
   }
 
   async spremi() : Promise<void> {
-    let posaljiZanrove = new Array<IZanr>();
+    this.spremiZanrove = new Array<IZanr>();
     
-    for (let zanr of this.data) {
+    for (let zanr of this.tmdbZanrovi) {
       if (this.oznaceni.isSelected(zanr)) {
-        posaljiZanrove.push({id: zanr.id, naziv: zanr.name});
+        this.spremiZanrove.push({id: zanr.id, naziv: zanr.name} as IZanr);
       }
     }
     
-    let ubaceni = await this.zanrServis.spremiZanrove(posaljiZanrove);
-
-    if (ubaceni) {
-      this.dijalogRef.close();
+    let ubaceno = await this.zanrServis.spremiZanrove(this.spremiZanrove);
+    
+    if (ubaceno) {
+      this.dijalogRef.close(this.spremiZanrove);
     }
   }
 
