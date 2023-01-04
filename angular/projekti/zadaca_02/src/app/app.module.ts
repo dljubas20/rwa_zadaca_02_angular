@@ -9,6 +9,7 @@ import { StranicaNijePronadenaComponent } from './komponente/stranica-nije-prona
 
 import { AutentikacijaModule } from './autentikacija/autentikacija.module';
 import { FilmoviModule } from './filmovi/filmovi.module';
+import { ZanroviModule } from './zanrovi/zanrovi.module';
 import { AppNavigacijaModule } from './app-navigacija.module';
 
 @NgModule({
@@ -23,6 +24,7 @@ import { AppNavigacijaModule } from './app-navigacija.module';
     BrowserAnimationsModule,
     AutentikacijaModule,
     FilmoviModule,
+    ZanroviModule,
     AppNavigacijaModule
   ],
   providers: [],
