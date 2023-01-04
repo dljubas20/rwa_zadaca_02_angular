@@ -1,5 +1,15 @@
 <div id="galerija">
-    <mat-card >
+    <mat-card *ngFor="let korisnik of slikePutanja">
+        <mat-card-header>
+            <mat-card-title>
+                {{ korisnik.korime }}
+            </mat-card-title>
+        </mat-card-header>
 
+        <mat-card-content>
+            <mat-card *ngFor="let slika of korisnik.naziviSlika">
+                <img [src]="'/slike/' + idFilma + '/' + slika" alt="Korisnikova slika filma">
+            </mat-card>
+        </mat-card-content>
     </mat-card>
 </div>

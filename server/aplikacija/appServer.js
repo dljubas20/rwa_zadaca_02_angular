@@ -60,6 +60,7 @@ function pokreniServer() {
     pripremiPutanjeKorisnik();
 
     server.use("/posteri", express.static("posteri/"));
+    server.use("/slike", express.static("slike/"));
     server.use(express.static("angular/"));
     server.get("*", (zahtjev, odgovor) => {
         odgovor.sendFile(__dirname + '/angular/');
