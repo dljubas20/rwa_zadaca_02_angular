@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { IFilm } from '../interfaces/IFilm';
 import { IZanr } from '../interfaces/IZanr';
-import { ZanrService } from './zanr.service';
+import { ZanrService } from '../zanrovi/zanr.service';
 
 @Injectable({
   providedIn: 'root'

@@ -5,7 +5,7 @@ import { IFilm } from '../../interfaces/IFilm';
 import { IKorisnik } from '../../interfaces/IKorisnik';
 import { IZanr } from '../../interfaces/IZanr';
 import { FilmService } from '../film.service';
-import { ZanrService } from '../zanr.service';
+import { ZanrService } from '../../zanrovi/zanr.service';
 
 @Component({
   selector: 'app-film',
