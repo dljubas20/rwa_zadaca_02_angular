@@ -5,7 +5,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 
 import { IZanr } from '../../interfaces/IZanr';
 import { ZanrService } from '../zanr.service';
-import { ZanroviDijalogComponent } from '../zanrovi-dijalog/zanrovi-dijalog.component';
+import { ZanroviDodajDijalogComponent } from '../zanrovi-dodaj-dijalog/zanrovi-dodaj-dijalog.component';
 
 @Component({
   selector: 'app-zanrovi',
@@ -35,7 +35,7 @@ export class ZanroviComponent implements OnInit {
   }
 
   otvoriDijalog() : void {
-    let dijalogRef = this.dijalog.open(ZanroviDijalogComponent);
+    let dijalogRef = this.dijalog.open(ZanroviDodajDijalogComponent);
 
     dijalogRef.afterClosed().subscribe(odabraniZanrovi => {
       this.dohvatiZanrove();

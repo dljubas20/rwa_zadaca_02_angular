@@ -9,14 +9,14 @@ import { MatIconModule } from '@angular/material/icon';
 
 
 import { ZanroviComponent } from './zanrovi/zanrovi.component';
-import { ZanroviDijalogComponent } from './zanrovi-dijalog/zanrovi-dijalog.component';
+import { ZanroviDodajDijalogComponent } from './zanrovi-dodaj-dijalog/zanrovi-dodaj-dijalog.component';
 
 
 
 @NgModule({
   declarations: [
     ZanroviComponent,
-    ZanroviDijalogComponent
+    ZanroviDodajDijalogComponent
   ],
   imports: [
     CommonModule,

@@ -5,17 +5,17 @@ import { ZanrService } from '../zanr.service';
 import { IZanr } from '../../interfaces/IZanr';
 
 @Component({
-  selector: 'app-zanrovi-dijalog',
-  templateUrl: './zanrovi-dijalog.component.html',
-  styleUrls: ['./zanrovi-dijalog.component.scss']
+  selector: 'app-zanrovi-dodaj-dijalog',
+  templateUrl: './zanrovi-dodaj-dijalog.component.html',
+  styleUrls: ['./zanrovi-dodaj-dijalog.component.scss']
 })
-export class ZanroviDijalogComponent implements OnInit {
+export class ZanroviDodajDijalogComponent implements OnInit {
   oznaceni = new SelectionModel<{id: number, name: string}>(true, []);
   spremiZanrove = new Array<IZanr>();
   tmdbZanrovi = new Array<{id: number, name: string}>();
 
   constructor(
-    public dijalogRef: MatDialogRef<ZanroviDijalogComponent>,
+    public dijalogRef: MatDialogRef<ZanroviDodajDijalogComponent>,
     private zanrServis : ZanrService
   ) {
 
