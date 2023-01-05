@@ -11,12 +11,18 @@ import { FilmService } from '../film.service';
   styleUrls: ['./slika.component.scss']
 })
 export class SlikaComponent {
-  filmovi : Array<IFilm> = new Array<IFilm>();
-
   postaviSliku = this.formBuilder.group({
-    filmovi: '---',
-    slika: new FormControl()
+    filmovi: undefined,
+    slika: new FormControl<File>(null as unknown as File)
   });
+  
+  filmovi : Array<IFilm> = new Array<IFilm>();
+  slika : File | null = null;
+  odabraniFilm = this.postaviSliku.value.filmovi
+  pogresanTip = false;
+  pogresnaVelicina = false;
+  
+
 
   constructor(private formBuilder : FormBuilder,
     private korisnikServis : KorisnikService,
@@ -34,8 +40,35 @@ export class SlikaComponent {
     this.filmovi = await this.filmServis.dajFilmovePregled();
   }
 
+  postavljenaSlika($event : any) {    
+    if ($event.target.files.length > 0) {
+      let datoteka : File = $event.target.files[0];
+      let tip = datoteka.type.split("/")[1];
+      let dozvoljeniTipovi = ["gif", "jpg", "png", "jpeg"];
+
+      if (tip != undefined && dozvoljeniTipovi.includes(tip)) {
+        this.pogresanTip = false;
+      } else {
+        this.pogresanTip = true;
+      }
+      
+      if(datoteka.size > 500000) {
+        this.pogresnaVelicina = true;
+      } else {
+        this.pogresnaVelicina = false;
+      }
+
+      if (!this.pogresanTip && !this.pogresnaVelicina) {
+        this.slika = datoteka;
+      }
+    }
+  }
+
+  filmOdabran($event : any) {    
+    this.odabraniFilm = $event.value;
+  }
+
   async posaljiSliku() : Promise<void> {
-    console.log(this.postaviSliku.value);
     
   }
 }

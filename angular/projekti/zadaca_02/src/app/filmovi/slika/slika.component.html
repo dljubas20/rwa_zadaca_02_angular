@@ -9,22 +9,31 @@
                 <form [formGroup]="postaviSliku" (ngSubmit)="posaljiSliku()">
                     <mat-form-field appearance="outline">
                         <mat-label for="filmovi">Odaberite film</mat-label>
-                        <mat-select formControlName="filmovi" name="filmovi">
-                            <mat-option>---</mat-option>
+                        <mat-select formControlName="filmovi" name="filmovi" (selectionChange)="filmOdabran($event)">
+                            <mat-option [value]="undefined">---</mat-option>
                             <mat-option *ngFor="let film of filmovi" [value]="film.id">
                                 {{ film.naziv }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
+
+                    <div *ngIf="pogresanTip || pogresnaVelicina">
+                        <p *ngIf="pogresanTip">Pogrešan tip datoteke! Dozvoljeni su samo JPG, JPEG, PNG i GIF.</p>
+                        <p *ngIf="pogresnaVelicina">Datoteka je prevelika!</p>
+                    </div>
+
+                    <div *ngIf="slika != null">
+                        <mat-icon>image</mat-icon> {{ slika.name }}
+                    </div>
                     
-                    <button id="gumb-upload" mat-stroked-button>
+                    <button id="gumb-upload" mat-stroked-button type="button">
                         <label id="label-slika" for="slika">
                             Odaberite sliku
                         </label>
-                        <input formControlName="slika" matInput name="slika" id="slika" type="file" hidden>
+                        <input formControlName="slika" (change)="postavljenaSlika($event)" matInput name="slika" id="slika" type="file" hidden>
                     </button>
     
-                    <button id="objavi" mat-raised-button type="submit" color="primary">
+                    <button id="objavi" mat-raised-button type="submit" [disabled]="slika == null || pogresanTip || pogresnaVelicina || odabraniFilm == undefined" color="primary">
                         Objavi sliku
                     </button>
                 </form>

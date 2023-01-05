@@ -36,27 +36,27 @@
                 }
     
                 #gumb-upload {
-                    font-size: larger;
                     padding: 0vh;
-                    margin: 2vh;
+                    margin: 1vh;
+                    width: fit-content;
 
                     #label-slika {
                         display: flex;
-                        width: fit-content;
+                        justify-content: center;                        
+                        width: 20vh;
                         height: 100%;
-                        padding: 2vh;
+                        padding: 1vh;
                         border-radius: 2%;
                     }
                 }
 
                 button {
-                    font-size: larger;
-                    width: fit-content;
                     height: fit-content;
                 }
 
                 #objavi {
-                    padding: 2vh;
+                    padding: 1vh;
+                    width: 22vh;
                 }
             }
         }
