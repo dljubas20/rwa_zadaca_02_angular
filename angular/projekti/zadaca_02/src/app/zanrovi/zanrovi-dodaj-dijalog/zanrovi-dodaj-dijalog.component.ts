@@ -54,11 +54,13 @@ export class ZanroviDodajDijalogComponent implements OnInit {
     let ubaceno = await this.zanrServis.spremiZanrove(this.spremiZanrove);
     
     if (ubaceno) {
-      this.dijalogRef.close(this.spremiZanrove);
+      this.dijalogRef.close({uspjeh: true, odabrani: this.spremiZanrove});
+    } else {
+      this.dijalogRef.close({uspjeh: false});
     }
   }
 
   zatvori() : void {
-    this.dijalogRef.close();
+    this.dijalogRef.close({uspjeh: false});
   }
 }

@@ -1,18 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, DoCheck, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTable } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MatTable } from '@angular/material/table';
 
 import { IZanr } from '../../interfaces/IZanr';
 import { ZanrService } from '../zanr.service';
 import { ZanroviDodajDijalogComponent } from '../zanrovi-dodaj-dijalog/zanrovi-dodaj-dijalog.component';
+import { ZanroviAzurirajDijalogComponent } from '../zanrovi-azuriraj-dijalog/zanrovi-azuriraj-dijalog.component';
 
 @Component({
   selector: 'app-zanrovi',
   templateUrl: './zanrovi.component.html',
   styleUrls: ['./zanrovi.component.scss']
 })
-export class ZanroviComponent implements OnInit {
+export class ZanroviComponent implements OnInit, DoCheck {
   zanrovi : Array<IZanr> = new Array<IZanr>();
   tmdbZanrovi? : Array<{id: number, name: string}>;
 
@@ -21,6 +22,11 @@ export class ZanroviComponent implements OnInit {
 
   constructor(private dijalog : MatDialog, private zanrServis : ZanrService) {
 
+  }
+
+  ngDoCheck(): void {
+    console.log("promjena");
+    
   }
 
   async ngOnInit() : Promise<void> {
@@ -34,13 +40,30 @@ export class ZanroviComponent implements OnInit {
     this.tmdbZanrovi = await this.zanrServis.dajTmdbZanrove();
   }
 
-  otvoriDijalog() : void {
+  otvoriDodajDijalog() : void {
     let dijalogRef = this.dijalog.open(ZanroviDodajDijalogComponent);
 
-    dijalogRef.afterClosed().subscribe(odabraniZanrovi => {
-      this.dohvatiZanrove();
-      this.tablica?.renderRows();
+    dijalogRef.afterClosed().subscribe((odabraniZanrovi : {uspjeh : boolean, odabrani? : Array<IZanr>}) => {
+      if (odabraniZanrovi.uspjeh) {
+        for (let zanr of odabraniZanrovi.odabrani!) {
+          let nema = true;
+          this.zanrovi.forEach((z) => {
+            if (z.id == zanr.id) {
+              nema = false;
+            }
+          });
+          if (nema) {
+            this.zanrovi.push(zanr);
+            this.zanrovi.sort();
+            this.tablica?.renderRows();
+          }
+        }
+      }
     });
+  }
+
+  otvoriAzurirajDijalog() : void {
+    let dijalogRef = this.dijalog.open(ZanroviAzurirajDijalogComponent);
   }
 
   sveOznaceno() : boolean {
