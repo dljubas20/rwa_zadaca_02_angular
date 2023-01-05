@@ -1,4 +1,5 @@
-/build
+/aplikacija/build/*
+/servis/build/*
 
 *.sql
 *.sqlite
