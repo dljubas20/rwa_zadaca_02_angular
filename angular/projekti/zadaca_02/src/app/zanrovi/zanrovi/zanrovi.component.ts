@@ -39,27 +39,32 @@ export class ZanroviComponent implements OnInit {
 
   otvoriDodajDijalog() : void {
     let dijalogRef = this.dijalog.open(ZanroviDodajDijalogComponent);
-
-    dijalogRef.afterClosed().subscribe((odabraniZanrovi : {uspjeh : boolean, odabrani? : Array<IZanr>}) => {
-      if (odabraniZanrovi.uspjeh) {
-        for (let zanr of odabraniZanrovi.odabrani!) {
-          let nema = true;
-          this.zanrovi.forEach((z) => {
-            if (z.id == zanr.id) {
-              nema = false;
-              this.preskoceni.push(zanr);
+    
+    try {
+      dijalogRef.afterClosed().subscribe((odabraniZanrovi : {uspjeh : boolean, odabrani? : Array<IZanr>} | undefined) => {
+        if (odabraniZanrovi != undefined && odabraniZanrovi.uspjeh) {
+          for (let zanr of odabraniZanrovi.odabrani!) {
+            let nema = true;
+            this.zanrovi.forEach((z) => {
+              if (z.id == zanr.id) {
+                nema = false;
+                this.preskoceni.push(zanr);
+              }
+            });
+            if (nema) {
+              this.zanrovi.push(zanr);
+              this.zanrovi.sort();
+              this.tablica?.renderRows();
             }
-          });
-          if (nema) {
-            this.zanrovi.push(zanr);
-            this.zanrovi.sort();
-            this.tablica?.renderRows();
           }
         }
-      }
-
-      this.dijalog.open(ZanroviPreskoceniDijalogComponent, {data: this.preskoceni});
-    });
+        if (this.preskoceni.length != 0) {
+          this.dijalog.open(ZanroviPreskoceniDijalogComponent, {data: this.preskoceni});
+        }
+      });
+    } catch (err) {
+      
+    }
   }
 
   otvoriAzurirajDijalog() : void {
@@ -77,21 +82,25 @@ export class ZanroviComponent implements OnInit {
     }
 
     let dijalogRef = this.dijalog.open(ZanroviAzurirajDijalogComponent, {data: azurirajMe!});
-
-    dijalogRef.afterClosed().subscribe((azuriran : IZanr | boolean) => {
-      if (typeof azuriran != 'boolean') {
-        this.zanrovi.forEach((zanr) => {
-          if (zanr.id == azuriran.id) {
-            zanr.naziv = azuriran.naziv;
-            this.oznaceni.clear();
-
-            this.tablica?.renderRows();
-
-            return;
-          }
-        });
-      }
-    });
+    
+    try {
+      dijalogRef.afterClosed().subscribe((azuriran : IZanr | boolean) => {
+        if (typeof azuriran != 'boolean' && azuriran != undefined) {
+          this.zanrovi.forEach((zanr) => {
+            if (zanr.id == azuriran.id) {
+              zanr.naziv = azuriran.naziv;
+              this.oznaceni.clear();
+  
+              this.tablica?.renderRows();
+  
+              return;
+            }
+          });
+        }
+      });
+    } catch (error) {
+      
+    }
   }
 
   sveOznaceno() : boolean {

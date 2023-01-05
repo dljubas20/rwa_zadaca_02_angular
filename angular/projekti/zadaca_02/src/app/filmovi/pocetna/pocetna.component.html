@@ -1,36 +1,44 @@
 <div id="zanrovi">
-    <mat-card *ngFor="let zanr of filmovi">
-        <mat-card-header>
-            <mat-card-title>
-                {{ zanr.zanr.naziv }}
-            </mat-card-title>
-        </mat-card-header>
-        
-        <mat-card-content *ngIf="zanr.filmovi.length != 0; else nemaFilmova">
-            <mat-card class="filmovi" *ngFor="let film of zanr.filmovi">
-                <mat-card-header>
-                    <img src="/assets/slike/Dario.jpg">
-                    <mat-card-title>
-                        {{ film.naziv }}
-                    </mat-card-title>
-                </mat-card-header>
+    <div *ngIf="filmovi.length != 0; else nemaZanrova">
+
+        <mat-card *ngFor="let zanr of filmovi">
+            <mat-card-header>
+                <mat-card-title>
+                    {{ zanr.zanr.naziv }}
+                </mat-card-title>
+            </mat-card-header>
             
-                <mat-card-content>
+            <mat-card-content *ngIf="zanr.filmovi.length != 0; else nemaFilmova">
+                <mat-card class="filmovi" *ngFor="let film of zanr.filmovi">
+                    <mat-card-header>
+                        <img src="/assets/slike/Dario.jpg">
+                        <mat-card-title>
+                            {{ film.naziv }}
+                        </mat-card-title>
+                    </mat-card-header>
                     
-                </mat-card-content>
-            
-                <mat-card-footer>
-                    {{ film.sazetak }}
-                </mat-card-footer>
-            </mat-card>
-            <div></div>
-        </mat-card-content>
-
-        <ng-template #nemaFilmova>
-            <mat-card-content>
-                <p>Ovaj žanr nema filmova u bazi.</p>
+                    <mat-card-content>
+                        
+                    </mat-card-content>
+                    
+                    <mat-card-footer>
+                        {{ film.sazetak }}
+                    </mat-card-footer>
+                </mat-card>
+                <div></div>
             </mat-card-content>
-        </ng-template>
-
-    </mat-card>
+            
+            <ng-template #nemaFilmova>
+                <mat-card-content>
+                    <p>Ovaj žanr nema filmova u bazi.</p>
+                </mat-card-content>
+            </ng-template>
+            
+        </mat-card>
+    </div>
+    
+    <ng-template #nemaZanrova>
+        U bazi trenutno nema žanrova.
+    </ng-template>
 </div>
+

@@ -3,15 +3,15 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
-}
-
-mat-card {
-    margin: 3vh;
-    width: fit-content;
-}
-
-mat-card-content {
-    display: flex;
+    
+    mat-card {
+        margin: 3vh;
+        width: fit-content;
+        
+        mat-card-content {
+            display: flex;
+        }
+    }
 }
 
 mat-card-header {
