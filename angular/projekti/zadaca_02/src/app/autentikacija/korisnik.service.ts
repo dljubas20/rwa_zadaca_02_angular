@@ -26,7 +26,24 @@ export class KorisnikService {
     }
   }
 
-  private async dajSesijaKorisnik() : Promise<{
+  async jePrijavljen() : Promise<boolean> {
+    if (await this.dajJWT() != '') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  async jeAdmin() : Promise<boolean> {
+    let korisnik = await this.dajSesijaKorisnik();
+    if (typeof korisnik != 'boolean' && korisnik.admin) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  async dajSesijaKorisnik() : Promise<{
     ime : string,
     prezime : string,
     korime : string,

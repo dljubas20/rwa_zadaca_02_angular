@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { KorisnikService } from '../../autentikacija/korisnik.service';
 
 @Component({
@@ -18,11 +18,15 @@ export class GalerijaComponent implements OnInit{
 
   idFilma? : number;
 
-  constructor(private korisnikServis : KorisnikService, private route : ActivatedRoute) {
+  constructor(private korisnikServis : KorisnikService, private route : ActivatedRoute, private router : Router) {
 
   }
   
   async ngOnInit(): Promise<void> {
+    if (!(await this.korisnikServis.jePrijavljen())) {
+      this.router.navigate(['prijava']);
+    }
+
     this.idFilma = this.route.snapshot.paramMap.get('id') as unknown as number;
     await this.dohvatiSlikeKorisnici();
     if (this.slikePutanja?.length == 0)

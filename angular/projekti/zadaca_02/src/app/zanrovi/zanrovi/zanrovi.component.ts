@@ -8,6 +8,8 @@ import { ZanrService } from '../zanr.service';
 import { ZanroviDodajDijalogComponent } from '../zanrovi-dodaj-dijalog/zanrovi-dodaj-dijalog.component';
 import { ZanroviAzurirajDijalogComponent } from '../zanrovi-azuriraj-dijalog/zanrovi-azuriraj-dijalog.component';
 import { ZanroviPreskoceniDijalogComponent } from '../zanrovi-preskoceni-dijalog/zanrovi-preskoceni-dijalog.component';
+import { KorisnikService } from '../../autentikacija/korisnik.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-zanrovi',
@@ -22,11 +24,19 @@ export class ZanroviComponent implements OnInit {
   oznaceni = new SelectionModel<IZanr>(true, []);
   @ViewChild(MatTable) tablica?: MatTable<any>;
 
-  constructor(private dijalog : MatDialog, private zanrServis : ZanrService) {
+  constructor(private dijalog : MatDialog,
+    private zanrServis : ZanrService,
+    private korisnikServis : KorisnikService,
+    private router : Router
+  ) {
 
   }
 
   async ngOnInit() : Promise<void> {
+    if (!(await this.korisnikServis.jePrijavljen()) || !(await this.korisnikServis.jeAdmin())) {
+      this.router.navigate(['prijava']);
+    }
+
     await this.dohvatiZanrove();
     if(this.tmdbZanrovi?.length == 0)
       setTimeout(this.dohvatiZanrove.bind(this), 3000);      

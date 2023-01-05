@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTable } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { KorisnikService } from '../../autentikacija/korisnik.service';
 import { IFilm } from '../../interfaces/IFilm';
 import { FilmService } from '../film.service';
 
@@ -13,11 +15,15 @@ export class PrijedloziFilmovaComponent implements OnInit{
 
   @ViewChild(MatTable) tablica!: MatTable<any>;
 
-  constructor (private filmServis : FilmService) {
+  constructor (private filmServis : FilmService, private korisnikServis : KorisnikService, private router : Router) {
 
   }
 
   async ngOnInit(): Promise<void> {
+    if (!(await this.korisnikServis.jePrijavljen()) || !(await this.korisnikServis.jeAdmin())) {
+      this.router.navigate(['prijava']);
+    }
+
     await this.dohvatiFilmove();
     if(this.filmovi.length == 0)
       setTimeout(this.dohvatiFilmove.bind(this), 3000);

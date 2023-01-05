@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { KorisnikService } from '../../autentikacija/korisnik.service';
 import { IFilm } from '../../interfaces/IFilm';
 import { IKorisnik } from '../../interfaces/IKorisnik';
@@ -22,6 +22,7 @@ export class FilmComponent implements OnInit{
   constructor(
     private korisnikServis : KorisnikService,
     private zanrServis : ZanrService,
+    private router : Router,
     private route : ActivatedRoute,
     private filmServis : FilmService
   ) {
@@ -29,6 +30,10 @@ export class FilmComponent implements OnInit{
   }
   
   async ngOnInit(): Promise<void> {
+    if (!(await this.korisnikServis.jePrijavljen())) {
+      this.router.navigate(['prijava']);
+    }
+
     this.film = history.state;
     this.idFilma = this.route.snapshot.paramMap.get('id') as unknown as number;
 
