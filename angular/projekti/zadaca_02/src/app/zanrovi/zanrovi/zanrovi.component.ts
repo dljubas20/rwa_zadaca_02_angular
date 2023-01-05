@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTable } from '@angular/material/table';
@@ -14,7 +14,7 @@ import { ZanroviPreskoceniDijalogComponent } from '../zanrovi-preskoceni-dijalog
   templateUrl: './zanrovi.component.html',
   styleUrls: ['./zanrovi.component.scss']
 })
-export class ZanroviComponent implements OnInit, DoCheck {
+export class ZanroviComponent implements OnInit {
   zanrovi : Array<IZanr> = new Array<IZanr>();
   tmdbZanrovi? : Array<{id: number, name: string}>;
   preskoceni : Array<IZanr> = new Array<IZanr>();
@@ -24,11 +24,6 @@ export class ZanroviComponent implements OnInit, DoCheck {
 
   constructor(private dijalog : MatDialog, private zanrServis : ZanrService) {
 
-  }
-
-  ngDoCheck(): void {
-    console.log("promjena");
-    
   }
 
   async ngOnInit() : Promise<void> {
@@ -68,7 +63,35 @@ export class ZanroviComponent implements OnInit, DoCheck {
   }
 
   otvoriAzurirajDijalog() : void {
-    let dijalogRef = this.dijalog.open(ZanroviAzurirajDijalogComponent);
+    if (this.oznaceni.selected.length != 1) {
+      alert("Označite samo jedan redak!");
+      return;
+    }
+
+    let azurirajMe : IZanr;
+
+    for (let zanr of this.zanrovi) {
+      if (this.oznaceni.isSelected(zanr)) {
+        azurirajMe = zanr;
+      }
+    }
+
+    let dijalogRef = this.dijalog.open(ZanroviAzurirajDijalogComponent, {data: azurirajMe!});
+
+    dijalogRef.afterClosed().subscribe((azuriran : IZanr | boolean) => {
+      if (typeof azuriran != 'boolean') {
+        this.zanrovi.forEach((zanr) => {
+          if (zanr.id == azuriran.id) {
+            zanr.naziv = azuriran.naziv;
+            this.oznaceni.clear();
+
+            this.tablica?.renderRows();
+
+            return;
+          }
+        });
+      }
+    });
   }
 
   sveOznaceno() : boolean {

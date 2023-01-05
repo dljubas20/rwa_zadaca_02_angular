@@ -35,8 +35,8 @@ class ZanrDAO {
         return await this.baza.izvrsiSelectUpit(sql, [idFilma]);
     };
     azurirajZanr = async (id, zanr) => {
-        let sql = `UPDATE zanr SET naziv=?, opis=? WHERE id=?`;
-        return await this.baza.izvrsiUpit(sql, [zanr.naziv, zanr.opis, id]);
+        let sql = `UPDATE zanr SET naziv=? WHERE id=?`;
+        return await this.baza.izvrsiUpit(sql, [zanr.naziv, id]);
     };
     obrisiZanr = async (id) => {
         let sql = `DELETE FROM zanr WHERE id=?`;

@@ -93,7 +93,7 @@ export class ZanrService {
   async spremiZanrove(zanrovi: Array<IZanr>) : Promise<boolean>{
     let zaglavlje : Headers = new Headers();
     zaglavlje.set("Content-Type", "application/json");
-    let token = await fetch( this.appServis + "/generirajToken");
+    let token = await fetch(this.appServis + "/generirajToken");
 
     zaglavlje.set("Authorization", await token.text());
 
@@ -101,6 +101,22 @@ export class ZanrService {
       method: "POST",
       headers: zaglavlje,
       body: JSON.stringify(zanrovi)
+    });
+    
+    return (await odgovor.text()) as unknown as boolean;
+  }
+
+  async azurirajZanr(zanr : IZanr) : Promise<boolean> {
+    let zaglavlje : Headers = new Headers();
+    zaglavlje.set("Content-Type", "application/json");
+    let token = await fetch(this.appServis + "/generirajToken");
+
+    zaglavlje.set("Authorization", await token.text());
+
+    let odgovor = await fetch(this.restServis + "/zanr/" + zanr.id, {
+      method: "PUT",
+      headers: zaglavlje,
+      body: JSON.stringify({naziv: zanr.naziv})
     });
     
     return (await odgovor.text()) as unknown as boolean;

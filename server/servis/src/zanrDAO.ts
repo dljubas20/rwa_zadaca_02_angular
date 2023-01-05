@@ -52,12 +52,11 @@ export class ZanrDAO {
     }
 
     azurirajZanr = async (id : number, zanr : {
-        naziv : string,
-        opis : string
+        naziv : string
     }) => {
-		let sql = `UPDATE zanr SET naziv=?, opis=? WHERE id=?`;
+		let sql = `UPDATE zanr SET naziv=? WHERE id=?`;
 
-        return await this.baza.izvrsiUpit(sql, [zanr.naziv, zanr.opis, id]);
+        return await this.baza.izvrsiUpit(sql, [zanr.naziv, id]);
     }
 
     obrisiZanr = async (id : number) => {

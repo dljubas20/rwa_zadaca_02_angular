@@ -1,0 +1,23 @@
+<div id="zanrovi-azuriraj-dijalog">
+    <h2>Ažurirajte žanr</h2>
+    
+    <form [formGroup]="azurirajZanrForma" (ngSubmit)="azuriraj()">
+        <mat-form-field appearance="outline">
+            <mat-label for="naziv">Naziv</mat-label>
+            <input formControlName="naziv" matInput  type="text" name="naziv" id="naziv" required/>
+        </mat-form-field>
+
+        <mat-dialog-actions id="gumbovi">
+            <button mat-raised-button type="submit" color="primary" cdkFocusInitial>
+                Spremi
+            </button>
+            
+            <button mat-raised-button [mat-dialog-close]="true">
+                Odustani
+            </button>
+    
+        </mat-dialog-actions>
+        
+    </form>
+
+</div>
