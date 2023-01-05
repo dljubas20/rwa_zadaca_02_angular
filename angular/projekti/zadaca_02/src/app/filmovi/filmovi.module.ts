@@ -7,6 +7,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon'
 import { RouterModule } from '@angular/router'
 import { MatButtonModule } from '@angular/material/button'; 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select'; 
+import { MatInputModule } from '@angular/material/input';
 
 
 import { PocetnaComponent } from './pocetna/pocetna.component';
@@ -15,6 +18,7 @@ import { PretrazivanjeFilmovaComponent } from './pretrazivanje-filmova/pretraziv
 import { FilmComponent } from './film/film.component';
 import { PrijedloziFilmovaComponent } from './prijedlozi-filmova/prijedlozi-filmova.component';
 import { GalerijaComponent } from './galerija/galerija.component';
+import { SlikaComponent } from './slika/slika.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,8 @@ import { GalerijaComponent } from './galerija/galerija.component';
     PretrazivanjeFilmovaComponent,
     FilmComponent,
     PrijedloziFilmovaComponent,
-    GalerijaComponent
+    GalerijaComponent,
+    SlikaComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +38,11 @@ import { GalerijaComponent } from './galerija/galerija.component';
     MatDividerModule,
     MatIconModule,
     RouterModule,
-    MatButtonModule
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatInputModule
   ]
 })
 export class FilmoviModule { }

@@ -90,6 +90,13 @@ export class FilmService {
       this.pregled_filmovi = JSON.parse(await odgovor.text()) as Array<IFilm>;
     }
 
+    if ((this.pregled_filmovi.constructor === ({}).constructor)) {
+      let poljeFilmova = new Array<IFilm>();
+      poljeFilmova.push(this.pregled_filmovi as unknown as IFilm);
+      
+      return poljeFilmova;
+    }
+
     return this.pregled_filmovi;
   }
 

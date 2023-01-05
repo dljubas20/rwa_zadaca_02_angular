@@ -13,6 +13,7 @@ import { FilmComponent } from './filmovi/film/film.component';
 import { PrijedloziFilmovaComponent } from './filmovi/prijedlozi-filmova/prijedlozi-filmova.component';
 import { GalerijaComponent } from './filmovi/galerija/galerija.component';
 import { ZanroviComponent } from './zanrovi/zanrovi/zanrovi.component';
+import { SlikaComponent } from './filmovi/slika/slika.component';
 
 const routes: Routes = [
   { title: "Početna", path: "", component: PocetnaComponent },
@@ -29,6 +30,7 @@ const routes: Routes = [
       }
     ]
   },
+  { title: "Slika", path: "slika", component: SlikaComponent },
   { title: "Prijava", path: "prijava", component: PrijavaComponent },
   { title: "Prijedlozi filmova", path: "filmovi_prijedlozi", component: PrijedloziFilmovaComponent },
   { title: "Prijedlozi filmova", path: "zanrovi", component: ZanroviComponent },

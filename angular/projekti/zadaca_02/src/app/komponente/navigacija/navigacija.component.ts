@@ -18,6 +18,7 @@ export class NavigacijaComponent {
     { naziv: "Dokumentacija", putanja: "dokumentacija", prijavljen: false, admin: false },
     { naziv: "Profil", putanja: "profil", prijavljen: true, admin: false },
     { naziv: "Filmovi pregled", putanja: "filmovi_pregled", prijavljen: true, admin: false },
+    { naziv: "Slika", putanja: "slika", prijavljen: true, admin: false },
     { naziv: "Prijedlozi", putanja: "filmovi_prijedlozi", prijavljen: true, admin: true },
     { naziv: "Žanrovi", putanja: "zanrovi", prijavljen: true, admin: true },
   );
