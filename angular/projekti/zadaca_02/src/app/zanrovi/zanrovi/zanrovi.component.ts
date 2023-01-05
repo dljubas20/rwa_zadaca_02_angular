@@ -7,6 +7,7 @@ import { IZanr } from '../../interfaces/IZanr';
 import { ZanrService } from '../zanr.service';
 import { ZanroviDodajDijalogComponent } from '../zanrovi-dodaj-dijalog/zanrovi-dodaj-dijalog.component';
 import { ZanroviAzurirajDijalogComponent } from '../zanrovi-azuriraj-dijalog/zanrovi-azuriraj-dijalog.component';
+import { ZanroviPreskoceniDijalogComponent } from '../zanrovi-preskoceni-dijalog/zanrovi-preskoceni-dijalog.component';
 
 @Component({
   selector: 'app-zanrovi',
@@ -16,6 +17,7 @@ import { ZanroviAzurirajDijalogComponent } from '../zanrovi-azuriraj-dijalog/zan
 export class ZanroviComponent implements OnInit, DoCheck {
   zanrovi : Array<IZanr> = new Array<IZanr>();
   tmdbZanrovi? : Array<{id: number, name: string}>;
+  preskoceni : Array<IZanr> = new Array<IZanr>();
 
   oznaceni = new SelectionModel<IZanr>(true, []);
   @ViewChild(MatTable) tablica?: MatTable<any>;
@@ -50,6 +52,7 @@ export class ZanroviComponent implements OnInit, DoCheck {
           this.zanrovi.forEach((z) => {
             if (z.id == zanr.id) {
               nema = false;
+              this.preskoceni.push(zanr);
             }
           });
           if (nema) {
@@ -59,6 +62,8 @@ export class ZanroviComponent implements OnInit, DoCheck {
           }
         }
       }
+
+      this.dijalog.open(ZanroviPreskoceniDijalogComponent, {data: this.preskoceni});
     });
   }
 
