@@ -110,4 +110,11 @@ export class ZanroviComponent implements OnInit {
 
     this.oznaceni.select(...this.zanrovi!);
   }
+
+  async obrisiSve() : Promise<void> {
+    if (await this.zanrServis.obrisiZanrove()) {
+      await this.dohvatiZanrove();
+      this.tablica?.renderRows();
+    }
+  }
 }

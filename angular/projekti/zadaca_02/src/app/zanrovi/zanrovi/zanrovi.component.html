@@ -1,7 +1,7 @@
 <div id="zanrovi">
     <div id="gumbovi-div">
         <div id="gumbovi">
-            <button mat-raised-button color="primary" (click)="otvoriDodajDijalog()">
+            <button mat-raised-button (click)="otvoriDodajDijalog()" color="primary">
                 DODAJ
             </button>
             
@@ -9,8 +9,8 @@
                 AŽURIRAJ
             </button>
             
-            <button mat-raised-button color="warn">
-                OBRIŠI
+            <button mat-raised-button (click)="obrisiSve()" color="warn">
+                OBRIŠI SVE
             </button>
         </div>
     </div>
