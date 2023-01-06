@@ -5,7 +5,7 @@ import { PocetnaComponent } from './filmovi/pocetna/pocetna.component';
 import { RegistracijaComponent } from './autentikacija/registracija/registracija.component';
 import { PretrazivanjeFilmovaComponent } from './filmovi/pretrazivanje-filmova/pretrazivanje-filmova.component';
 import { DokumentacijaComponent } from './komponente/dokumentacija/dokumentacija.component';
-import { ProfilComponent } from './komponente/profil/profil.component';
+import { ProfilComponent } from './autentikacija/profil/profil.component';
 import { FilmoviPregledComponent } from './filmovi/filmovi-pregled/filmovi-pregled.component';
 import { PrijavaComponent } from './autentikacija/prijava/prijava.component';
 import { StranicaNijePronadenaComponent } from './komponente/stranica-nije-pronadena/stranica-nije-pronadena.component';

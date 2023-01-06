@@ -163,4 +163,35 @@ export class KorisnikService {
 
     return JSON.parse(await odgovor.text()).uspjeh;
   }
+
+  async azurirajKorisnika(tijelo : string) : Promise<boolean> {
+    let zaglavlje = new Headers();
+    zaglavlje.set("Content-Type", "application/json");
+    let jwt = await this.dajJWT();
+    
+    zaglavlje.set("Authorization", jwt);
+
+    let odgovor = await fetch(this.appServis + "/profil", {
+      method: "POST",
+      headers: zaglavlje,
+      body: tijelo
+    });
+
+    if (JSON.parse(await odgovor.text()).azuriran) {
+      let korisnik = JSON.parse(tijelo);
+      console.log(korisnik);
+      
+      if (korisnik.ime != '') {
+        AppComponent.korisnik.ime = korisnik.ime;
+      }
+      
+      if (korisnik.prezime != '') {
+        AppComponent.korisnik.prezime = korisnik.prezime;
+      }
+
+      return true;
+    }
+
+    return false;
+  }
 }

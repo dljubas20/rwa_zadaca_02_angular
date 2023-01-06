@@ -11,6 +11,7 @@ import { RECAPTCHA_V3_SITE_KEY, RECAPTCHA_LANGUAGE, RecaptchaV3Module } from "ng
 import { RegistracijaComponent } from './registracija/registracija.component';
 import { PrijavaComponent } from './prijava/prijava.component';
 import { environment } from '../../environments/environment';
+import { ProfilComponent } from './profil/profil.component';
 
 
 
@@ -18,7 +19,8 @@ import { environment } from '../../environments/environment';
 @NgModule({
   declarations: [
     RegistracijaComponent,
-    PrijavaComponent
+    PrijavaComponent,
+    ProfilComponent
   ],
   imports: [
     CommonModule,

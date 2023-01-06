@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { DokumentacijaComponent } from './komponente/dokumentacija/dokumentacija.component';
-import { ProfilComponent } from './komponente/profil/profil.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StranicaNijePronadenaComponent } from './komponente/stranica-nije-pronadena/stranica-nije-pronadena.component';
 
@@ -16,7 +15,6 @@ import { AppNavigacijaModule } from './app-navigacija.module';
   declarations: [
     AppComponent,
     DokumentacijaComponent,
-    ProfilComponent,
     StranicaNijePronadenaComponent
   ],
   imports: [

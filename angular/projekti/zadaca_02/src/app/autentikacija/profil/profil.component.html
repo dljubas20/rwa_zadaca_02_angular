@@ -1,0 +1,35 @@
+<div id="profil">
+    <mat-card>
+        <mat-card-content>
+            <div id="obavijest" *ngIf="uspjeh != null">
+                <div id="uspjeh" *ngIf="uspjeh">
+                    <p>Podaci uspješno ažurirani.</p>
+                </div>
+                <div id="neuspjeh" *ngIf="!uspjeh">
+                    <p>Dogodila se greška. Pokušajte ponovno kasnije.</p>
+                </div>
+            </div>
+            <form [formGroup]="profilForma" (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="outline">
+                    <mat-label for="ime">Ime</mat-label>
+                    <input formControlName="ime" matInput type="text" name="ime" id="ime"/>
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                    <mat-label for="prezime">Prezime</mat-label>
+                    <input formControlName="prezime" matInput type="text" name="prezime" id="prezime"/>
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                    <mat-label for="lozinka">Lozinka</mat-label>
+                    <input formControlName="lozinka" matInput type="password" name="lozinka" id="lozinka"/>
+                </mat-form-field>
+                
+                <button mat-raised-button color="primary" type="submit">
+                    Ažuriraj
+                </button>
+                
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

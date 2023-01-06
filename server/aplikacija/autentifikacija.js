@@ -110,6 +110,9 @@ class Autentifikacija {
 
         let zaglavlje = new Headers();
         zaglavlje.set("Content-Type", "application/json");
+        
+        let token = await fetch("http://localhost:" + this.portApp + "/api/generirajToken");
+        zaglavlje.set("Authorization", await token.text());
 
         let parametri = {
             method: 'PUT',
@@ -117,7 +120,7 @@ class Autentifikacija {
             headers: zaglavlje
         }
 
-        return await fetch("http://localhost:" + this.portRest + "/api/korisnici/" + korime + "?korime=" + this.konf.dajKonf()['rest.korime'] + "&lozinka=" + this.konf.dajKonf()['rest.lozinka'], parametri);
+        return await fetch("http://localhost:" + this.portRest + "/api/korisnici/" + korime, parametri);
     }
 
     async provjeriRecaptchu(token) {

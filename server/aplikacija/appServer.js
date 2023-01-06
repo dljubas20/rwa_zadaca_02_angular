@@ -102,6 +102,5 @@ function pripremiPutanjeAutentifikacija() {
 }
 
 function pripremiPutanjeKorisnik() {
-    server.get("/api/profil", htmlUpravitelj.profil);
     server.post("/api/profil", htmlUpravitelj.profil);
 }

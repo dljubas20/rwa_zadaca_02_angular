@@ -70,39 +70,23 @@ exports.filmoviPretrazivanje = async function (zahtjev, odgovor) {
 }
 
 exports.profil = async function (zahtjev, odgovor) {
-    if (zahtjev.session.jwt == null) {
-        odgovor.redirect("/prijava");
-        return;
-    }
-
     if (zahtjev.method == "POST") {
         if (!jwt.provjeriToken(zahtjev)) {
             odgovor.status(401);
             odgovor.json({ greska: "neautorizirani pristup" });
         } else {
-            console.log("Dobiveni zahtjev body za azuriranje profila je: ");
-            console.log(zahtjev.body);
+            console.log("dobio zahtjev za profil");
             let poruka = await auth.azurirajKorisnika(zahtjev.session.korime, zahtjev.body);
     
             if (poruka.status == 200) {
-                odgovor.send(await poruka.text());
+                odgovor.send({azuriran: await poruka.text()});
                 
             } else {
-                odgovor.send(await poruka.text());
+                odgovor.send({azuriran: await poruka.text()});
             }
         }
         return;
     }
-
-    let stranica = await ucitajStranicu("profil");
-    stranica = await prijavaHTML(stranica, zahtjev.session.korisnik);
-
-    stranica = stranica.replace("#ime#", zahtjev.session.korisnik.split(" ")[0]);
-    stranica = stranica.replace("#prezime#", zahtjev.session.korisnik.split(" ")[1]);
-    stranica = stranica.replace("#korime#", zahtjev.session.korime);
-    stranica = stranica.replace("#email#", zahtjev.session.email);
-
-    odgovor.send(stranica);
 }
 
 exports.filmoviPregled = async function (zahtjev, odgovor) {
