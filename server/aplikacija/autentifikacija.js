@@ -2,6 +2,7 @@ const mail = require("./moduli/mail.js")
 const kodovi = require("./moduli/kodovi.js")
 const totp = require("./moduli/totp.js")
 const Konfiguracija = require("../konfiguracija.js");
+const konst = require("../konstante.js");
 
 class Autentifikacija {
     constructor() {
@@ -117,6 +118,16 @@ class Autentifikacija {
         }
 
         return await fetch("http://localhost:" + this.portRest + "/api/korisnici/" + korime + "?korime=" + this.konf.dajKonf()['rest.korime'] + "&lozinka=" + this.konf.dajKonf()['rest.lozinka'], parametri);
+    }
+
+    async provjeriRecaptchu(token) {
+        let odgovor = await fetch("https://www.google.com/recaptcha/api/siteverify?secret="+konst.tajniKljucRecaptcha+"&response="+token, {
+            method: "POST"
+        });
+
+        let recaptchaStatus = JSON.parse(await odgovor.text());
+
+        return (recaptchaStatus.success && recaptchaStatus.score > 0.5) ? true : false
     }
 
 }

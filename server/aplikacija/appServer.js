@@ -98,6 +98,7 @@ function pripremiPutanjeAutentifikacija() {
     server.get("/api/getSesijaKorisnik", fetchUpravitelj.getSesijaKorisnik);
     server.get("/api/generirajToken", fetchUpravitelj.generirajToken);
     server.get("/api/aktivacijaRacuna", fetchUpravitelj.aktvacijaRacuna);
+    server.post("/api/provjeriRecaptchu", fetchUpravitelj.provjeriRecaptchu);
 }
 
 function pripremiPutanjeKorisnik() {

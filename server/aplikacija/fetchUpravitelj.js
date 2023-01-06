@@ -199,3 +199,11 @@ exports.getSlikeKorisnici = async function (zahtjev, odgovor) {
         });
      }
 }
+
+exports.provjeriRecaptchu = async function(zahtjev, odgovor) {
+    let token = zahtjev.body.token;
+    
+    let uspjeh = await auth.provjeriRecaptchu(token);
+
+    odgovor.json({uspjeh: uspjeh});
+}
