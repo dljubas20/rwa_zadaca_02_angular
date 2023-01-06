@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'projekti/zadaca_02/src/environments/environment';
 import { KorisnikService } from '../../autentikacija/korisnik.service';
 import { IFilm } from '../../interfaces/IFilm';
 import { FilmService } from '../film.service';
@@ -10,25 +10,17 @@ import { FilmService } from '../film.service';
   templateUrl: './slika.component.html',
   styleUrls: ['./slika.component.scss']
 })
-export class SlikaComponent {
-  postaviSliku = this.formBuilder.group({
-    filmovi: undefined,
-    slika: new FormControl<File>(null as unknown as File)
-  });
+export class SlikaComponent implements OnInit{
   
   filmovi : Array<IFilm> = new Array<IFilm>();
   slika : File | null = null;
-  odabraniFilm = this.postaviSliku.value.filmovi
+  odabraniFilm = undefined
   pogresanTip = false;
   pogresnaVelicina = false;
-  
+  greska = false;
 
 
-  constructor(private formBuilder : FormBuilder,
-    private korisnikServis : KorisnikService,
-    private router : Router,
-    private filmServis : FilmService
-  ) {
+  constructor(private korisnikServis : KorisnikService, private router : Router, private filmServis : FilmService) {
 
   }
   
@@ -66,9 +58,5 @@ export class SlikaComponent {
 
   filmOdabran($event : any) {    
     this.odabraniFilm = $event.value;
-  }
-
-  async posaljiSliku() : Promise<void> {
-    
   }
 }

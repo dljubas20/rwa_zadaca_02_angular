@@ -7,7 +7,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon'
 import { RouterModule } from '@angular/router'
 import { MatButtonModule } from '@angular/material/button'; 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select'; 
 import { MatInputModule } from '@angular/material/input';
 
@@ -39,8 +38,6 @@ import { SlikaComponent } from './slika/slika.component';
     MatIconModule,
     RouterModule,
     MatButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
     MatSelectModule,
     MatInputModule
   ]

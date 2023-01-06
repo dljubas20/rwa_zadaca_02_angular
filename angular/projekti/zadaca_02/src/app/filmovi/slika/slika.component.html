@@ -6,16 +6,12 @@
             </h2>
 
             <mat-card-content>
-                <form [formGroup]="postaviSliku" (ngSubmit)="posaljiSliku()">
-                    <mat-form-field appearance="outline">
-                        <mat-label for="filmovi">Odaberite film</mat-label>
-                        <mat-select formControlName="filmovi" name="filmovi" (selectionChange)="filmOdabran($event)">
-                            <mat-option [value]="undefined">---</mat-option>
-                            <mat-option *ngFor="let film of filmovi" [value]="film.id">
-                                {{ film.naziv }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                <form method="post" action="/api/postaviSliku" enctype="multipart/form-data">
+                    <select id="idFilma" name="idFilma" required>
+                        <option *ngFor="let film of filmovi" [value]="film.id">
+                            {{ film.naziv }}
+                        </option>
+                    </select>
 
                     <div *ngIf="pogresanTip || pogresnaVelicina">
                         <p *ngIf="pogresanTip">Pogrešan tip datoteke! Dozvoljeni su samo JPG, JPEG, PNG i GIF.</p>
@@ -30,14 +26,18 @@
                         <label id="label-slika" for="slika">
                             Odaberite sliku
                         </label>
-                        <input formControlName="slika" (change)="postavljenaSlika($event)" matInput name="slika" id="slika" type="file" hidden>
+                        <input (change)="postavljenaSlika($event)" matInput name="slika" id="slika" type="file" hidden>
                     </button>
     
-                    <button id="objavi" mat-raised-button type="submit" [disabled]="slika == null || pogresanTip || pogresnaVelicina || odabraniFilm == undefined" color="primary">
+                    <button id="objavi" mat-raised-button type="submit"[disabled]="slika == null || pogresanTip || pogresnaVelicina" color="primary">
                         Objavi sliku
                     </button>
                 </form>
             </mat-card-content>
+
+            <mat-card-footer>
+                <p *ngIf="greska">Greška pri slanju slike. Pokušajte ponovno kasnije.</p>
+            </mat-card-footer>
         </mat-card>
     </div>
 

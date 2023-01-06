@@ -1,8 +1,11 @@
 const FilmoviPretrazivanje = require("./filmoviPretrazivanje.js");
 const jwt = require("./moduli/jwt.js");
+const kodovi = require("./moduli/kodovi.js");
 const konst = require("../konstante.js");
 const noviFetch = require("./noviFetch.js");
 const ds = require("fs");
+const formidable = require('formidable');
+const dateformat = require("./noviDateFormat");
 const Autentifikacija = require("./autentifikacija.js");
 const Konfiguracija = require("../konfiguracija");
 let auth = new Autentifikacija();
@@ -102,7 +105,7 @@ exports.preuzmiPoster = async function (zahtjev, odgovor) {
         let o = await noviFetch.fetch(putanjaPoster);
 
         o.body.pipe(datoteka);
-        let uspjeh = false;
+
         datoteka.on("finish", () => {
             datoteka.close();
             odgovor.json({ok: "OK"});
@@ -114,11 +117,54 @@ exports.preuzmiPoster = async function (zahtjev, odgovor) {
      }
 }
 
+exports.postaviSliku = async function (zahtjev, odgovor) {
+    let forma = new formidable.IncomingForm();
+    if (zahtjev.session.korime == null) {
+        odgovor.redirect("/prijava");
+    }
+
+    forma.parse(zahtjev, async (err, polja, datoteke) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        let privremenaPutanja = datoteke.slika.filepath;
+
+        if (!ds.existsSync("slike")) {
+            ds.mkdirSync("slike");
+        }
+        
+        if (!ds.existsSync("slike/" + polja.idFilma)) {
+            ds.mkdirSync("slike/" + polja.idFilma);
+        }
+        
+        if (!ds.existsSync("slike/" + polja.idFilma + "/" + zahtjev.session.korime)) {
+            ds.mkdirSync("slike/" + polja.idFilma + "/" + zahtjev.session.korime);
+        }
+        
+        let novaPutanja = "slike/" + polja.idFilma + "/" + zahtjev.session.korime;
+        
+        let nazivSlike = "";
+        let datumSlike = await dateformat.dateFormat(Date.now(), "yyyy-MM-dd");
+
+
+        let hash = kodovi.kreirajSHA256(datumSlike, zahtjev.session.korime);
+        
+        nazivSlike = datumSlike.toString() + "_" + hash.slice(kodovi.dajNasumceBroj(0, 5), kodovi.dajNasumceBroj(35, 40)) + "." + datoteke.slika.mimetype.split("/")[1];
+        console.log(nazivSlike);
+
+        ds.copyFileSync(privremenaPutanja, novaPutanja + "/" + nazivSlike);
+
+        odgovor.redirect("/filmovi_pregled/" + polja.idFilma + "/galerija");
+        return;
+    });
+}
+
 exports.getSlikeKorisnici = async function (zahtjev, odgovor) {
     if (!jwt.provjeriToken(zahtjev)) {
         odgovor.status(401);
         odgovor.json({ greska: "neautorizirani pristup" });
-     } else {
+    } else {
         if (zahtjev.params.idFilma == undefined) {
              odgovor.status(404);
              odgovor.json({greska: "nema resursa!"});
