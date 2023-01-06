@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { ReCaptchaV3Service } from 'ng-recaptcha';
+
 import { environment } from '../../../environments/environment';
+import { KorisnikService } from '../korisnik.service';
 
 @Component({
   selector: 'app-registracija',
@@ -16,7 +19,12 @@ export class RegistracijaComponent {
     email: string
   };
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private recaptchaV3Servis : ReCaptchaV3Service,
+    private korisnikServis : KorisnikService,
+  ) {
     
   }
 
@@ -34,27 +42,30 @@ export class RegistracijaComponent {
     zaglavlje.set("Content-Type", "application/json");
 
     let tijelo = JSON.stringify(this.regForma.value);
-    console.log(tijelo);
     
     if (this.regForma.value.korime == '' || this.regForma.value.lozinka == '' || this.regForma.value.email == '') {
       return;
     }
-    
-    let odgovor = await fetch(this.appServis + "/registracija", {
-      method: "POST",
-      headers: zaglavlje,
-      body: tijelo
+
+    this.recaptchaV3Servis.execute('registracija').subscribe((token: string) => {
+      this.korisnikServis.provjeriRecaptchu(token).then((uspjeh) => {
+        if (uspjeh) {
+          fetch(this.appServis + "/registracija", {
+            method: "POST",
+            headers: zaglavlje,
+            body: tijelo
+          }).then((odgovor) => {
+            odgovor.text().then((rezultat) => {
+              if ('registracija' in JSON.parse(rezultat) && JSON.parse(rezultat).registracija == "OK") {
+                this.router.navigate(['/prijava']);
+              } else {
+                  this.greske = JSON.parse(rezultat);
+              }
+            });
+          });
+        }
+      });
     });
-
-    let rezultat = JSON.parse(await odgovor.text());
-
-    if ('registracija' in rezultat) {
-      if (rezultat.registracija == "OK") {
-        this.router.navigate(['/prijava']);
-      }
-    } else {
-      this.greske = rezultat;
-    }
   }
   
 }

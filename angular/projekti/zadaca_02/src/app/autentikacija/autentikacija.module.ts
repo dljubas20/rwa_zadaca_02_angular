@@ -6,9 +6,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
+import { RECAPTCHA_V3_SITE_KEY, RECAPTCHA_LANGUAGE, RecaptchaV3Module } from "ng-recaptcha";
 
 import { RegistracijaComponent } from './registracija/registracija.component';
 import { PrijavaComponent } from './prijava/prijava.component';
+import { environment } from '../../environments/environment';
 
 
 
@@ -25,7 +27,18 @@ import { PrijavaComponent } from './prijava/prijava.component';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    RecaptchaV3Module
+  ],
+  providers: [
+    {
+      provide: RECAPTCHA_V3_SITE_KEY,
+      useValue: environment.recaptchaSiteKey
+    },
+    {
+      provide: RECAPTCHA_LANGUAGE,
+      useValue: 'hr'
+    }
   ]
 })
 export class AutentikacijaModule { }

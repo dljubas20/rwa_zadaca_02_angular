@@ -150,4 +150,17 @@ export class KorisnikService {
 
     return false;
   }
+
+  async provjeriRecaptchu(token : string) : Promise<boolean> {
+    let zaglavlje = new Headers();
+    zaglavlje.set("Content-Type", "application/json");
+
+    let odgovor = await fetch(this.appServis + "/provjeriRecaptchu", {
+      method: "POST",
+      headers: zaglavlje,
+      body: JSON.stringify({token: token})
+    });
+
+    return JSON.parse(await odgovor.text()).uspjeh;
+  }
 }
