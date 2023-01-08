@@ -79,6 +79,8 @@ function pripremiPutanjeTMDB() : void {
     server.post("/api/tmdb/filmovi", restTMDB.postFilmovi.bind(restTMDB));
     server.put("/api/tmdb/filmovi", restTMDB.putFilmovi.bind(restTMDB));
     server.delete("/api/tmdb/filmovi", restTMDB.deleteFilmovi.bind(restTMDB));
+
+    server.get("/api/tmdb/filmovi/:id", restTMDB.getFilm.bind(restTMDB));
 }
 
 function pripremiPutanjeKorisnici() : void {

@@ -53,6 +53,21 @@ export class RestTMDB {
         odgovor.send(JSON.stringify(poruka));
     }
 
+    getFilm(zahtjev : Request, odgovor : Response) {
+        odgovor.type("application/json")
+        
+        console.log(this);
+        
+        let filmId : number = parseInt(zahtjev.params['id'] as string);
+
+        this.tmdbKlijent.dohvatiFilm(filmId).then((film) => {
+            odgovor.send(film);
+        }).catch((greska) => {
+            console.log("GREŠKA")
+            odgovor.json(greska);
+        });
+    }
+
     getFilmovi(zahtjev : Request, odgovor : Response) {
         odgovor.type("application/json")
         

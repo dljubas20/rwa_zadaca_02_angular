@@ -33,4 +33,13 @@ export class PretrazivanjeFilmovaComponent implements OnInit{
     }
   }
 
+  async dodaj(tmdbIdFilma : number) : Promise<void> {
+    let uspjeh = await this.filmServis.dodajFilm(tmdbIdFilma);
+
+    if (uspjeh) {
+      alert("Film uspješno dodan u bazu!");
+    } else {
+      alert("Greška");
+    }
+  }
 }

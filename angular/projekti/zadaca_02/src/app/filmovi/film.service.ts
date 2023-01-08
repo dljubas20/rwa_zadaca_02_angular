@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { AppComponent } from '../app.component';
 import { IFilm } from '../interfaces/IFilm';
 import { ITmdbFilm } from '../interfaces/ITmdbFilm';
 import { IZanr } from '../interfaces/IZanr';
@@ -207,6 +208,39 @@ export class FilmService {
     })) as Response;
 
     return JSON.parse(await odgovor.text()).results as Array<ITmdbFilm>;
+  }
+
+  private async dajTmdbFilm(filmId : number) : Promise<ITmdbFilm> {
+    let zaglavlje : Headers = new Headers();
+    zaglavlje.set("Content-Type", "application/json");
+    let token = await fetch( this.appServis + "/generirajToken");
+
+    zaglavlje.set("Authorization", await token.text());
+
+    let odgovor : Response = (await fetch(this.restServis + "/tmdb/filmovi/" + filmId, {
+      method: 'GET',
+      headers: zaglavlje
+    })) as Response;
+
+    return JSON.parse(await odgovor.text()) as ITmdbFilm;
+  }
+
+  async dodajFilm(filmId : number) : Promise<boolean> {
+    let film = await this.dajTmdbFilm(filmId) as ITmdbFilm;
+
+    let zaglavlje : Headers = new Headers();
+    zaglavlje.set("Content-Type", "application/json");
+    let token = await fetch( this.appServis + "/generirajToken");
+
+    zaglavlje.set("Authorization", await token.text());
+
+    let odgovor : Response = (await fetch(this.restServis + "/filmovi", {
+      method: 'POST',
+      headers: zaglavlje,
+      body: JSON.stringify({film: film, korisnik_id: AppComponent.korisnik.id})
+    })) as Response;
+
+    return JSON.parse(await odgovor.text()) as boolean;
   }
   
   private dajNasumceBroj(min : number, max : number) : number {

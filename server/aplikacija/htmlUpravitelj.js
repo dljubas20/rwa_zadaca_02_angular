@@ -49,7 +49,7 @@ exports.prijava = async function (zahtjev, odgovor) {
 
         if (korisnik) {
             zahtjev.session.jwt = jwt.kreirajToken(korisnik);
-            zahtjev.session.korisnik = {ime: korisnik.ime, prezime: korisnik.prezime};
+            zahtjev.session.korisnik = {ime: korisnik.ime, prezime: korisnik.prezime, id: korisnik.id};
             zahtjev.session.korime = korisnik.korime;
             zahtjev.session.email = korisnik.email;
             zahtjev.session.admin = (korisnik.tipKorisnika_id == 1) ? true : false;

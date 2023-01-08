@@ -1,4 +1,5 @@
 import { Baza } from "./baza";
+const dateformat = require("../../aplikacija/noviDateFormat.js");
 
 export class FilmDAO {
     private baza : Baza;
@@ -31,53 +32,60 @@ export class FilmDAO {
         return await this.baza.izvrsiSelectUpit(sql, [id]);
     }
 
-    dodaj = async (film : {
-        tmdb_id : number,
-        imdb_id : number,
-        naziv : string,
-        sazetak : string,
-        trajanje : number,
-        datumIzlaska : Date,
-        datumDodavanja : Date,
-        dobnoOgranicenje : boolean,
-        putanjaPozadina : string,
-        putanjaPoster : string,
-        budzet : number,
-        prihod : number,
-        pocetnaStranica : string,
-        izvorniJezik : string,
-        popularnost : number,
-        status : string,
-        slogan : string,
-        ocjena : number,
-        brojOcjenjivaca : number,
-        prijedlog : boolean,
+    dodaj = async (tijelo : {
+        film : {
+            id : number,
+            imdb_id : number,
+            adult : boolean,
+            backdrop_path : string,
+            belongs_to_collection : any,
+            budget : number,
+            genres : any,
+            homepage : string,
+            original_language : string,
+            original_title : string,
+            overview : string,
+            popularity : number,
+            poster_path : string,
+            production_companies : any,
+            production_countries : any,
+            release_date : Date,
+            revenue : number,
+            runtime : number,
+            spoken_languages : any,
+            status : string,
+            tagline : string,
+            title : string,
+            video : boolean,
+            vote_average : number,
+            vote_count : number
+        },
         korisnik_id : number
     }) => {
         let sql = `INSERT INTO film(tmdb_id, imdb_id, naziv, sazetak, trajanje, datumIzlaska, datumDodavanja, dobnoOgranicenje, putanjaPozadina, putanjaPoster, budzet, prihod, pocetnaStranica, izvorniJezik, popularnost, status, slogan, ocjena, brojOcjenjivaca, prijedlog, korisnik_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
 
         let podaci = [
-            film.tmdb_id,
-            film.imdb_id,
-            film.naziv,
-            film.sazetak,
-            film.trajanje,
-            film.datumIzlaska,
-            film.datumDodavanja,
-            film.dobnoOgranicenje,
-            film.putanjaPozadina,
-            film.putanjaPoster,
-            film.budzet,
-            film.prihod,
-            film.pocetnaStranica,
-            film.izvorniJezik,
-            film.popularnost,
-            film.status,
-            film.slogan,
-            film.ocjena,
-            film.brojOcjenjivaca,
-            film.prijedlog,
-            film.korisnik_id
+            tijelo.film.id,
+            tijelo.film.imdb_id,
+            tijelo.film.title,
+            tijelo.film.overview,
+            tijelo.film.runtime,
+            tijelo.film.release_date,
+            await dateformat.dateFormat(Date.now(), 'yyyy-mm-dd HH:MM:ss'),
+            tijelo.film.adult,
+            tijelo.film.backdrop_path,
+            tijelo.film.poster_path,
+            tijelo.film.budget,
+            tijelo.film.revenue,
+            tijelo.film.homepage,
+            tijelo.film.original_language,
+            tijelo.film.popularity,
+            tijelo.film.status,
+            tijelo.film.tagline,
+            tijelo.film.vote_average,
+            tijelo.film.vote_count,
+            1,
+            tijelo.korisnik_id
         ]
 
         return await this.baza.izvrsiUpit(sql, podaci);

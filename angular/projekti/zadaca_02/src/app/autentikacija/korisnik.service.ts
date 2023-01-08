@@ -46,6 +46,7 @@ export class KorisnikService {
   async dajSesijaKorisnik() : Promise<{
     ime : string,
     prezime : string,
+    id : number,
     korime : string,
     email : string,
     admin :boolean
@@ -55,6 +56,7 @@ export class KorisnikService {
       let rezultat = JSON.parse(await odgovor.text()) as {
         ime : string,
         prezime : string,
+        id : number,
         korime : string,
         email : string,
         admin : boolean
@@ -99,6 +101,9 @@ export class KorisnikService {
       if (!(typeof korisnik == 'boolean')) {
         AppComponent.korisnik.ime = korisnik.ime;
         AppComponent.korisnik.prezime = korisnik.prezime;
+        AppComponent.korisnik.id = korisnik.id;
+        AppComponent.korisnik.korime = korisnik.korime;
+        AppComponent.korisnik.email = korisnik.email;
         AppComponent.korisnik.admin = korisnik.admin;
         AppComponent.korisnik.prijavljen = true;
         

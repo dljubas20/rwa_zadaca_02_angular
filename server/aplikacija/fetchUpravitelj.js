@@ -49,6 +49,7 @@ exports.getSesijaKorisnik = async function (zahtjev, odgovor) {
         odgovor.send({ 
             ime: zahtjev.session.korisnik.ime,
             prezime: zahtjev.session.korisnik.prezime,
+            id: zahtjev.session.korisnik.id,
             korime: zahtjev.session.korime,
             email: zahtjev.session.email,
             admin: zahtjev.session.admin
