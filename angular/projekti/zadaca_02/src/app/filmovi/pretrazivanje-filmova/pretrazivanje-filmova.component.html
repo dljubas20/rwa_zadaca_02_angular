@@ -1,3 +1,28 @@
-<div *ngFor="let film of tmdbFilmovi">
-    {{ film.id }} <br>
+<div id="pretrazivanje">
+    <mat-form-field>
+        <mat-label for="pretraga">
+            Traži...
+        </mat-label>
+        <input matInput id="pretraga" name="pretraga" (keyup)="pretrazi($event)" type="text">
+    </mat-form-field>
+
+    <mat-card *ngFor="let film of tmdbFilmovi">
+        <div class="glavni-dio">
+            <mat-card-header>
+                <img [src]="posterPutanja + film.poster_path" alt="Poster">
+            </mat-card-header>
+            
+            <mat-card-content>
+                <h3>{{ film.title }}</h3>
+                
+                <p>{{ film.overview }}</p>
+            </mat-card-content>
+        </div>
+
+        <mat-card-footer>
+            <button mat-raised-button color="primary">
+                Dodaj u bazu
+            </button>
+        </mat-card-footer>
+    </mat-card>
 </div>

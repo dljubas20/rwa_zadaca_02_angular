@@ -194,14 +194,14 @@ export class FilmService {
     return JSON.parse(await odgovor.text()) as IFilm;
   }
 
-  async dajTmdbFilmove() : Promise<Array<ITmdbFilm>> {
+  async dajTmdbFilmove(kljucnaRijec : string, stranica : number) : Promise<Array<ITmdbFilm>> {
     let zaglavlje : Headers = new Headers();
     zaglavlje.set("Content-Type", "application/json");
     let token = await fetch( this.appServis + "/generirajToken");
 
     zaglavlje.set("Authorization", await token.text());
 
-    let odgovor : Response = (await fetch(this.restServis + "/tmdb/filmovi?stranica=1&kljucnaRijec=", {
+    let odgovor : Response = (await fetch(this.restServis + "/tmdb/filmovi?stranica=" + stranica + "&kljucnaRijec=" + kljucnaRijec, {
       method: 'GET',
       headers: zaglavlje
     })) as Response;
