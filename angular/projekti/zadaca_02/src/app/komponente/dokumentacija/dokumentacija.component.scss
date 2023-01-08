@@ -1,28 +1,68 @@
-#autor_era {
+#dokumentacija {
     display: flex;
-    padding: 6vh;
-    justify-content: center;
-}
-
-.element-dokumentacije {
-    margin-left: auto;
-    margin-right: auto;
-
-    h2 {
-        text-align: center;
-    }
-
-    ul {
-        margin: 3vh;
-
-        li {
-            margin: 1vh;
+    flex-direction: row;
+    padding: 3vh;
+    
+    #autor {
+        margin-left: auto;
+        margin-right: auto;
+    
+        h2 {
+            text-align: center;
+        }
+    
+        ul {
+            margin: 3vh;
+    
+            li {
+                margin: 1vh;
+            }
+        }
+        
+        img {
+            display: block;
+            margin: auto;
+            border-radius: 2vh;
         }
     }
-}
 
-img {
-    display: block;
-    margin: auto;
-    border-radius: 2vh;
+    #napomene-tablice {
+        display: flex;
+        flex-direction: column;
+        height: 80vh;
+        overflow-y: scroll;
+        padding: 2vh;
+        background-color: white;
+        border-radius: 1%;
+
+        table, th, td {
+            border: 2px solid black;
+            border-collapse: collapse;
+        }
+
+        table {
+            margin-bottom: 2vh;
+        }
+
+        .uradeno {
+            background-color: #b7f397;
+        }
+
+        .nije-uradeno {
+            background-color: #f9dedc;
+        }
+
+        .djelomicno {
+            background-color: #fde293;
+        }
+
+        .podnaslov {
+            text-align: center;
+        }
+
+        .dodatno {
+            font-weight: bold;
+            color: #1862ec;
+        }
+    }
 }
