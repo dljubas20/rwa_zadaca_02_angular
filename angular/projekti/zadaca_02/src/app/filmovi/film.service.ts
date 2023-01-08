@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { IFilm } from '../interfaces/IFilm';
+import { ITmdbFilm } from '../interfaces/ITmdbFilm';
 import { IZanr } from '../interfaces/IZanr';
 import { ZanrService } from '../zanrovi/zanr.service';
 
@@ -193,6 +194,21 @@ export class FilmService {
     return JSON.parse(await odgovor.text()) as IFilm;
   }
 
+  async dajTmdbFilmove() : Promise<Array<ITmdbFilm>> {
+    let zaglavlje : Headers = new Headers();
+    zaglavlje.set("Content-Type", "application/json");
+    let token = await fetch( this.appServis + "/generirajToken");
+
+    zaglavlje.set("Authorization", await token.text());
+
+    let odgovor : Response = (await fetch(this.restServis + "/tmdb/filmovi?stranica=1&kljucnaRijec=", {
+      method: 'GET',
+      headers: zaglavlje
+    })) as Response;
+
+    return JSON.parse(await odgovor.text()).results as Array<ITmdbFilm>;
+  }
+  
   private dajNasumceBroj(min : number, max : number) : number {
     min = Math.ceil(min);
     max = Math.floor(max);
