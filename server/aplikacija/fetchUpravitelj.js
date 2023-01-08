@@ -172,10 +172,27 @@ exports.getSlikeKorisnici = async function (zahtjev, odgovor) {
 
         let idFilma = zahtjev.params.idFilma;
         
+        if (!ds.existsSync("slike/")) {
+            odgovor.status(404);
+            odgovor.json({greska: "nema resursa!"});
+            return;
+        }
+        
+        if (!ds.existsSync("slike/" + idFilma)) {
+            odgovor.status(404);
+            odgovor.json({greska: "nema resursa!"});
+            return;
+        }
+
         let direktoriji = (await ds.promises.readdir("slike/" + idFilma, { withFileTypes: true })).filter(dirent => dirent.isDirectory()).map(dirent => dirent.name);
+
         await new Promise(async (uspjeh, neuspjeh) => {
             let rezultat = [];
-            for (korime of direktoriji) {
+            for (let korime of direktoriji) {
+                if (!ds.existsSync("slike/" + idFilma + "/" + korime)) {
+                    continue;
+                }
+                
                 let slike = (await (ds.promises.readdir("slike/" + idFilma + "/" + korime, { withFileTypes: true }))).filter(dirent => !dirent.isDirectory()).map(dirent => dirent.name);
                 
                 rezultat.push({

@@ -1,17 +1,23 @@
 <div id="galerija">
-    <mat-card class="korisnici" *ngFor="let korisnik of slikePutanja">
-        <mat-card-header>
-            <mat-card-title>
-                {{ korisnik.korime }}
-            </mat-card-title>
-        </mat-card-header>
-
-        <mat-card-content class="slike">
-            <div *ngFor="let slika of korisnik.naziviSlika">
-                <a routerLink="..">
-                    <img [src]="'/slike/' + idFilma + '/' + korisnik.korime + '/' + slika" alt="Slika">
-                </a>
-            </div>
-        </mat-card-content>
-    </mat-card>
+    <div *ngIf="slikePutanja != undefined && slikePutanja.length > 0; else nemaSlika">
+        <mat-card class="korisnici" *ngFor="let korisnik of slikePutanja">
+            <mat-card-header>
+                <mat-card-title>
+                    {{ korisnik.korime }}
+                </mat-card-title>
+            </mat-card-header>
+    
+            <mat-card-content class="slike">
+                <div *ngFor="let slika of korisnik.naziviSlika">
+                    <a routerLink="..">
+                        <img [src]="'/slike/' + idFilma + '/' + korisnik.korime + '/' + slika" alt="Slika">
+                    </a>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    
+    <ng-template #nemaSlika>
+        <p>Nema objavljenih slika za ovaj film.</p>
+    </ng-template>
 </div>
