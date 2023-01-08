@@ -1,10 +1,25 @@
 <div id="pretrazivanje">
-    <mat-form-field>
-        <mat-label for="pretraga">
-            Traži...
-        </mat-label>
-        <input matInput id="pretraga" name="pretraga" (keyup)="pretrazi($event)" type="text">
-    </mat-form-field>
+    <div id="opcije">
+        <mat-card>
+            <mat-form-field appearance="outline">
+                <mat-label for="pretraga">
+                    Traži...
+                </mat-label>
+                <input matInput id="pretraga" name="pretraga" (keyup)="pretrazi($event)" type="text">
+            </mat-form-field>
+        </mat-card>
+        <mat-card>
+            <mat-paginator #paginator
+                       (page)="prebaciStranicu($event)"
+                       [length]="ukupanBrojRezultata"
+                       [pageSize]="20"
+                       [showFirstLastButtons]="true"
+                       [hidePageSize]="true"
+                       [pageIndex]="stranica - 1"
+                       [disabled]="false">
+            </mat-paginator>
+        </mat-card>
+    </div>
 
     <mat-card *ngFor="let film of tmdbFilmovi">
         <div class="glavni-dio">
@@ -20,9 +35,13 @@
         </div>
 
         <mat-card-footer>
-            <button mat-raised-button color="primary">
+            <button mat-raised-button color="primary" *ngIf="!ubaceniId.includes(film.id); else filmUbacen" (click)="dodaj(film.id)">
                 Dodaj u bazu
             </button>
+
+            <ng-template #filmUbacen>
+                <p>Film je u bazi.</p>
+            </ng-template>
         </mat-card-footer>
     </mat-card>
 </div>

@@ -8,10 +8,15 @@ export class FilmDAO {
         this.baza = new Baza();
     }
 
-    dajSve  = async (parametri : any, dajPrijedloge : boolean = false) => {
+    dajSve = async (parametri : any, dajPrijedloge : boolean = false, dajSveId : boolean = false) => {
         let sql = '';
         if (dajPrijedloge) {
             sql = `SELECT * FROM film WHERE film.prijedlog=1;`
+            return await this.baza.izvrsiSelectUpit(sql);
+        }
+
+        if (dajSveId) {
+            sql = `SELECT tmdb_id FROM film;`
             return await this.baza.izvrsiSelectUpit(sql);
         }
 

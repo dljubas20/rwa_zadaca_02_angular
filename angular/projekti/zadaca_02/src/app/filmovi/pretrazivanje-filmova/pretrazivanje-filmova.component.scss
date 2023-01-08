@@ -1,6 +1,24 @@
 #pretrazivanje {
     padding: 5vh;
 
+    #opcije {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        mat-card {
+            width: fit-content;
+            height: fit-content;
+            
+            mat-paginator {
+                display: flex;
+                width: fit-content;
+                height: fit-content;
+            }
+        }
+    }
+
+
     mat-card {
         display: flex;
         flex-direction: row;
@@ -35,6 +53,10 @@
             width: 25vh;
 
             button {
+                width: 20vh;
+            }
+
+            p {
                 width: 20vh;
             }
         }

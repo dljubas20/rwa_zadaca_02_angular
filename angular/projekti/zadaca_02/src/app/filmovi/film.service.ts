@@ -19,6 +19,7 @@ export class FilmService {
 
   pregled_filmovi = new Array<IFilm>();
   prijedlozi_filmovi = new Array<IFilm>();
+  svi_filmovi_id = new Array<{tmdb_id: number}>();
 
   constructor(private zanrServis : ZanrService) {
 
@@ -102,7 +103,32 @@ export class FilmService {
     return this.pregled_filmovi;
   }
 
-  async dajFilmovePrijedlozi(): Promise<Array<IFilm>> {
+  async dajSveId() : Promise<Array<number>> {
+    let zaglavlje : Headers = new Headers();
+    zaglavlje.set("Content-Type", "application/json");
+    let token = await fetch( this.appServis + "/generirajToken");
+
+    zaglavlje.set("Authorization", await token.text());
+  
+    let odgovor : Response = (await fetch(this.restServis + "/filmovi?stranica=1&dajSveId=1", {
+      method: 'GET',
+      headers: zaglavlje,
+    })) as Response;
+
+    if (odgovor.status == 200) {
+      let rezultat = JSON.parse(await odgovor.text()) as Array<{tmdb_id: number}>;
+      if (!(rezultat instanceof Array<{tmdb_id: number}>)) {
+        this.svi_filmovi_id.push(rezultat);
+      }
+      else {
+        this.svi_filmovi_id = rezultat;
+      }
+    }
+
+    return this.svi_filmovi_id.map(o_id => o_id.tmdb_id);
+  }
+
+  async dajFilmovePrijedlozi() : Promise<Array<IFilm>> {
     let zaglavlje : Headers = new Headers();
     zaglavlje.set("Content-Type", "application/json");
     let token = await fetch( this.appServis + "/generirajToken");
@@ -195,7 +221,12 @@ export class FilmService {
     return JSON.parse(await odgovor.text()) as IFilm;
   }
 
-  async dajTmdbFilmove(kljucnaRijec : string, stranica : number) : Promise<Array<ITmdbFilm>> {
+  async dajTmdbFilmove(kljucnaRijec : string, stranica : number) : Promise<{
+    page: number,
+    results: Array<ITmdbFilm>,
+    total_pages: number,
+    total_results: number
+  }> {
     let zaglavlje : Headers = new Headers();
     zaglavlje.set("Content-Type", "application/json");
     let token = await fetch( this.appServis + "/generirajToken");
@@ -207,7 +238,12 @@ export class FilmService {
       headers: zaglavlje
     })) as Response;
 
-    return JSON.parse(await odgovor.text()).results as Array<ITmdbFilm>;
+    return JSON.parse(await odgovor.text()) as {
+      page: number,
+      results: Array<ITmdbFilm>,
+      total_pages: number,
+      total_results: number
+    };
   }
 
   private async dajTmdbFilm(filmId : number) : Promise<ITmdbFilm> {

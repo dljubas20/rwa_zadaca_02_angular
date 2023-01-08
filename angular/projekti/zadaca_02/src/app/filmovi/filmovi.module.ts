@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router'
 import { MatButtonModule } from '@angular/material/button'; 
 import { MatSelectModule } from '@angular/material/select'; 
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator'; 
 
 
 import { PocetnaComponent } from './pocetna/pocetna.component';
@@ -39,7 +40,8 @@ import { SlikaComponent } from './slika/slika.component';
     RouterModule,
     MatButtonModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatPaginatorModule
   ]
 })
 export class FilmoviModule { }
