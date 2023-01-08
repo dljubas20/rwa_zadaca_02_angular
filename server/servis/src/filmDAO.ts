@@ -93,7 +93,24 @@ export class FilmDAO {
             tijelo.korisnik_id
         ]
 
-        return await this.baza.izvrsiUpit(sql, podaci);
+        let filmUbacen = await this.baza.izvrsiUpit(sql, podaci);
+        let ubacenoSve = true;
+
+        if (filmUbacen) {
+            sql = `SELECT id FROM film WHERE tmdb_id = ?`;
+
+            let film = await this.baza.izvrsiSelectUpit(sql, [tijelo.film.id]);
+
+            
+            sql = `INSERT OR IGNORE INTO zanrovi(zanr_id, film_id) VALUES(?, ?);`
+            for (let zanr of tijelo.film.genres) {
+                if (!(await this.baza.izvrsiUpit(sql, [zanr.id, film.id]))) {
+                    ubacenoSve = false;
+                }
+            }
+        }
+
+        return (filmUbacen && ubacenoSve);
     }
 
     azuriraj = async (id : number, odobriFilm : boolean = false, film? : {

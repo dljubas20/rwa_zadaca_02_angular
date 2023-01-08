@@ -91,15 +91,15 @@ export class FilmService {
 
     if (odgovor.status == 200) {
       this.pregled_filmovi = JSON.parse(await odgovor.text()) as Array<IFilm>;
-    }
-
-    if ((this.pregled_filmovi.constructor === ({}).constructor)) {
-      let poljeFilmova = new Array<IFilm>();
-      poljeFilmova.push(this.pregled_filmovi as unknown as IFilm);
       
-      return poljeFilmova;
+      if (this.pregled_filmovi.constructor === ({}).constructor) {
+        let poljeFilmova = new Array<IFilm>();
+        poljeFilmova.push(this.pregled_filmovi as unknown as IFilm);
+        
+        return poljeFilmova;
+      }
     }
-
+      
     return this.pregled_filmovi;
   }
 
@@ -141,12 +141,12 @@ export class FilmService {
     })) as Response;
 
     if (odgovor.status == 200) {
-      let rezultat = JSON.parse(await odgovor.text()) as Array<IFilm>;
-      if (!(rezultat instanceof Array<IFilm>)) {
-        this.prijedlozi_filmovi.push(rezultat);
-      }
-      else {
-        this.prijedlozi_filmovi = rezultat;
+      this.prijedlozi_filmovi = JSON.parse(await odgovor.text()) as Array<IFilm>;
+      if (this.prijedlozi_filmovi.constructor === ({}).constructor) {
+        let poljeFilmova = new Array<IFilm>();
+        poljeFilmova.push(this.prijedlozi_filmovi as unknown as IFilm);
+
+        return poljeFilmova;
       }
     }
 
@@ -263,6 +263,17 @@ export class FilmService {
 
   async dodajFilm(filmId : number) : Promise<boolean> {
     let film = await this.dajTmdbFilm(filmId) as ITmdbFilm;
+    let spremiZanrove = new Array<IZanr>();
+
+    if (film) {
+      for (let zanr of film.genres) {
+        spremiZanrove.push({id: zanr.id, naziv: zanr.name});
+      }
+    }
+
+    if (!(await this.zanrServis.spremiZanrove(spremiZanrove))) {
+      return false;
+    }
 
     let zaglavlje : Headers = new Headers();
     zaglavlje.set("Content-Type", "application/json");

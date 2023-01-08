@@ -3,6 +3,17 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
+
+    #ima-zanrova {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .zanrovi {
+        width: 58vh;
+    }
     
     mat-card {
         margin: 3vh;
@@ -10,6 +21,15 @@
         
         mat-card-content {
             display: flex;
+        }
+
+        #obavijest {
+            width: fit-content;
+        }
+
+        p {
+            font-size: medium;
+            width: 20vh;
         }
     }
 }
@@ -21,7 +41,7 @@ mat-card-header {
     width: fit-content;
 
     img {
-        width: 25vh;
+        width: 17vh;
     }
 }
 

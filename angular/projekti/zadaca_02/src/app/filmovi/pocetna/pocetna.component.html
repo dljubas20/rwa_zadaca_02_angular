@@ -1,7 +1,7 @@
 <div id="zanrovi">
-    <div *ngIf="filmovi.length != 0; else nemaZanrova">
+    <div id="ima-zanrova" *ngIf="filmovi.length != 0; else nemaZanrova">
 
-        <mat-card *ngFor="let zanr of filmovi">
+        <mat-card class="zanrovi" *ngFor="let zanr of filmovi">
             <mat-card-header>
                 <mat-card-title>
                     {{ zanr.zanr.naziv }}
@@ -11,7 +11,7 @@
             <mat-card-content *ngIf="zanr.filmovi.length != 0; else nemaFilmova">
                 <mat-card class="filmovi" *ngFor="let film of zanr.filmovi">
                     <mat-card-header>
-                        <img src="/assets/slike/Dario.jpg">
+                        <img [src]="'/posteri' + film.putanjaPoster">
                         <mat-card-title>
                             {{ film.naziv }}
                         </mat-card-title>
@@ -21,15 +21,13 @@
                         
                     </mat-card-content>
                     
-                    <mat-card-footer>
-                        {{ film.sazetak }}
-                    </mat-card-footer>
+                    <p>{{ film.sazetak }}</p>
                 </mat-card>
                 <div></div>
             </mat-card-content>
             
             <ng-template #nemaFilmova>
-                <mat-card-content>
+                <mat-card-content id="obavijest">
                     <p>Ovaj žanr nema filmova u bazi.</p>
                 </mat-card-content>
             </ng-template>

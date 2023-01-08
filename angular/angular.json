@@ -71,6 +71,12 @@
                   "maximumError": "4kb"
                 }
               ],
+              "fileReplacements": [
+                {
+                  "replace": "projekti/zadaca_02/src/environments/environment.ts",
+                  "with": "projekti/zadaca_02/src/environments/environment.prod.ts"
+                }
+              ],
               "outputHashing": "all"
             },
             "development": {
