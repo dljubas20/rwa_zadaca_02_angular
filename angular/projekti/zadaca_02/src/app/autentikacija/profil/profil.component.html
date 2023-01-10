@@ -9,6 +9,13 @@
                     <p>Dogodila se greška. Pokušajte ponovno kasnije.</p>
                 </div>
             </div>
+
+            <mat-label for="korime">Korisničko ime</mat-label>
+            <input type="text" id="korime" matInput [disabled]="true" [value]="korime">
+
+            <mat-label for="email">Email</mat-label>
+            <input type="text" id="email" matInput [disabled]="true" [value]="email">
+
             <form [formGroup]="profilForma" (ngSubmit)="onSubmit()">
                 <mat-form-field appearance="outline">
                     <mat-label for="ime">Ime</mat-label>

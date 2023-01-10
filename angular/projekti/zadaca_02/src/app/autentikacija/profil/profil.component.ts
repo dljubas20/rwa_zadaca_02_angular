@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
+import { AppComponent } from '../../app.component';
 import { KorisnikService } from '../korisnik.service';
 
 @Component({
@@ -17,6 +18,8 @@ export class ProfilComponent implements OnInit{
   });
 
   uspjeh : null | boolean = null;
+  korime? : string = AppComponent.korisnik.korime;
+  email? : string = AppComponent.korisnik.email;
 
   constructor(
     private formBuilder : FormBuilder,
@@ -31,6 +34,9 @@ export class ProfilComponent implements OnInit{
     if (!(await this.korisnikServis.jePrijavljen())) {
       this.router.navigate(['prijava']);
     }
+
+    this.korime = AppComponent.korisnik.korime;
+    this.email = AppComponent.korisnik.email;
   }
 
   onSubmit() : void {
