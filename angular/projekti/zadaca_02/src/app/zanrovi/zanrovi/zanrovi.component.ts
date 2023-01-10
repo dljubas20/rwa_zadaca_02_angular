@@ -135,5 +135,6 @@ export class ZanroviComponent implements OnInit {
       await this.dohvatiZanrove();
       this.tablica?.renderRows();
     }
+    window.location.reload();
   }
 }
