@@ -11,7 +11,45 @@
 
     <div id="napomene-tablice">
         <div id="upute">
+            <h2>Općenite napomene i upute za testiranje</h2>
+            <ol>
+                <li>
+                    Korišten je Angular Material za dizajn i CDK (Component Development Kit) koji dođe uz Angular Material pa, ako osoba koja ovo testira nema instaliran Angular Material, a želi (u neku svrhu testiranja) pokrenuti aplikaciju sa <code>ng serve</code> i/ili izraditi aplikaciju sa <code>ng build</code> treba ući u direktorij <code>dljubas20/angular/</code> i pokrenuti naredbu <code>npm install</code>, što će instalirati sve potrebne module za pokretanje ove aplikacije.
+                </li>
+                <li>
+                    Također je korišten <code>ng-recaptcha</code> modul tako da bi postupak iznad riješio i odmah instalirao i ovaj modul.
+                </li>
+                <li>
+                    Ukoliko osoba koja testira odluči testirati sa <code>ng serve</code>, neke funkcionalnosti će biti uskraćene poput prijave i korištenja svih stranica za koje je potrebna prijava zato što se prijavljeni korisnik bilježi na pozadinskom dijelu web aplikacije koji je pokrenut na portu {{ appPort }}.
+                </li>
+                <li>
+                    Port REST servisa je zabilježen u konfiguracijskoj datoteci (<code>konfiguracija.csv</code>) i u <code>environment</code> datotekama angulara (<code>angular/projekti/zadaca_02/src/environments/</code>) i trenutno je taj port jednak {{ restPort }}.
+                </li>
+                <li>
+                    Port aplikacijskog dijela je zabilježen u konfiguracijskoj datoteci (<code>konfiguracija.csv</code>) i u <code>environment</code> datotekama angulara (<code>angular/projekti/zadaca_02/src/environments/</code>) i trenutno je taj port jednak {{ appPort }}.
+                </li>
+                <li>
+                    Ukoliko osoba koja testira želi promijeniti port / portove, potrebno ih je promijeniti u svim navedenim datotekama iznad, i nakon toga u direktoriju <code>dljubas20/angular/</code> izvršiti naredbu <code>ng build</code>. Nakon toga će sve funkcionirati na novim definiranim portovima.
+                </li>
+                <li>
+                    <b>
+                        1/2 Prije početka testiranja još je samo potrebno u <code>konfiguracija.csv</code> umetnuti vlastiti TMDB API v3 ključ umjesto "xxx".
+                    </b>
+                </li>
+                <li>
+                    <b>
+                        2/2 Prije početka testiranja još je samo potrebno u <code>package.json</code> kod <code>start</code> skripte promijeniti <code>NODE_PATH</code> putanju, ako trenutna nije važeća.
+                    </b>
+                </li>
+                <li>
+                    Nakon što su sve pripreme obavljene, u direktoriju <code>dljubas20/server/servis/</code> se može pokrenuti naredba <code>npm start</code>, što će pokrenuti REST servis na portu koji ne naveden u stavci 4. ovih uputa. Drugi korak ovoga je pokretanje aplikacijskog dijela u direktoriju <code>dljubas20/server/aplikacija/</code> također sa <code>npm start</code>, što će pokrenuti aplikacijski dio na portu koji je naveden iznad u stavci 3. i 5. ovih uputa.
+                </li>
+                <li>
+                    Tablice koje opisuju urađeni i neurađeni dio zadaće su ispod. Zelena boja predstavlja urađeni dio, žuta boja predstavlja djelomično urađeni dio, crvena boja predstavlja neurađeni dio i plava boja slova (font) predstavlja dodatni dio.
+                </li>
+            </ol>
 
+            <p id="sretno">Sretno!</p>
         </div>
         
         <table id="rest-tablica">
@@ -93,7 +131,7 @@
                         Uz dobivene podatke čita sve podatke o filmu s vanjskog servisa i dodaje novi film</td>
                     <td class="uradeno"></td>
                     <td class="uradeno"></td>
-                    <td>Nije implementirano filtriranje i sortiranje, samo je implementirano dohvaćanje filmova</td>
+                    <td>Nije implementirano nikakvo filtriranje i sortiranje. Samo je implementirano dohvaćanje svih filmova.</td>
                 </tr>
                 <tr>
                     <td>api/filmovi/&#123;id&#125;</td>
@@ -184,7 +222,7 @@
                 <tr>
                     <td>Korisnik</td>
                     <td class="djelomicno">Filmovi pregled</td>
-                    <td></td>
+                    <td>Nema filtriranje po datumu i/ili žanru. Nema sortiranje. Samo ima pregled svih odobrenih filmova u bazi</td>
                 </tr>
                 <tr>
                     <td>Korisnik</td>
@@ -199,7 +237,7 @@
                 <tr>
                     <td>Korisnik</td>
                     <td class="djelomicno">Galerija slika</td>
-                    <td></td>
+                    <td>Nema filtriranje po datumu. Samo ima pregled svih slika za neki film grupirani po korisnicima</td>
                 </tr>
                 <tr>
                     <td>Korisnik</td>
