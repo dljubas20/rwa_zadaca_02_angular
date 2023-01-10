@@ -14,6 +14,9 @@
             <h2>Općenite napomene i upute za testiranje</h2>
             <ol>
                 <li>
+                    Dodatni globalni modul koji se koristio bio je CORS, koji nije naveden u instalacijskim skriptama na Moodlu, pa će vjerojatno biti potrebno instalirati ga pomoću <code>npm install -g cors</code> ukoliko ga osoba koja testira nema.
+                </li>
+                <li>
                     Korišten je Angular Material za dizajn i CDK (Component Development Kit) koji dođe uz Angular Material pa, ako osoba koja ovo testira nema instaliran Angular Material, a želi (u neku svrhu testiranja) pokrenuti aplikaciju sa <code>ng serve</code> i/ili izraditi aplikaciju sa <code>ng build</code> treba ući u direktorij <code>dljubas20/angular/</code> i pokrenuti naredbu <code>npm install</code>, što će instalirati sve potrebne module za pokretanje ove aplikacije.
                 </li>
                 <li>
@@ -42,7 +45,7 @@
                     </b>
                 </li>
                 <li>
-                    Nakon što su sve pripreme obavljene, u direktoriju <code>dljubas20/server/servis/</code> se može pokrenuti naredba <code>npm start</code>, što će pokrenuti REST servis na portu koji ne naveden u stavci 4. ovih uputa. Drugi korak ovoga je pokretanje aplikacijskog dijela u direktoriju <code>dljubas20/server/aplikacija/</code> također sa <code>npm start</code>, što će pokrenuti aplikacijski dio na portu koji je naveden iznad u stavci 3. i 5. ovih uputa.
+                    Nakon što su sve pripreme obavljene, u direktoriju <code>dljubas20/server/servis/</code> se može pokrenuti naredba <code>npm start</code>, što će pokrenuti REST servis na portu koji ne naveden u stavci 5. ovih uputa. Drugi korak ovoga je pokretanje aplikacijskog dijela u direktoriju <code>dljubas20/server/aplikacija/</code> također sa <code>npm start</code>, što će pokrenuti aplikacijski dio na portu koji je naveden iznad u stavci 4. i 6. ovih uputa.
                 </li>
                 <li>
                     Tablice koje opisuju urađeni i neurađeni dio zadaće su ispod. Zelena boja predstavlja urađeni dio, žuta boja predstavlja djelomično urađeni dio, crvena boja predstavlja neurađeni dio i plava boja slova (font) predstavlja dodatni dio.
