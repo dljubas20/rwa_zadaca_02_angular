@@ -1,0 +1,50 @@
+<div id="postavi-sliku">
+    <div id="ima-filmova" *ngIf="filmovi.length != 0; else nemaFilmova">
+        <mat-card>
+            <h2>
+                Objavite sliku
+            </h2>
+
+            <mat-card-content>
+                <form method="post" action="/api/postaviSliku" enctype="multipart/form-data">
+                    <select id="idFilma" name="idFilma" required>
+                        <option *ngFor="let film of filmovi" [value]="film.id">
+                            {{ film.naziv }}
+                        </option>
+                    </select>
+
+                    <div *ngIf="pogresanTip || pogresnaVelicina">
+                        <p *ngIf="pogresanTip">Pogrešan tip datoteke! Dozvoljeni su samo JPG, JPEG, PNG i GIF.</p>
+                        <p *ngIf="pogresnaVelicina">Datoteka je prevelika!</p>
+                    </div>
+
+                    <div *ngIf="slika != null">
+                        <mat-icon>image</mat-icon> {{ slika.name }}
+                    </div>
+                    
+                    <button id="gumb-upload" mat-stroked-button type="button">
+                        <label id="label-slika" for="slika">
+                            Odaberite sliku
+                        </label>
+                        <input (change)="postavljenaSlika($event)" matInput name="slika" id="slika" type="file" hidden>
+                    </button>
+    
+                    <button id="objavi" mat-raised-button type="submit"[disabled]="slika == null || pogresanTip || pogresnaVelicina" color="primary">
+                        Objavi sliku
+                    </button>
+                </form>
+            </mat-card-content>
+
+            <mat-card-footer>
+                <p *ngIf="greska">Greška pri slanju slike. Pokušajte ponovno kasnije.</p>
+            </mat-card-footer>
+        </mat-card>
+    </div>
+
+    <ng-template #nemaFilmova>
+        <div id="nema-filmova">
+
+        </div>
+    </ng-template>
+    
+</div>

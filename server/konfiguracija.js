@@ -14,8 +14,8 @@ class Konfiguracija {
         var podaci = await ds.readFile(process.argv[2], "utf-8");
         let provjeraKonfiguracije = new ProvjeraKonfiguracije();
 
-        let provjeraPodataka = await new Promise((uspjeh, neuspjeh) => {
-            let imajuPodaci = new RegExp("^\\n*(rest.korime=.+)\\n*(rest.lozinka=.+)\\n*(rest.port=.+)\\n*(app.broj.stranica=.+)\\n*(tmdb.apikey.v3=.+)\\n*(tmdb.apikey.v4=.+)\\n*$");
+        await new Promise((uspjeh, neuspjeh) => {
+            let imajuPodaci = new RegExp("^\\n*(rest.korime=.+)\\n*(rest.lozinka=.+)\\n*(rest.port=.+)\\n*(app.port=.+)\\n*(app.broj.stranica=.+)\\n*(tmdb.apikey.v3=.+)\\n*(tmdb.apikey.v4=.+)\\n*$");
             
             if (!imajuPodaci.test(podaci))
                 neuspjeh("U konfiguracijskoj datoteci nemaju potrebni podaci.");

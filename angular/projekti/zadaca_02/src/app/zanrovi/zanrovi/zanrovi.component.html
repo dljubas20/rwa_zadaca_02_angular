@@ -1,0 +1,52 @@
+<div id="zanrovi">
+    <div id="gumbovi-div">
+        <div id="gumbovi">
+            <button mat-raised-button (click)="otvoriDodajDijalog()" color="primary">
+                DODAJ
+            </button>
+            
+            <button mat-raised-button (click)="otvoriAzurirajDijalog()" color="primary">
+                AŽURIRAJ
+            </button>
+            
+            <button mat-raised-button (click)="obrisiSve()" color="warn">
+                OBRIŠI SVE
+            </button>
+        </div>
+    </div>
+    <div *ngIf="zanrovi?.length != 0; else nemaZanrova" id="tablica">
+        <table mat-table #tablica [dataSource]="zanrovi">
+            
+            <ng-container matColumnDef="oznaci">
+                <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? oznaciSve() : null"
+                        [checked]="oznaceni.hasValue() && sveOznaceno()"
+                        [indeterminate]="oznaceni.hasValue() && !sveOznaceno()"
+                        color="primary">
+                    </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let red">
+                    <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? oznaceni.toggle(red) : null"
+                        [checked]="oznaceni.isSelected(red)"
+                        color="primary">
+                    </mat-checkbox>
+                </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="naziv">
+                <th mat-header-cell *matHeaderCellDef>Naziv</th>
+                <td mat-cell *matCellDef="let element">{{ element.naziv }}</td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="['oznaci', 'naziv']; sticky: true"></tr>
+            <tr (click)="oznaceni.toggle(red)" mat-row *matRowDef="let red; columns: ['oznaci', 'naziv']"></tr>
+            
+        </table>
+    </div>
+
+    <ng-template #nemaZanrova>
+        <p>U bazi trenutno nema žanrova.</p>
+    </ng-template>
+    
+</div>

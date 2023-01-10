@@ -1,0 +1,45 @@
+<div id="registracija">
+    <mat-card>
+        <mat-card-header>
+            <img height="100" src="/assets/slike/Filmoteka.png" alt="Logo2"/>
+        </mat-card-header>
+        
+        <mat-card-content>
+            <div id="greske" *ngIf="greske">
+                <p *ngIf="greske.email != ''">{{ greske.email }}</p>
+                <p *ngIf="greske.korime != ''">{{ greske.korime }}</p>
+            </div>
+            <form [formGroup]="regForma" (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="outline">
+                    <mat-label for="ime">Ime</mat-label>
+                    <input formControlName="ime" matInput class="form-control w-100 border-dark" type="text" name="ime" id="ime"/>
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                    <mat-label for="prezime">Prezime</mat-label>
+                    <input formControlName="prezime" matInput class="form-control w-100 border-dark" type="text" name="prezime" id="prezime"/>
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                    <mat-label for="lozinka">Lozinka</mat-label>
+                    <input formControlName="lozinka" matInput class="form-control w-100 border-dark" type="password" name="lozinka" id="lozinka" required/>
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                    <mat-label for="email">Email</mat-label>
+                    <input formControlName="email" matInput class="form-control w-100 border-dark" type="email" name="email" id="email" required/>
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                    <mat-label for="korime">Korisničko ime</mat-label>
+                    <input formControlName="korime" matInput class="form-control w-100 border-dark" type="text" name="korime" id="korime" required/>
+                </mat-form-field>
+                
+                <button mat-raised-button color="primary" type="submit" class="btn w-50 bg-primary text-white mt-5">
+                    Registriraj se
+                </button>
+                
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

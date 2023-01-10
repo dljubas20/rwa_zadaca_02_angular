@@ -1,0 +1,33 @@
+#zanrovi-preskoceni-dijalog {
+    padding: 4vh;
+    width: fit-content;
+
+    h2 {
+        margin-top: 0vh;
+    }
+    
+    #okvir-tablice {
+        height: 55vh;
+        overflow-y: scroll;
+
+        #tablica {
+            width: 45vh;
+            
+            th {
+                text-align: center;
+            }
+
+            td {
+                text-align: center;
+            }
+        }
+    }
+
+
+    #gumbovi {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin: 2vh;
+    }
+}

@@ -1,0 +1,42 @@
+<div id="zanrovi">
+    <div id="ima-zanrova" *ngIf="filmovi.length != 0; else nemaZanrova">
+
+        <mat-card class="zanrovi" *ngFor="let zanr of filmovi">
+            <mat-card-header>
+                <mat-card-title>
+                    {{ zanr.zanr.naziv }}
+                </mat-card-title>
+            </mat-card-header>
+            
+            <mat-card-content *ngIf="zanr.filmovi.length != 0; else nemaFilmova">
+                <mat-card class="filmovi" *ngFor="let film of zanr.filmovi">
+                    <mat-card-header>
+                        <img [src]="'/posteri' + film.putanjaPoster">
+                        <mat-card-title>
+                            {{ film.naziv }}
+                        </mat-card-title>
+                    </mat-card-header>
+                    
+                    <mat-card-content>
+                        
+                    </mat-card-content>
+                    
+                    <p>{{ film.sazetak }}</p>
+                </mat-card>
+                <div></div>
+            </mat-card-content>
+            
+            <ng-template #nemaFilmova>
+                <mat-card-content id="obavijest">
+                    <p>Ovaj žanr nema filmova u bazi.</p>
+                </mat-card-content>
+            </ng-template>
+            
+        </mat-card>
+    </div>
+    
+    <ng-template #nemaZanrova>
+        U bazi trenutno nema žanrova.
+    </ng-template>
+</div>
+

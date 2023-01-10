@@ -1,0 +1,395 @@
+<div id="dokumentacija">
+    <div id="autor">
+        <h2>O autoru</h2>
+        <img src="/assets/slike/Dario.jpg" width="220" class="mx-auto d-block rounded" alt="Dario">
+        <ul class="m-2">
+            <li>Dario</li>
+            <li>Ljubas</li>
+            <li><a href="mailto: dljubas20@student.foi.hr">dljubas20@student.foi.hr</a></li>
+        </ul>
+    </div>
+
+    <div id="napomene-tablice">
+        <div id="upute">
+            <h2>Općenite napomene i upute za testiranje</h2>
+            <ol>
+                <li>
+                    Korišten je Angular Material za dizajn i CDK (Component Development Kit) koji dođe uz Angular Material pa, ako osoba koja ovo testira nema instaliran Angular Material, a želi (u neku svrhu testiranja) pokrenuti aplikaciju sa <code>ng serve</code> i/ili izraditi aplikaciju sa <code>ng build</code> treba ući u direktorij <code>dljubas20/angular/</code> i pokrenuti naredbu <code>npm install</code>, što će instalirati sve potrebne module za pokretanje ove aplikacije.
+                </li>
+                <li>
+                    Također je korišten <code>ng-recaptcha</code> modul tako da bi postupak iznad riješio i odmah instalirao i ovaj modul.
+                </li>
+                <li>
+                    Ukoliko osoba koja testira odluči testirati sa <code>ng serve</code>, neke funkcionalnosti će biti uskraćene poput prijave i korištenja svih stranica za koje je potrebna prijava zato što se prijavljeni korisnik bilježi na pozadinskom dijelu web aplikacije koji je pokrenut na portu {{ appPort }}.
+                </li>
+                <li>
+                    Port REST servisa je zabilježen u konfiguracijskoj datoteci (<code>konfiguracija.csv</code>) i u <code>environment</code> datotekama angulara (<code>angular/projekti/zadaca_02/src/environments/</code>) i trenutno je taj port jednak {{ restPort }}.
+                </li>
+                <li>
+                    Port aplikacijskog dijela je zabilježen u konfiguracijskoj datoteci (<code>konfiguracija.csv</code>) i u <code>environment</code> datotekama angulara (<code>angular/projekti/zadaca_02/src/environments/</code>) i trenutno je taj port jednak {{ appPort }}.
+                </li>
+                <li>
+                    Ukoliko osoba koja testira želi promijeniti port / portove, potrebno ih je promijeniti u svim navedenim datotekama iznad, i nakon toga u direktoriju <code>dljubas20/angular/</code> izvršiti naredbu <code>ng build</code>. Nakon toga će sve funkcionirati na novim definiranim portovima.
+                </li>
+                <li>
+                    <b>
+                        1/2 Prije početka testiranja još je samo potrebno u <code>konfiguracija.csv</code> umetnuti vlastiti TMDB API v3 ključ umjesto "xxx".
+                    </b>
+                </li>
+                <li>
+                    <b>
+                        2/2 Prije početka testiranja još je samo potrebno u <code>package.json</code> kod <code>start</code> skripte promijeniti <code>NODE_PATH</code> putanju, ako trenutna nije važeća.
+                    </b>
+                </li>
+                <li>
+                    Nakon što su sve pripreme obavljene, u direktoriju <code>dljubas20/server/servis/</code> se može pokrenuti naredba <code>npm start</code>, što će pokrenuti REST servis na portu koji ne naveden u stavci 4. ovih uputa. Drugi korak ovoga je pokretanje aplikacijskog dijela u direktoriju <code>dljubas20/server/aplikacija/</code> također sa <code>npm start</code>, što će pokrenuti aplikacijski dio na portu koji je naveden iznad u stavci 3. i 5. ovih uputa.
+                </li>
+                <li>
+                    Tablice koje opisuju urađeni i neurađeni dio zadaće su ispod. Zelena boja predstavlja urađeni dio, žuta boja predstavlja djelomično urađeni dio, crvena boja predstavlja neurađeni dio i plava boja slova (font) predstavlja dodatni dio.
+                </li>
+            </ol>
+
+            <p id="sretno">Sretno!</p>
+        </div>
+        
+        <table id="rest-tablica">
+            <thead>
+                <tr>
+                    <th>
+                        <p>Resurs</p>
+                        <p>Parametri</p>
+                    </th>
+                    <th>
+                        <p>GET</p>
+                        <p>čitanje</p>
+                    </th>
+                    <th>
+                        <p>POST</p>
+                        <p>kreiranje</p>
+                    </th>
+                    <th>
+                        <p>PUT</p>
+                        <p>ažuriranje</p>
+                    </th>
+                    <th>
+                        <p>DELETE</p>
+                        <p>brisanje</p>
+                    </th>
+                    <th>
+                        <p>NAPOMENA</p>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>api/korisnici</td>
+                    <td class="uradeno">vraća listu korisnika</td>
+                    <td class="uradeno">kreira novog korisnika</td>
+                    <td class="uradeno"></td>
+                    <td class="uradeno"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>api/korisnici/&#123;korime&#125;</td>
+                    <td class="uradeno">vraća određenog korisnika</td>
+                    <td class="uradeno">"metoda nije dopuštena" (405)</td>
+                    <td class="uradeno">Ažurira određenog korisnika</td>
+                    <td class="uradeno"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>api/korisnici/&#123;korime&#125;/aktivacija</td>
+                    <td class="uradeno"></td>
+                    <td class="uradeno">"metoda nije dopuštena" (405)</td>
+                    <td class="uradeno">Aktivira novog korisnika</td>
+                    <td class="uradeno"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>api/korisnici/&#123;korime&#125;/prijava</td>
+                    <td class="uradeno"></td>
+                    <td class="uradeno">Provjerava podatke prijave i vraća je li korisnik uspješno prijavljen</td>
+                    <td class="uradeno"></td>
+                    <td class="uradeno"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        api/filmovi/<br>
+                        ?stranica=<i>broj</i><br>
+                        &brojFilmova=<i>broj</i><br>
+                        [&=<i>datum</i>]<br>
+                        [&zanr=<i>idZanr</i>]<br>
+                        [&naziv=<i>dioNazivFilma</i>]<br>
+                        [&sortiraj=<i>[d|z|n]</i>]
+                    </td>
+                    <td class="djelomicno">
+                        vraća listu određenog broja filmova za neku stranicu (broj), opcionalno filtrirano po datumu unosa (datum) i/ili žanru (idZanr) i/ili nazivu filma (dioNazivFilma), te može sortirati uzlazno po datumu (d), nazivu (n) ili žanru (z)
+                    </td>
+                    <td class="uradeno">
+                        Uz dobivene podatke čita sve podatke o filmu s vanjskog servisa i dodaje novi film</td>
+                    <td class="uradeno"></td>
+                    <td class="uradeno"></td>
+                    <td>Nije implementirano nikakvo filtriranje i sortiranje. Samo je implementirano dohvaćanje svih filmova.</td>
+                </tr>
+                <tr>
+                    <td>api/filmovi/&#123;id&#125;</td>
+                    <td class="uradeno">Vraća podatke određenog filma (id)</td>
+                    <td class="uradeno">"metoda nije dopuštena" (405)</td>
+                    <td class="uradeno">Ažurira podatke određenog filma</td>
+                    <td class="uradeno">Briše određeni film</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>api/zanr/</td>
+                    <td class="uradeno">Vraća listu žanrova</td>
+                    <td class="uradeno">Dodaje novi žanr</td>
+                    <td class="uradeno"></td>
+                    <td class="uradeno">Briše sve žanrove za koje ne postoji film</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>api/zanr/&#123;id&#125;</td>
+                    <td class="uradeno">Vraća podatke određenog žanra (id)</td>
+                    <td class="uradeno">"metoda nije dopuštena" (405)</td>
+                    <td class="uradeno">Ažurira postojeći žanr</td>
+                    <td class="uradeno">Briše određeni žanr</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>api/tmdb/zanr</td>
+                    <td class="uradeno">Prosljeđuje listu žanrova koji vrati servis TMDB</td>
+                    <td class="uradeno"></td>
+                    <td class="uradeno"></td>
+                    <td class="uradeno"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        api/tmdb/filmovi<br>
+                        ?kljucnaRijec=<i>rijec1</i><br>
+                        [<i>,rijec2</i>]<br>
+                        &stranica=<i>broj</i>
+                    </td>
+                    <td class="uradeno">
+                        Prosljeđuje listu filmova koju vrati servis TMDB, a čiji filmovi imaju ključnu riječ ili više njih
+                    </td>
+                    <td class="uradeno"></td>
+                    <td class="uradeno"></td>
+                    <td class="uradeno"></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <table id="app-tablica">
+            <thead>
+                <tr>
+                    <th>
+                        Uloga
+                    </th>
+                    <th>
+                        Stranica/e
+                    </th>
+                    <th>
+                        <p>NAPOMENA</p>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Gost</td>
+                    <td class="uradeno">Početna</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Gost</td>
+                    <td class="uradeno">Dokumentacija</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Gost</td>
+                    <td class="uradeno">Registracija, Prijava, Odjava</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Korisnik</td>
+                    <td class="uradeno">Profil</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Korisnik</td>
+                    <td class="djelomicno">Filmovi pregled</td>
+                    <td>Nema filtriranje po datumu i/ili žanru. Nema sortiranje. Samo ima pregled svih odobrenih filmova u bazi</td>
+                </tr>
+                <tr>
+                    <td>Korisnik</td>
+                    <td class="uradeno">Film</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Korisnik</td>
+                    <td class="uradeno">Filmovi pretraživanje</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Korisnik</td>
+                    <td class="djelomicno">Galerija slika</td>
+                    <td>Nema filtriranje po datumu. Samo ima pregled svih slika za neki film grupirani po korisnicima</td>
+                </tr>
+                <tr>
+                    <td>Korisnik</td>
+                    <td class="uradeno">Slika</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Admin</td>
+                    <td class="uradeno">Filmovi prijedlozi</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Admin</td>
+                    <td class="uradeno">Žanrovi</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <table id="koraci-tablica">
+            <thead>
+                <tr>
+                    <th>Korak</th>
+                    <th>Opis</th>
+                    <th>NAPOMENA</th>
+                </tr>
+                <tr>
+                    <td colspan="3" class="podnaslov"><b>Zadaci općenito</b></td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td class="uradeno">REST tablica</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td class="uradeno">APP tablica</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td class="uradeno">Koraci zadaće 2 tablica</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td class="uradeno">Dodatna tablica s nekim opisima</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td class="uradeno">Složiti package.json da se pojedini serveri mogu pokrenuti s <b>npm start</b> naredbom. Definirati NODE_PATH putanju kod start skripte.</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td class="uradeno">Izbrisati TMDB ključeve iz konfiguracijskih datoteka</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="podnaslov"><b>Zadaci REST servis</b></td>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        <p>7a</p>
+                        <br>
+                        <p>7b</p>
+                    </td>
+                    <td rowspan="2" class="uradeno">
+                        <p>REST servis mora raditi s SQLite bazom podataka</p>
+                        <br>
+                        <p>REST servis koristi port koji se čita iz konfiguracijske datoteke pod nazivom <b>rest.port</b></p>
+                    </td>
+                    <td rowspan="2"></td>
+                </tr>
+                <tr>
+
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td class="djelomicno">REST servis ima dodatni parametar kod resursa api/filmovi koji omogućuje dohvat samo odobrenih ili neodobrenih filmova. Nije obavezno</td>
+                    <td>Postoji parametar 'dajPrijedloge', ako je postavljen na 1, dohvaćaju se samo filmovi koji su prijedlozi, odnosno nisu odobreni i čekaju odobrenje.</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td class="uradeno">REST servis ne korsiti više username i password već prima JWT i tako validira input.</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td class="uradeno dodatno">Cijeli REST servis prebačen u Typescript. Kod pokretanja servera se radi recompile. Nema bitnog statičnog sadržaja</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="podnaslov"><b>Zadaci Web aplikacija</b></td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td class="uradeno">Klijentski dio Web Aplikacije HTML, CSS i JS prebaciti u Angular sa Typescriptom</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td class="uradeno">Informacije o portovima na servise koje koristi angular aplikacija čita iz environment datoteke.</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td class="uradeno">Dizajn treba u Sass (Sass ili Scss sintaksa). Čisti CSS ili bootstrap se ne priznaju</td>
+                    <td>Korištena Scss sintaksa</td>
+                </tr>
+                <tr>
+                    <td>14</td>
+                    <td class="uradeno">Dodati reCaptcha v3 sustav na minimalno 3 obrasca (prijava, registracija i jedan po izboru)</td>
+                    <td>Dodano na prijavu, registraciju i ažuriranje profila</td>
+                </tr>
+                <tr>
+                    <td>15</td>
+                    <td class="uradeno">Pozadinski dio web aplikacije poslužuje Angular web aplikaciju</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>16</td>
+                    <td class="uradeno">Pozadinski dio web aplikacije poslužuje dokumentaciju - moguća ugradnja dokumentacije u Angular aplikaciju</td>
+                    <td>Dokumentacija je ugrađena u Angular aplikaciju</td>
+                </tr>
+                <tr>
+                    <td>17</td>
+                    <td class="uradeno">Pozadinski dio web aplikacije nudi REST api podršku za klijentsku stranu sa resursima koji ne postoje u REST servisu npr autentikacija, generiranje JWT-a i slično</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>18</td>
+                    <td class="uradeno">Pozadinski dio port se mora čitati iz konfiguracijske datoteke iz podatka: app.port</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>19</td>
+                    <td class="uradeno">Izbaciti TOTP i aktivaciju mailom kod prijave. Inicijalno mora postojati korisnik iz svake uloge koji nema TOTP i već je aktiviran i treba navesti podatke na stranici prijava radi lakšeg testiranja.</td>
+                    <td>Podaci za prijavu su kod forme za prijavu.</td>
+                </tr>
+                <tr>
+                    <td>20</td>
+                    <td class="uradeno">Angular aplikacija smije direktno komunicirati sa REST servisom, ali mora obavezno slati JWT.</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>21</td>
+                    <td class="nije-uradeno dodatno">Cijeli pozadinski dio web aplikacije prebačen u Typescript. Kod pokretanja servera se radi recompile. Nema bitnog statičnog sadržaja</td>
+                    <td>Nije urađeno</td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>

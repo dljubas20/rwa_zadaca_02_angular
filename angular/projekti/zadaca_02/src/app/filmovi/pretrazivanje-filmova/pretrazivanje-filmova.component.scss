@@ -1,0 +1,64 @@
+#pretrazivanje {
+    padding: 5vh;
+
+    #opcije {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        mat-card {
+            width: fit-content;
+            height: fit-content;
+            
+            mat-paginator {
+                display: flex;
+                width: fit-content;
+                height: fit-content;
+            }
+        }
+    }
+
+
+    mat-card {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 2vh;
+        padding: 2vh;
+
+        .glavni-dio {
+            display: flex;
+            flex-direction: row;
+
+            mat-card-header {
+                display: flex;
+                padding: 0vh;
+                width: 15vh;
+                img {
+                    width: 15vh;
+                }
+            }
+    
+            mat-card-contnet {
+                display: flex;
+                width: 45vh;
+            }
+        }
+
+        mat-card-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 2vh;
+            width: 25vh;
+
+            button {
+                width: 20vh;
+            }
+
+            p {
+                width: 20vh;
+            }
+        }
+    }
+}

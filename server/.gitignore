@@ -1,0 +1,9 @@
+/aplikacija/build/*
+/servis/build/*
+
+*.sql
+*.sqlite
+
+/aplikacija/angular/*
+/aplikacija/posteri/*
+/aplikacija/slike/*

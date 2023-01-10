@@ -1,0 +1,50 @@
+<div id="prijava">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                Podaci za prijavu
+            </mat-card-title>
+        </mat-card-header>
+        
+        <mat-card-content>
+            <div>
+                <h3>Administrator</h3>
+                <p>Korisničko ime: administrator</p>
+                <p>Lozinka: rwa</p>
+                <br>
+                <br>
+                <h3>Obični korisnik</h3>
+                <p>Korisničko ime: obican</p>
+                <p>Lozinka: rwa</p>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-header>
+            <img height="100" src="/assets/slike/Filmoteka.png" alt="Logo2"/>
+        </mat-card-header>
+        
+        <mat-card-content>
+            <div id="greska" *ngIf="netocniPodaci">
+                <p>Netočni podaci!</p>
+            </div>
+            <form [formGroup]="prijavaForma" (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="outline">
+                    <mat-label for="korime">Korisničko ime</mat-label>
+                    <input formControlName="korime" matInput class="form-control w-100 border-dark" type="text" name="korime" id="korime" required/>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label for="lozinka">Lozinka</mat-label>
+                    <input formControlName="lozinka" matInput class="form-control w-100 border-dark" type="password" name="lozinka" id="lozinka" required/>
+                </mat-form-field>
+                
+                <button mat-raised-button color="primary" type="submit" class="btn w-50 bg-primary text-white mt-5">
+                    Prijavi se
+                </button>
+                
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

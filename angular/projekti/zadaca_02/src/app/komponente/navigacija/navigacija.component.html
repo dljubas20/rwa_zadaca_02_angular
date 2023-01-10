@@ -1,0 +1,29 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row class="navigacija">
+        <a id="logo-link" routerLink="/">
+            <mat-icon>local_movies</mat-icon>
+        </a>
+
+        <div class="nav-stavke">
+            <div *ngFor="let s of stavke">
+                <a class="link" *ngIf="!s.prijavljen || (s.prijavljen && jePrijavljen() && !s.admin) || (s.prijavljen && s.admin && jePrijavljen() && jeAdmin())" [routerLink]="'/' + s.putanja" routerLinkActive="trenutni-link" [routerLinkActiveOptions]="{exact: true}">{{ s.naziv }}</a>
+            </div>
+        </div>
+
+        <div class="prijava">
+            <div *ngIf="jePrijavljen() == true; else nijePrijavljen">
+                <mat-card>
+                    <p class="link">
+                        {{ dajIme() + " " + dajPrezime() }}
+                    </p>
+                </mat-card>
+
+                <a class="link" (click)="odjava()">Odjava</a>
+            </div>
+
+            <ng-template #nijePrijavljen>
+                <a class="link" routerLink="/prijava" routerLinkActive="trenutni-link">Prijava</a>
+            </ng-template>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

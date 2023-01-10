@@ -1,6 +1,7 @@
 rest.korime=korisnickoime123
 rest.lozinka=-nisam_lozinka123456789@
 rest.port=12259
+app.port=12112
 app.broj.stranica=10
-tmdb.apikey.v3=dce8552c6023fa340a0ebb913cbfbcd9
+tmdb.apikey.v3=xxx
 tmdb.apikey.v4=yyy

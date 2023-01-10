@@ -1,0 +1,45 @@
+#zanrovi {
+    padding: 0vh, 5vh, 5vh, 5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    #gumbovi-div {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        
+        #gumbovi {
+            padding: 4vh;
+            width: 40vh;
+            display: flex;
+            flex-direction: row;               
+            justify-content: space-around;
+
+            button {
+                text-align: center;
+                
+                mat-icon {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0vh;
+                    font-size: large;
+                }
+            }
+        }
+    }
+
+    #tablica {
+        width: 65%;
+
+        th {
+            text-align: center;
+        }
+
+        td {
+            text-align: center;
+        }
+    }
+}

@@ -1,0 +1,93 @@
+<div id="film">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                {{ film?.naziv }}
+            </mat-card-title>
+            <mat-card-subtitle>
+               {{ film?.datumIzlaska | date : 'yyyy' }} &#x2022; {{ film?.dobnoOgranicenje ? 'R' : 'G' }} &#x2022; {{ film?.trajanje }}m
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div id="slike">
+                <img [src]="'/posteri' + film?.putanjaPoster" alt="Poster">
+                
+                <a [routerLink]="'galerija'" id="vidi-vise">
+                    <div>
+                        <mat-icon>collections</mat-icon>
+                        <p>Galerija slika</p>
+                    </div>
+                </a>
+            </div>
+            
+            <div id="zanroviFilma">
+                <mat-chip *ngFor="let zanr of zanroviFilma">
+                    {{ zanr?.naziv }}
+                </mat-chip>
+            </div>
+
+            <div>
+                <p>{{ film?.sazetak }}</p>
+                
+                <mat-divider></mat-divider>
+
+                <p>
+                    <b>U bazu dodao: </b>
+                    <mat-chip>
+                        <img matChipAvatar src="/assets/slike/default_korisnik.png" alt="avatar">
+                        {{ korisnik?.ime }} {{ korisnik?.prezime }}
+                    </mat-chip>
+                </p>
+
+                <mat-divider></mat-divider>
+
+                <p>
+                    <b>Dodan u bazu: </b>
+                    {{ film?.datumDodavanja | date: 'dd.MM.yyyy. HH:mm' }}
+                </p>
+                
+                <mat-divider></mat-divider>
+
+                <p>
+                    <b>Objavljen: </b>
+                    {{ film?.datumIzlaska | date: 'dd.MM.yyyy' }}
+                </p>
+                
+                <mat-divider></mat-divider>
+
+                <p>
+                    <b>Status: </b>
+                    {{ film?.status }}
+                </p>
+                
+                <mat-divider></mat-divider>
+
+                <p>
+                    <b>Izvorni jezik: </b>
+                    {{ film?.izvorniJezik }}
+                </p>
+
+                <mat-divider></mat-divider>
+
+                <p>
+                    <b>Popularnost: </b>
+                    {{ film?.popularnost }}%
+                </p>
+
+                <mat-divider></mat-divider>
+
+                <p>
+                    <b>Slogan: </b>
+                    {{ film?.slogan }}
+                </p>
+
+                <mat-divider></mat-divider>
+
+                <p>
+                    <b>Ocjena: </b>
+                    <mat-icon>star</mat-icon> <b>{{ film?.ocjena }}</b> / 10
+                </p>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
