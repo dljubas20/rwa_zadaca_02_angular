@@ -5,5 +5,5 @@ module.exports = {
     tajniKljucJWT : "hajksfiuacvbariseughjasdfjfgbasdklbfkl",
     tajniKljucSesija: "klhjsadjioasediuzgasdfbkdvyshsdhufiy",
     putanjaPosteri: "https://image.tmdb.org/t/p/w600_and_h900_bestv2",
-    tajniKljucRecaptcha: "6LfvE9kjAAAAAAnKnMtR530y2NTIkXHyTVx9543q"
+    tajniKljucRecaptcha: ""
 }
